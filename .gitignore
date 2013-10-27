@@ -7,5 +7,6 @@
 *.zargo~
 
 .classpath
-
+/.settings/*
+/target/*
 .project
