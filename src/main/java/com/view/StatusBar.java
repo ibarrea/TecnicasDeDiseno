@@ -4,8 +4,8 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class StatusBar extends JPanel{
-	int high = 50;
-	int width;
+	private int high = 50;
+	private int width;
 	
 	public StatusBar(int width){
 		setLayout(null);

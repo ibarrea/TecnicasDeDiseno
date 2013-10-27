@@ -2,8 +2,8 @@ package com.model;
 
 public class TestFail {
 
-	String messenger;
-	String name;
+	private String messenger;
+	private String name;
 	
 	public TestFail(String name, String messenger){
 		this.messenger = messenger;

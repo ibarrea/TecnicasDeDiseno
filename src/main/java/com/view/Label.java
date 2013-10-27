@@ -3,20 +3,20 @@ package com.view;
 import javax.swing.JLabel;
 
 public class Label extends JLabel{
-	int high = 20;
-	int width;
+	private int high = 20;
+	private int width;
 	
-	public Label(String Text){
+	public Label(String text){
 		setLayout(null);
-		setText(Text);
-		dimension(Text);
+		setText(text);
+		dimension(text);
 	}
 	
 	public void setPosition(int positionX, int positionY){
 		setBounds(positionX,positionY,width,high);
 	}
 	
-	private void dimension(String Text){
-		width = Text.length() + Text.length() * 5;
+	private void dimension(String text){
+		width = text.length() + text.length() * 5;
 	}
 }

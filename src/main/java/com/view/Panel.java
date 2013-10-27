@@ -9,12 +9,12 @@ import com.iview.ITestView;
 import com.model.TestFail;
 
 public class Panel extends JPanel{
-	int high  = 300;
-	int width = 800;
+	private int high  = 300;
+	private int width = 800;
 	
-	Label headerText;
-	StatusBar statusBar = new StatusBar(width);
-	TestConsole testConsole = new TestConsole();
+	private Label headerText;
+	private StatusBar statusBar = new StatusBar(width);
+	private TestConsole testConsole = new TestConsole();
 	
 	public Panel(ArrayList<TestFail> tests, int total){
 		setLayout(null);
@@ -68,9 +68,9 @@ public class Panel extends JPanel{
 
 	
 	class View extends JFrame implements ITestView{
-		int high;
-		int width;
-		Panel panel;
+		private int high;
+		private int width;
+		private Panel panel;
 
 		public View(Panel panel, int high, int width){
 			this.high = high;
