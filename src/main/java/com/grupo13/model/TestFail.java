@@ -1,4 +1,4 @@
-package com.model;
+package com.grupo13.model;
 
 public class TestFail {
 

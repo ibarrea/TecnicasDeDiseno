@@ -1,4 +1,4 @@
-package com.view;
+package com.grupo13.view;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.iview.IPanel;
-import com.iview.ITestView;
-import com.model.TestFail;
+import com.grupo13.iview.IPanel;
+import com.grupo13.iview.ITestView;
+import com.grupo13.model.TestFail;
 
 public class Panel extends JPanel implements IPanel{
 	private int high  = 300;

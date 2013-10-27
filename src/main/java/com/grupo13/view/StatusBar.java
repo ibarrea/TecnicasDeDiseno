@@ -1,4 +1,4 @@
-package com.view;
+package com.grupo13.view;
 
 import java.awt.Color;
 import javax.swing.JPanel;

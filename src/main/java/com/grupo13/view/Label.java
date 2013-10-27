@@ -1,4 +1,4 @@
-package com.view;
+package com.grupo13.view;
 
 import javax.swing.JLabel;
 

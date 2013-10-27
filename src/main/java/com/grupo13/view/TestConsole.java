@@ -1,10 +1,13 @@
-package com.view;
+package com.grupo13.view;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JTextArea;
+
 import java.util.ArrayList;
-import com.model.TestFail;
+
+import com.grupo13.model.TestFail;
 
 
 public class TestConsole extends JTextArea{
