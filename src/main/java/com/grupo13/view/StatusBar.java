@@ -4,6 +4,10 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class StatusBar extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int high = 50;
 	private int width;
 	

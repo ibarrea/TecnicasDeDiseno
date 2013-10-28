@@ -12,6 +12,10 @@ import com.grupo13.iview.ITestView;
 import com.grupo13.model.TestFail;
 
 public class Panel extends JPanel implements IPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int high  = 300;
 	private int width = 800;
 	

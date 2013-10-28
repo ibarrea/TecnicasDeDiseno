@@ -12,7 +12,11 @@ public class TestCaseTest {
 	public void setup() {
 		// creo una clase anonima para testear TestCase que es abstracta
 		test = new TestCase() {
+			public void unTestdeEjemplo(){
+				assertTrue(true);
+			}
 			public void run() {
+				unTestdeEjemplo();
 			};
 		};
 	}
@@ -27,6 +31,13 @@ public class TestCaseTest {
 	public void callerMethodNameIsThisTest() {
 
 		Assert.assertEquals("callerMethodNameIsThisTest", test.getCallerName());
+	}
+	
+	@Test
+	public void existingTestIsPassingIfItsAssertsDontFail() {
+		test.run();
+
+		Assert.assertTrue(test.isPassing("unTestdeEjemplo"));
 	}
 
 }

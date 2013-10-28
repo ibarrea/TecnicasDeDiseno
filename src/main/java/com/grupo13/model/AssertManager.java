@@ -34,4 +34,9 @@ public class AssertManager {
 
 	}
 
+	public boolean getStatus(String testName) {
+		//este metodo podria retornar un TestResult o algo asi
+		return true;
+	}
+
 }
