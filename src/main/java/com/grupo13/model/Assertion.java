@@ -81,4 +81,9 @@ public class Assertion {
 
 	}
 
+	public void fail() {
+		updateStatus(false, "Failed");
+		
+	}
+
 }

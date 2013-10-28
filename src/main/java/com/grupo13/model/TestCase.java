@@ -66,4 +66,10 @@ public abstract class TestCase implements Runnable {
 		assertion.assertEquals(new Float(a),new Float(b));
 		am.processAssertion(assertion);
 	}
+	
+	public void fail() {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.fail();
+		am.processAssertion(assertion);
+	}
 }
