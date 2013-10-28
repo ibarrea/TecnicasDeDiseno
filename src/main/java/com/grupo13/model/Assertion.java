@@ -26,8 +26,8 @@ public class Assertion {
 		this.isOk = isOk;
 	}
 	
-	public boolean assertEquals (Object a, Object b){
-		return a.equals(b);
+	public boolean assertEquals (int a, int b){
+		return a == b;
 	}
 	
 	

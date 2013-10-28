@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AssertManager {
 	TestCase target;
-	List<TestFail> resultList;
+	List<TestResult> resultList;
 	String currentCaller;
 	boolean currentMethodFailed;
 
@@ -18,7 +18,7 @@ public class AssertManager {
 	public void startJob() {
 		//Inicializo el array de resultados, donde voy a guardar solo los tests fallidos.
 		//Se almacenara solo el 1er fail de cada test.
-		resultList = new ArrayList<TestFail>();
+		resultList = new ArrayList<TestResult>();
 		//Guardo si el metodo corriendo actualmente fallo. Si ya fallo omite los siguientes tests.
 		currentMethodFailed = false;
 		

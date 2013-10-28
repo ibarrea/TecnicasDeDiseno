@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 
 import com.grupo13.iview.IPanel;
 import com.grupo13.iview.ITestView;
-import com.grupo13.model.TestFail;
+import com.grupo13.model.TestResult;
 
 public class Panel extends JPanel implements IPanel{
 	/**
@@ -23,7 +23,7 @@ public class Panel extends JPanel implements IPanel{
 	private StatusBar statusBar = new StatusBar(width);
 	private TestConsole testConsole = new TestConsole();
 	
-	public Panel(ArrayList<TestFail> tests, int total){
+	public Panel(ArrayList<TestResult> tests, int total){
 		setLayout(null);
 		setBackground(Color.WHITE);
 		if(tests.size() != 0){
@@ -65,7 +65,7 @@ public class Panel extends JPanel implements IPanel{
 		add(statusBar);
 	}
 	
-	private void addItems(ArrayList<TestFail> tests){
+	private void addItems(ArrayList<TestResult> tests){
 		JScrollPane scrpllPane = new JScrollPane (testConsole);
 		scrpllPane.setBounds(0,40,width,200);
 		add(scrpllPane);

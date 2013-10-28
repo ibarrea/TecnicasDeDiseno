@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
 
 import java.util.ArrayList;
 
-import com.grupo13.model.TestFail;
+import com.grupo13.model.TestResult;
 
 
 public class TestConsole extends JTextArea{
@@ -18,9 +18,9 @@ public class TestConsole extends JTextArea{
 		setForeground(Color.WHITE);
 	}
 	
-	public void addItems(ArrayList<TestFail> tests){
+	public void addItems(ArrayList<TestResult> tests){
 		int fallo = 1;
-		for (TestFail testFail : tests) {
+		for (TestResult testFail : tests) {
 			if(fallo > 1) {
 				setText(getText() + "\n");
 			}
