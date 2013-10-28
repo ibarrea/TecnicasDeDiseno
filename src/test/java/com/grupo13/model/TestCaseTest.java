@@ -19,10 +19,15 @@ public class TestCaseTest {
 			public void exampleAssertFalseTest() {
 				assertFalse(false);
 			}
+			
+			public void exampleAssertEqualsObjectsTestThatShouldPass() {
+				assertEquals("Hola","Hola");
+			}
 
 			public void run() {
 				exampleAssertTrueTest();
 				exampleAssertFalseTest();
+				exampleAssertEqualsObjectsTestThatShouldPass();
 			};
 		};
 	}
@@ -51,5 +56,12 @@ public class TestCaseTest {
 		
 		test.run();
 		Assert.assertTrue(test.verifyTest("exampleAssertFalseTest"));
+	}
+
+	@Test
+	public void existingTestIsPassingIfItsAssertEqualObjectDontFail() {
+		
+		test.run();
+		Assert.assertTrue(test.verifyTest("exampleAssertEqualsObjectsTestThatShouldPass"));
 	}
 }
