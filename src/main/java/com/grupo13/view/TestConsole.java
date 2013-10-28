@@ -12,6 +12,11 @@ import com.grupo13.model.TestResult;
 
 public class TestConsole extends JTextArea{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public TestConsole(){
 		setBackground(Color.BLACK);		
 		setFont(new Font("Consolas",Font.CENTER_BASELINE, 16));

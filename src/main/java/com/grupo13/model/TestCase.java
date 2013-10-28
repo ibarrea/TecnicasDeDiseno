@@ -14,8 +14,8 @@ public abstract class TestCase implements Runnable {
 	public void start() {
 		// creo una dependencia circular!
 		// estoy usando el patron mediator.. eso creo
-		//System.out.println(getCallerName());
-		System.out.println(getCallerName());
+		// System.out.println(getCallerName());
+		System.out.println("Running tests..");
 		am.setTarget(this);
 		am.startJob();
 
@@ -27,20 +27,32 @@ public abstract class TestCase implements Runnable {
 		return getMethodName(depth);
 	}
 
-	// ingresa un assert del metodo que llama
-	// el resultado es mantenido por el assertManager
-	public void assertTrue(boolean condition) {
-		am.assertTrue(getCallerName(), condition);
+	// devuleve true si el metodo paso
+	// precondicion: el test debe existir
+	public boolean verifyTest(String testName) {
+		return am.methodPassed(testName);
 
 	}
 
-	// devuleve true si el metodo existe y esta pasando los tests
-	public boolean isPassing(String testName) {
-		// Ignacio fijate si es mejor que este metodo devuelva un
-		// objeto TestResult para que yo chequee si el metodo existe
-		// y no tener que devolver true o false sin saber bien que es
-		return am.getStatus(testName);
-
+	/* Asserts: crea un assertion para el metodo que llama (Caller)
+	   el resultado es mantenido por el assertManager */
+	
+	public void assertTrue(boolean condition) {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.assertTrue(condition);
+		am.processAssertion(assertion);
+	}
+	
+	public void assertFalse(boolean condition) {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.assertFalse(condition);
+		am.processAssertion(assertion);
+	}
+	
+	public void assertEquals(Object a, Object b) {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.assertEquals(a,b);
+		am.processAssertion(assertion);
 	}
 
 }

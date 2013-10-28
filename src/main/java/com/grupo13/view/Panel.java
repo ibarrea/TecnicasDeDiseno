@@ -75,8 +75,13 @@ public class Panel extends JPanel implements IPanel{
 
 	
 	class View extends JFrame implements ITestView{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private int high;
 		private int width;
+		//TODO Erik es necesario guardar un panel aca?
 		private Panel panel;
 
 		public View(Panel panel, int high, int width){
