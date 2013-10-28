@@ -5,7 +5,7 @@ public abstract class TestCase implements Runnable {
 
 	private static AssertManager am = new AssertManager();
 
-	public String getMethodName(final int depth) {
+	private String getMethodName(final int depth) {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		// return ste[ste.length - 1 - depth].getMethodName();
 		return ste[depth].getMethodName();
@@ -22,9 +22,9 @@ public abstract class TestCase implements Runnable {
 	}
 
 	public String getCallerName() {
-		// TODO ajustar el depth al probar con casos reales
-		final int depth = 3;
-		return getMethodName(depth);
+		// TODO ajustar el depthInStack al probar con casos reales
+		final int depthInStack = 3;
+		return getMethodName(depthInStack);
 	}
 
 	// devuleve true si el metodo paso
@@ -54,5 +54,16 @@ public abstract class TestCase implements Runnable {
 		assertion.assertEquals(a,b);
 		am.processAssertion(assertion);
 	}
-
+	
+	public void assertEquals(int a, int b) {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.assertEquals(new Integer(a),new Integer(b));
+		am.processAssertion(assertion);
+	}
+	
+	public void assertEquals(float a, float b) {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.assertEquals(new Float(a),new Float(b));
+		am.processAssertion(assertion);
+	}
 }

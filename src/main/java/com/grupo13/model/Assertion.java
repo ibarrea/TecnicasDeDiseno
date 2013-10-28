@@ -37,38 +37,34 @@ public class Assertion {
 	public void setOk(boolean isOk) {
 		this.isOk = isOk;
 	}
-	
-	public void updateStatus(boolean condition, String msg){
+
+	public void updateStatus(boolean condition, String msg) {
 		setOk(condition);
 		setMessage(msg);
 	}
 
 	public void assertEquals(Object a, Object b) {
-		updateStatus(a.equals(b), "Parameters aren't equal");
-	}
-	
-	public void assertEquals(int a, int b) {
-		updateStatus(a == b, "Expected " + a +"but received " +b);
-	}
-	
-	
-	public void assertEquals(float a, float b) {
-		updateStatus(a == b, "Expected " + a +"but received " +b);
+		if (isNull(a) && isNull(b)) {
+			updateStatus(a.equals(b), "Expected " + a.toString()
+					+ "but received " + b.toString());
+		} else {
+			updateStatus(false, "NullPointer Exception occured.");
+		}
+
 	}
 
 	public void assertTrue(boolean condition) {
-		updateStatus(condition, "Expected " + condition +"but received " +!condition);
+		assertEquals(new Boolean(true), new Boolean(condition));
 
 	}
 
-	public void assertIsNotNull(String callerName, Object obj) {
-		updateStatus(!isNull(obj), "Expected <Not null> but received <null>");
-		setOk(!isNull(obj));
+	public void assertIsNotNull(Object obj) {
+		updateStatus(!isNull(obj), "Expected <Not null> but received <Null>");
 
 	}
 
-	public void assertIsNull(String callerName, Object obj) {
-		setOk(isNull(obj));
+	public void assertIsNull(Object obj) {
+		updateStatus(!isNull(obj), "Expected <Null> but received <Not null>");
 
 	}
 
@@ -78,7 +74,7 @@ public class Assertion {
 
 	public void assertFalse(boolean condition) {
 		assertTrue(!condition);
-		
+
 	}
 
 }
