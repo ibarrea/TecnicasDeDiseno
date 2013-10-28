@@ -5,6 +5,11 @@ public abstract class TestCase implements Runnable {
 	protected String nombre = "TestCase";
 
 	private static AssertManager am = new AssertManager();
+	
+	private String getMethodName(final int depth) {
+		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+		return ste[ste.length - 1 - depth].getMethodName();
+	}
 
 	public void start() {
 		// creo una dependencia circular! estoy usando el patron mediator.. eso
@@ -16,7 +21,9 @@ public abstract class TestCase implements Runnable {
 	}
 
 	public String getCallerName() {
-		return nombre;
+		//TODO ajustar el depth al probar con casos reales
+		final int depth = 1;
+		return getMethodName(depth);
 	}
 
 	public void assertTrue(boolean condition) {
