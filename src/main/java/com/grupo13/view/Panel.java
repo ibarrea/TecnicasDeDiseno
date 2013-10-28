@@ -79,6 +79,7 @@ public class Panel extends JPanel implements IPanel{
 			this.high = high;
 			this.width = width;
 			setLayout(null);
+			setTitle("TestCase");
 			panel.setPosition(0, 0);
 			this.panel = panel;
 			add(panel);
