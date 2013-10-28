@@ -1,4 +1,5 @@
-package com.grupo13;
+package com.grupo13.model;
+
 
 public abstract class TestCase implements Runnable {
 	protected String nombre = "TestCase";
