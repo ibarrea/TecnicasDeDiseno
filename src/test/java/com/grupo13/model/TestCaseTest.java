@@ -15,9 +15,14 @@ public class TestCaseTest {
 			public void exampleAssertTrueTest() {
 				assertTrue(true);
 			}
+			
+			public void exampleAssertFalseTest() {
+				assertFalse(false);
+			}
 
 			public void run() {
 				exampleAssertTrueTest();
+				exampleAssertFalseTest();
 			};
 		};
 	}
@@ -41,4 +46,10 @@ public class TestCaseTest {
 		Assert.assertTrue(test.verifyTest("exampleAssertTrueTest"));
 	}
 
+	@Test
+	public void existingTestIsPassingIfItsAssertFalseDontFail() {
+		
+		test.run();
+		Assert.assertTrue(test.verifyTest("exampleAssertFalseTest"));
+	}
 }
