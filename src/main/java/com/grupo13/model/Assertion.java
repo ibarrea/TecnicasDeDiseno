@@ -38,19 +38,23 @@ public class Assertion {
 		this.isOk = isOk;
 	}
 
-	public void updateStatus(boolean condition, String msg) {
-		setOk(condition);
+	public void updateStatus(boolean assertPass, String msg) {
+		setOk(assertPass);
 		setMessage(msg);
 	}
 
 	public void assertEquals(Object a, Object b) {
-		if (isNull(a) && isNull(b)) {
-			updateStatus(a.equals(b), "Expected " + a.toString()
-					+ "but received " + b.toString());
+		if (!isNull(a) && !isNull(b)) {
+			updateStatus(a.equals(b), makeMessage(a.toString(), b.toString()));
 		} else {
 			updateStatus(false, "NullPointer Exception occured.");
 		}
 
+	}
+
+	private String makeMessage(String expected, String was) {
+		return "Expected: <" + expected
+				+ "> but was: >" + was+">";
 	}
 
 	public void assertTrue(boolean condition) {
@@ -59,12 +63,12 @@ public class Assertion {
 	}
 
 	public void assertIsNotNull(Object obj) {
-		updateStatus(!isNull(obj), "Expected <Not null> but received <Null>");
+		updateStatus(!isNull(obj), makeMessage("Not null", "Null"));
 
 	}
 
 	public void assertIsNull(Object obj) {
-		updateStatus(!isNull(obj), "Expected <Null> but received <Not null>");
+		updateStatus(isNull(obj),  makeMessage("Null", "Not Null"));
 
 	}
 
