@@ -1,5 +1,7 @@
 package com.grupo13;
 
+import com.grupo13.model.TestCase;
+
 public class SampleClientTest extends TestCase {
 
 	public SampleClientTest() {
