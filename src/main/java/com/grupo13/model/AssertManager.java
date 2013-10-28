@@ -6,7 +6,7 @@ import java.util.List;
 public class AssertManager {
 	TestCase target;
 	List<TestResult> resultList;
-	String currentCaller;
+	String currentCaller = new String("");
 	boolean currentMethodFailed;
 
 	public void setTarget(TestCase testCase) {
