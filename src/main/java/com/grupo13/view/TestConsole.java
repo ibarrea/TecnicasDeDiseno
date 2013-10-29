@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JTextArea;
-
-import java.util.ArrayList;
+import java.util.List;
 
 import com.grupo13.model.TestResult;
 
@@ -23,7 +22,7 @@ public class TestConsole extends JTextArea{
 		setForeground(Color.WHITE);
 	}
 	
-	public void addItems(ArrayList<TestResult> tests){
+	public void addItems(List<TestResult> tests){
 		int fallo = 1;
 		for (TestResult testFail : tests) {
 			if(fallo > 1) {

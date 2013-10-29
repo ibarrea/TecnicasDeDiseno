@@ -1,7 +1,7 @@
 package com.grupo13.view;
 
 import java.awt.Color;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,12 +23,12 @@ public class Panel extends JPanel implements IPanel{
 	private StatusBar statusBar = new StatusBar(width);
 	private TestConsole testConsole = new TestConsole();
 	
-	public Panel(ArrayList<TestResult> tests, int total){
+	public Panel(List<TestResult> tests){
 		setLayout(null);
 		setBackground(Color.WHITE);
 		if(tests.size() != 0){
-			headerText = new Label("Passed: " + (total - tests.size())
-					+ "/" + total + " Test/s");
+			headerText = new Label("Passed: ?"
+					+ "/" + tests.size() + " Test/s");
 			addPanelFailed();
 			addItems(tests);
 		}
@@ -65,7 +65,7 @@ public class Panel extends JPanel implements IPanel{
 		add(statusBar);
 	}
 	
-	private void addItems(ArrayList<TestResult> tests){
+	private void addItems(List<TestResult> tests){
 		JScrollPane scrpllPane = new JScrollPane (testConsole);
 		scrpllPane.setBounds(0,40,width,200);
 		add(scrpllPane);
@@ -81,8 +81,6 @@ public class Panel extends JPanel implements IPanel{
 		private static final long serialVersionUID = 1L;
 		private int high;
 		private int width;
-		//TODO Erik es necesario guardar un panel aca?
-		private Panel panel;
 
 		public View(Panel panel, int high, int width){
 			this.high = high;
@@ -90,7 +88,6 @@ public class Panel extends JPanel implements IPanel{
 			setLayout(null);
 			setTitle("TestCase");
 			panel.setPosition(0, 0);
-			this.panel = panel;
 			add(panel);
 		}
 		
