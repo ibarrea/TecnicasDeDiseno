@@ -9,5 +9,6 @@
 .classpath
 /.settings/*
 /target/*
+/QA/Calculator/target/*
 .project
 /target
