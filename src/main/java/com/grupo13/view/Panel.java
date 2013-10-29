@@ -12,34 +12,27 @@ import com.grupo13.iview.ITestView;
 import com.grupo13.model.TestResult;
 
 public class Panel extends JPanel implements IPanel{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	private int high  = 300;
-	private int width = 800;
-	
-	private Label headerText;
+	private int high     =  300;
+	private int highBody =  200;
+	private int width    = 1000;
+
+	private Label headerText = new Label("Passed all Test/s");
 	private StatusBar statusBar = new StatusBar(width);
 	private TestConsole testConsole = new TestConsole();
-	
-	public Panel(List<TestResult> tests){
-		setLayout(null);
-		setBackground(Color.WHITE);
-		if(tests.size() != 0){
-			headerText = new Label("Passed: ?"
-					+ "/" + tests.size() + " Test/s");
-			addPanelFailed();
-			addItems(tests);
-		}
-		else{
-			headerText = new Label("Passed all Test/s");
-			addPanelValid();
-		}
-		addHeader();	
-	}
+	private JScrollPane scrpllPane = new JScrollPane (testConsole);
+	private JPanel testPass = new JPanel();
 
 	
+	public Panel(List<TestResult> tests){
+		iniTestComponents();
+		testConsole.addItems(tests);
+		addTestPanel();
+		addTestComponents();
+	}
+
+
 	public void setPosition(int positionX, int positionY){
 		setBounds(positionX,positionY,width,high);
 	}
@@ -48,36 +41,47 @@ public class Panel extends JPanel implements IPanel{
 		return new View(this, high, width);
 	}
 	
-	private void addHeader(){
+	private void iniTestComponents(){
+		setLayout(null);
+		setBackground(Color.WHITE);
+		testPass.setLayout(null);
+		testPass.setBackground(Color.WHITE);
+		testPass.setBounds(5, 1, 20, 20);
 		headerText.setPosition(40, 0);
-		add(headerText);
-	}
-	
-	private void addPanelFailed(){
 		statusBar.setPosition(0, high);
-		statusBar.failedState();
-		add(statusBar);
-	}
-	
-	private void addPanelValid(){
-		statusBar.setPosition(0, high);
-		statusBar.validState();
-		add(statusBar);
-	}
-	
-	private void addItems(List<TestResult> tests){
-		JScrollPane scrpllPane = new JScrollPane (testConsole);
-		scrpllPane.setBounds(0,40,width,200);
-		add(scrpllPane);
-		testConsole.addItems(tests);
+
+		scrpllPane.setBounds(100,40,width - 150, highBody);
 	}
 
+
+	private void addTestComponents(){
+		add(headerText);
+		add(statusBar);
+		add(scrpllPane);
+		add(testPass);
+	}
+	
+
+	private void addTestPanel(){
+		TestImage jpg = new TestImage();
+		if(testConsole.isOKAllTest()){
+			testPass.add(jpg.testImageOk());
+			statusBar.validState();
+		}
+		else{
+			testPass.add(jpg.testImageFail());
+			statusBar.failedState();
+			headerText.setText("Passed: "   +
+				(testConsole.getCountAllTest() -
+				testConsole.getCountTestFail()) + "/" +
+				testConsole.getCountAllTest() + " Test/s");
+		}
+	}
+	
 
 	
 	class View extends JFrame implements ITestView{
-		/**
-		 * 
-		 */
+
 		private static final long serialVersionUID = 1L;
 		private int high;
 		private int width;

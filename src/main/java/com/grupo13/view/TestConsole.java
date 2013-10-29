@@ -2,20 +2,20 @@ package com.grupo13.view;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JTextArea;
 import java.util.List;
-
 import com.grupo13.model.TestResult;
 
 
 public class TestConsole extends JTextArea{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 1L;
+	
+	private boolean isOkAllTest = true;
+	private int countFail = 0;
+	private int countAllTest = 0;
+	
 	public TestConsole(){
 		setBackground(Color.BLACK);		
 		setFont(new Font("Consolas",Font.CENTER_BASELINE, 16));
@@ -23,15 +23,40 @@ public class TestConsole extends JTextArea{
 	}
 	
 	public void addItems(List<TestResult> tests){
-		int fallo = 1;
+		int Index = 1;
+		String status;
+		countAllTest = tests.size();
 		for (TestResult testFail : tests) {
-			if(fallo > 1) {
+			status = getStatus(testFail.isOK());
+			if(Index > 1) {
 				setText(getText() + "\n");
 			}
 			setText(getText()                               + 
-				fallo++                  + ". NameMethod: " +
+				Index++                  + ". Status: "     +
+				status                   + ", NameMethod: " +
 				testFail.getName()       + ", Messenger: "  + 
 				testFail.getMessenger()  + "   ");
 		}
+	}
+	
+	public boolean isOKAllTest(){
+		return isOkAllTest;
+	}
+	
+	public int getCountTestFail(){
+		return countFail;
+	}
+	
+	public int getCountAllTest(){
+		return countAllTest;
+	}
+	
+	private String getStatus(boolean isOk){
+		if(isOk){
+			return "OK";
+		}
+		isOkAllTest = false;
+		countFail++;
+		return "FAIL";
 	}
 }

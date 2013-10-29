@@ -3,9 +3,7 @@ package com.grupo13.view;
 import javax.swing.JLabel;
 
 public class Label extends JLabel{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int high = 20;
 	private int width;
@@ -21,6 +19,6 @@ public class Label extends JLabel{
 	}
 	
 	private void dimension(String text){
-		width = text.length() + text.length() * 5;
+		width = text.length() + text.length() * 10;
 	}
 }
