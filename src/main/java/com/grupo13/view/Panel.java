@@ -67,6 +67,7 @@ public class Panel extends JPanel implements IPanel{
 		if(testConsole.isOKAllTest()){
 			testPass.add(jpg.testImageOk());
 			statusBar.validState();
+			scrpllPane.setVisible(false);
 		}
 		else{
 			testPass.add(jpg.testImageFail());
