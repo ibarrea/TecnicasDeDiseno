@@ -17,9 +17,9 @@ public class TestConsole extends JTextArea{
 	private int countAllTest = 0;
 	
 	public TestConsole(){
-		setBackground(Color.BLACK);		
+		setBackground(Color.white);		
 		setFont(new Font("Consolas",Font.CENTER_BASELINE, 16));
-		setForeground(Color.WHITE);
+		setForeground(Color.darkGray);
 	}
 	
 	public void addItems(List<TestResult> tests){

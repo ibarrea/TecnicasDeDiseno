@@ -6,8 +6,9 @@ import javax.swing.JPanel;
 public class StatusBar extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private int high = 50;
+	private int high = 20;
 	private int width;
+	private int paddingY = 55;
 	
 	public StatusBar(int width){
 		setLayout(null);
@@ -23,7 +24,7 @@ public class StatusBar extends JPanel{
 	}
 	
 	public void setPosition(int positionX, int positionY){
-		setBounds(positionX,positionY - high,width,high);
+		setBounds(positionX,positionY - paddingY, width, high);
 	}
 	
 }

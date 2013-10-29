@@ -7,6 +7,7 @@ public class Label extends JLabel{
 	private static final long serialVersionUID = 1L;
 	private int high = 20;
 	private int width;
+	private int porcent = 10;
 	
 	public Label(String text){
 		setLayout(null);
@@ -19,6 +20,6 @@ public class Label extends JLabel{
 	}
 	
 	private void dimension(String text){
-		width = text.length() + text.length() * 10;
+		width = text.length() + text.length() * porcent;
 	}
 }

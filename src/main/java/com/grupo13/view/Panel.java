@@ -15,8 +15,8 @@ public class Panel extends JPanel implements IPanel{
 
 	private static final long serialVersionUID = 1L;
 	private int high     =  300;
-	private int highBody =  200;
-	private int width    = 1000;
+	private int highBody =  high/2;
+	private int width    = 800;
 
 	private Label headerText = new Label("Passed all Test/s");
 	private StatusBar statusBar = new StatusBar(width);
@@ -49,7 +49,6 @@ public class Panel extends JPanel implements IPanel{
 		testPass.setBounds(5, 1, 20, 20);
 		headerText.setPosition(40, 0);
 		statusBar.setPosition(0, high);
-
 		scrpllPane.setBounds(100,40,width - 150, highBody);
 	}
 
@@ -81,7 +80,7 @@ public class Panel extends JPanel implements IPanel{
 	
 
 	
-	class View extends JFrame implements ITestView{
+	private class View extends JFrame implements ITestView{
 
 		private static final long serialVersionUID = 1L;
 		private int high;
