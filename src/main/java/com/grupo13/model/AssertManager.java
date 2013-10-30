@@ -75,7 +75,7 @@ public class AssertManager {
 	public void printResults() {
 		System.out.println("Number of tests: " + resultList.size());
 		for (TestResult result : resultList) {
-			System.out.println(result.getName()+" "+result.isOK() +" "+ result.getMessage());
+			System.out.println(result.toString());
 
 		}
 	}

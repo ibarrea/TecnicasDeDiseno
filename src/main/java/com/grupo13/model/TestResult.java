@@ -48,4 +48,10 @@ public class TestResult {
 	public String getName() {
 		return name;
 	}
+	
+	public String toString() {
+		return String.format("%1$-" + 50 + "s", name)+"|"+
+				String.format("%1$-" + 10 + "s", isOK()?"Pass":"Failed")+"|"+
+				String.format("%1$-" + 30 + "s", message);
+	}
 }
