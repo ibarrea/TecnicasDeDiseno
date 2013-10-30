@@ -7,7 +7,7 @@ import java.util.List;
 import com.grupo13.model.TestResult;
 
 
-public class TestConsole extends JTextArea{
+public class TestReport extends JTextArea{
 	
 
 	private static final long serialVersionUID = 1L;
@@ -16,7 +16,7 @@ public class TestConsole extends JTextArea{
 	private int countFail = 0;
 	private int countAllTest = 0;
 	
-	public TestConsole(){
+	public TestReport(){
 		setBackground(Color.white);		
 		setFont(new Font("Consolas",Font.CENTER_BASELINE, 16));
 		setForeground(Color.darkGray);
