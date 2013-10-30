@@ -16,8 +16,6 @@ public abstract class TestCase implements Runnable {
 		System.out.println("Running tests..");
 		am.setTarget(this);
 		am.startJob();
-		System.out.println("Pushing remaining..");
-		am.pushCurrentTestResult();
 		System.out.println("Finishing tests..");
 
 	}
