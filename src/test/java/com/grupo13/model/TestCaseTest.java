@@ -41,7 +41,7 @@ public class TestCaseTest {
 				exampleAssertEqualsFloatTestThatShouldPass();
 			};
 		};
-		test.run();
+		test.start();
 	}
 
 	@Test
