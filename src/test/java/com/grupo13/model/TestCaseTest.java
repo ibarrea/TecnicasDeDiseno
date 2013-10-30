@@ -75,12 +75,6 @@ public class TestCaseTest {
 		test.start();
 	}
 
-//	@Test
-//	public void callerMethodNameIsThisTest() {
-//
-//		Assert.assertEquals("callerMethodNameIsThisTest", test.getCallerName());
-//	}
-
 	@Test
 	public void existingTestIsPassingIfItsAssertTrueDontFail() {
 		

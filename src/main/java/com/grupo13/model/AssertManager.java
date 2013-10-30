@@ -4,21 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssertManager {
-	TestCase target;
-	List<TestResult> resultList;
+
+	List<TestResult> resultList = new ArrayList<TestResult>();
 	TestResult currentResult = new TestResult();
-
-	public void setTarget(TestCase testCase) {
-		target = testCase;
-	}
-
-	public void startJob() {
-		resultList = new ArrayList<TestResult>();
-		target.run();
-		printResults(); //reemplazar por la vista
-
-	}
-	
 
 	public List<TestResult> getResultList() {
 		return resultList;

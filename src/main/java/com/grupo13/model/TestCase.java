@@ -3,7 +3,7 @@ package com.grupo13.model;
 public abstract class TestCase implements Runnable {
 	protected String nombre = "TestCase";
 
-	private static AssertManager am = new AssertManager();
+	private static AssertManager am;
 
 	private String getMethodName(final int depth) {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
@@ -11,11 +11,11 @@ public abstract class TestCase implements Runnable {
 	}
 
 	public void start() {
-		// creo una dependencia circular
-		// estoy usando el patron mediator.
 		System.out.println("Running tests..");
-		am.setTarget(this);
-		am.startJob();
+		am = new AssertManager();
+		run();
+		am.pushCurrentTestResult();
+		am.printResults(); //llamar aca a la vista
 		System.out.println("Finishing tests..");
 
 	}
