@@ -16,7 +16,7 @@ public class TestReport extends JTextArea{
     private int countFail = 0;
     private int countAllTest = 0;
     
-    private final String OK   = new String("OK");
+    private final String OK   = new String("OK  ");
     private final String FAIL = new String("FAIL");
     
     public TestReport(){
@@ -36,8 +36,8 @@ public class TestReport extends JTextArea{
             }
             setText(getText() +
             	Index++ + ". Status: " +
-            	status + ", NameMethod: " +
-            	testFail.getName() + ", Messenger: " +
+            	status + " Method: " +
+            	testFail.getName() + " Messenger: " +
               	testFail.getMessage() + "  ");
         }
     }
