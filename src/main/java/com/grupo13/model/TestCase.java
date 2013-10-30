@@ -28,7 +28,7 @@ public abstract class TestCase implements Runnable {
 	}
 
 	// devuleve true si el metodo paso
-	// precondicion: el test debe existir
+	// precondicion: el test debe existir. Si no esta, te tira un IllegalStateException
 	public boolean verifyTest(String testName) {
 		return am.methodPassed(testName);
 
