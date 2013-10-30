@@ -7,11 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.grupo13.iview.IPanel;
-import com.grupo13.iview.ITestView;
+import com.grupo13.iview.IViewTestCase;
+import com.grupo13.iview.IShowViewTestCase;
 import com.grupo13.model.TestResult;
 
-public class Panel extends JPanel implements IPanel{
+public class ViewTestCase extends JPanel implements IViewTestCase{
 
 	private static final long serialVersionUID = 1L;
 	private int high     =  300;
@@ -25,7 +25,7 @@ public class Panel extends JPanel implements IPanel{
 	private JPanel testPass = new JPanel();
 
 	
-	public Panel(List<TestResult> tests){
+	public ViewTestCase(List<TestResult> tests){
 		iniTestComponents();
 		testConsole.addItems(tests);
 		addTestPanel();
@@ -37,7 +37,7 @@ public class Panel extends JPanel implements IPanel{
 		setBounds(positionX,positionY,width,high);
 	}
 	
-	public View createTestView(){
+	public View prepareViewTestCase(){
 		return new View(this, high, width);
 	}
 	
@@ -80,13 +80,13 @@ public class Panel extends JPanel implements IPanel{
 	
 
 	
-	private class View extends JFrame implements ITestView{
+	private class View extends JFrame implements IShowViewTestCase{
 
 		private static final long serialVersionUID = 1L;
 		private int high;
 		private int width;
 
-		public View(Panel panel, int high, int width){
+		public View(ViewTestCase panel, int high, int width){
 			this.high = high;
 			this.width = width;
 			setLayout(null);
@@ -95,7 +95,7 @@ public class Panel extends JPanel implements IPanel{
 			add(panel);
 		}
 		
-		public void showTestView(){
+		public void showViewTestCase(){
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(0,0,width,high);
 			setResizable(false);

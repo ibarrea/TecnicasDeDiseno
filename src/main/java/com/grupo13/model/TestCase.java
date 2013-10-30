@@ -1,5 +1,8 @@
 package com.grupo13.model;
 
+import com.grupo13.iview.IViewTestCase;
+import com.grupo13.view.ViewTestCase;
+
 public abstract class TestCase implements Runnable {
 	protected String nombre = "TestCase";
 
@@ -11,13 +14,10 @@ public abstract class TestCase implements Runnable {
 	}
 
 	public void start() {
-		System.out.println("Running tests..");
 		am = new AssertManager();
 		run();
 		am.pushCurrentTestResult();
-		am.printResults(); //llamar aca a la vista
-		System.out.println("Finishing tests..");
-
+		showTest();
 	}
 
 	public String getCallerName() {
@@ -69,5 +69,10 @@ public abstract class TestCase implements Runnable {
 		Assertion assertion = Assertion.createWithCaller(getCallerName());
 		assertion.fail();
 		am.processAssertion(assertion);
+	}
+	
+	private void showTest(){
+		IViewTestCase iviewTestCase = new ViewTestCase(am.getResultList());
+		iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 }

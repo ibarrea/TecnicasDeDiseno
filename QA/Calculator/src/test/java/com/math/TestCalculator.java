@@ -19,7 +19,7 @@ public class TestCalculator extends TestCase {
 
 	public void testAdd() {
 		Calculator calculator = new Calculator();
-		assertEquals(calculator.addAwithB(2, 2), 4);
+		assertEquals(calculator.addAwithB(2, 2), 4.0);
 	}
 
 }
