@@ -24,6 +24,11 @@ public class AssertManager {
 		target.run();
 
 	}
+	
+
+	public List<TestResult> getResultList() {
+		return resultList;
+	}
 
 	private boolean isNewCaller(String callerName) {
 
