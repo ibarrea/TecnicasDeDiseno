@@ -6,22 +6,16 @@ import java.util.List;
 public class AssertManager {
 	TestCase target;
 	List<TestResult> resultList;
-	String currentCaller = new String("");
-	boolean currentMethodFailed;
+	TestResult currentResult = new TestResult();
 
 	public void setTarget(TestCase testCase) {
 		target = testCase;
-
 	}
 
 	public void startJob() {
-		//Inicializo el array de resultados, donde voy a guardar solo los tests fallidos.
-		//Se almacenara solo el 1er fail de cada test.
 		resultList = new ArrayList<TestResult>();
-		//Guardo si el metodo corriendo actualmente fallo. Si ya fallo omite los siguientes tests.
-		currentMethodFailed = false;
-
 		target.run();
+		printResults(); //reemplazar por la vista
 
 	}
 	
@@ -31,57 +25,42 @@ public class AssertManager {
 	}
 
 	private boolean isNewCaller(String callerName) {
-
-		if (currentCaller.compareTo(callerName) == 0) {
-			return false;
-		}
-		// Si llega hasta aca es porq es un nuevo caller
-		restartCurrentValues(callerName);
-		return true;
+		return (currentResult.getName().compareTo(callerName) != 0);
 	}
 
-	private void restartCurrentValues(String callerName) {
-		currentCaller = callerName;
-		currentMethodFailed = false;
-	}
-
-	private boolean checkCallerNameAndStatus(String callerName) {
-		boolean isNew = isNewCaller(callerName);
-		if (isNew || currentTestIsPassing()) {
-			// Sigo corriendo
-			return true;
-		} else
-			// El metodo actual ya fallo en un test anterior, lo ignoro
-			return false;
+	private void restartTestResult(Assertion assertion) {
+		currentResult = new TestResult(assertion.getCallerMethod(), assertion.getMessage(), assertion.isOk());
 	}
 
 	public boolean currentTestIsPassing() {
-		return !currentMethodFailed;
+		return currentResult.isOK();
 	}
 
 	public void processAssertion(Assertion assertion) {
-		//me fijo si tengo que seguir corriendo tests, o si ya fallo el metodo actual
-		boolean shouldRun = checkCallerNameAndStatus(assertion.getCallerMethod());
-		if (shouldRun) {
-			analyzeResultAndUpdateResultList(assertion);
+		createNewTestResult(assertion);
+		if (currentTestIsPassing()) {
+			updateTestResult(assertion);
 		}
 	}
 
-	private void analyzeResultAndUpdateResultList(Assertion assertion) {
-		if (isNewCallerMethod(assertion)) {				
-			TestResult result = new TestResult(currentCaller, null, true);
-			resultList.add(result);
-			currentCaller = assertion.getCallerMethod();
-		}else if (!assertion.isOk()) {
-			currentCaller = assertion.getCallerMethod();
-			currentMethodFailed = true;
-			TestResult result = new TestResult(currentCaller, assertion.getMessage(), false);
-			resultList.add(result);
-		}
+	private void updateTestResult(Assertion assertion) {
+		currentResult.setMessage(assertion.getMessage());
+		currentResult.setOK(assertion.isOk());
+		
 	}
 
-	private boolean isNewCallerMethod(Assertion assertion) {
-		return !assertion.getCallerMethod().equalsIgnoreCase(currentCaller);
+	private void createNewTestResult(Assertion assertion) {
+		if (isNewCaller(assertion.getCallerMethod())){
+			pushCurrentTestResult();
+			restartTestResult(assertion);
+		}
+		
+	}
+
+	public void pushCurrentTestResult() {
+		if (currentResult.isValid()) {
+			resultList.add(currentResult);
+		}
 	}
 
 	public boolean methodPassed(String testName) throws IllegalStateException{
@@ -91,6 +70,14 @@ public class AssertManager {
 			}
 		}
 		throw new IllegalStateException();
+	}
+	
+	public void printResults() {
+		System.out.println("Number of tests: " + resultList.size());
+		for (TestResult result : resultList) {
+			System.out.println(result.getName()+" "+result.isOK() +" "+ result.getMessage());
+
+		}
 	}
 
 }

@@ -12,6 +12,11 @@ public class TestCaseTest {
 	public void setup() {
 		// creo una clase anonima para testear TestCase que es abstracta
 		test = new TestCase() {
+			
+			public void exampleFailTest() {
+				fail();
+			}
+			
 			public void exampleAssertTrueTest() {
 				assertTrue(true);
 			}
@@ -24,31 +29,57 @@ public class TestCaseTest {
 				assertEquals("Hola","Hola");
 			}
 			
+			public void exampleAssertEqualsObjectsTestThatShouldntPass() {
+				assertEquals("Hola","Chau");
+			}
+			
 			
 			public void exampleAssertEqualsIntTestThatShouldPass() {
-				assertEquals(23,23);
+				assertEquals(45, 45);
+			}
+			
+			public void exampleAssertEqualsIntTestThatShouldntPass() {
+				assertEquals(23,1988);
 			}
 			
 			public void exampleAssertEqualsFloatTestThatShouldPass() {
 				assertEquals(23.7,23.7);
 			}
+			
+			public void exampleAssertEqualsFloatTestThatShouldntPass() {
+				assertEquals(23.7,23.6);
+			}
 
 			public void run() {
+				//booleans
 				exampleAssertTrueTest();
 				exampleAssertFalseTest();
+				
+				//objects
 				exampleAssertEqualsObjectsTestThatShouldPass();
-				exampleAssertEqualsIntTestThatShouldPass();
+				exampleAssertEqualsObjectsTestThatShouldntPass();
+				
+				
+				//floats
 				exampleAssertEqualsFloatTestThatShouldPass();
+				exampleAssertEqualsFloatTestThatShouldntPass();
+				//integers
+				exampleAssertEqualsIntTestThatShouldntPass();
+				exampleAssertEqualsIntTestThatShouldPass();
+				
+				//fail
+				exampleFailTest();
+				
 			};
 		};
 		test.start();
 	}
 
-	@Test
-	public void callerMethodNameIsThisTest() {
-
-		Assert.assertEquals("callerMethodNameIsThisTest", test.getCallerName());
-	}
+//	@Test
+//	public void callerMethodNameIsThisTest() {
+//
+//		Assert.assertEquals("callerMethodNameIsThisTest", test.getCallerName());
+//	}
 
 	@Test
 	public void existingTestIsPassingIfItsAssertTrueDontFail() {
@@ -67,16 +98,40 @@ public class TestCaseTest {
 		
 		Assert.assertTrue(test.verifyTest("exampleAssertEqualsObjectsTestThatShouldPass"));
 	}
+	
+	@Test
+	public void existingTestIsntPassingIfItsAssertEqualObjectFail() {
+		
+		Assert.assertFalse(test.verifyTest("exampleAssertEqualsObjectsTestThatShouldntPass"));
+	}
 
 	@Test
 	public void existingTestIsPassingIfItsAssertEqualIntDontFail() {
 		
 		Assert.assertTrue(test.verifyTest("exampleAssertEqualsIntTestThatShouldPass"));
 	}
+
+	@Test
+	public void existingTestIsntPassingIfItsAssertEqualIntFail() {
+		
+		Assert.assertFalse(test.verifyTest("exampleAssertEqualsIntTestThatShouldntPass"));
+	}
 	
 	@Test
 	public void existingTestIsPassingIfItsAssertEqualFloatDontFail() {
 		
 		Assert.assertTrue(test.verifyTest("exampleAssertEqualsFloatTestThatShouldPass"));
+	}
+	
+	@Test
+	public void existingTestIsntPassingIfItsAssertEqualFloatFail() {
+		
+		Assert.assertFalse(test.verifyTest("exampleAssertEqualsFloatTestThatShouldntPass"));
+	}
+	
+	@Test
+	public void verifyTestThatExecuteFailReturnsFalse() {
+		
+		Assert.assertFalse(test.verifyTest("exampleFailTest"));
 	}
 }

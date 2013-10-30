@@ -35,7 +35,7 @@ public class TestConsole extends JTextArea{
 				Index++                  + ". Status: "     +
 				status                   + ", NameMethod: " +
 				testFail.getName()       + ", Messenger: "  + 
-				testFail.getMessenger()  + "   ");
+				testFail.getMessage()  + "   ");
 		}
 	}
 	

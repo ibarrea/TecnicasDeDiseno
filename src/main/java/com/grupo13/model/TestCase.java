@@ -11,18 +11,19 @@ public abstract class TestCase implements Runnable {
 	}
 
 	public void start() {
-		// creo una dependencia circular!
-		// estoy usando el patron mediator.. eso creo
-		// System.out.println(getCallerName());
+		// creo una dependencia circular
+		// estoy usando el patron mediator.
 		System.out.println("Running tests..");
 		am.setTarget(this);
 		am.startJob();
+		System.out.println("Pushing remaining..");
+		am.pushCurrentTestResult();
+		System.out.println("Finishing tests..");
 
 	}
 
 	public String getCallerName() {
-		// TODO ajustar el depthInStack al probar con casos reales
-		final int depthInStack = 3;
+		final int depthInStack = 4;
 		return getMethodName(depthInStack);
 	}
 

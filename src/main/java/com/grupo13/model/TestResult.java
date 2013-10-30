@@ -2,32 +2,47 @@ package com.grupo13.model;
 
 public class TestResult {
 
-	private String messenger;
+
+
+	private String message;
 	private String name;
 	private boolean isOK;
 
-	public TestResult(String name, String messenger, boolean result) {
-		this.messenger = messenger;
+	public TestResult(String name, String msg, boolean result) {
+		message = msg;
 		this.name = name;
-		this.isOK = result;
+		isOK = result;
+	}
+	
+	public TestResult(String name) {
+		this.name = name;
+		isOK = true;
 	}
 
+
+	public TestResult() {
+		name = "";
+		isOK = false;
+	}
 	
-	
+	public boolean isValid() {
+		return !name.equals("");
+	}
+
 	public boolean isOK() {
 		return isOK;
 	}
 
-
-
 	public void setOK(boolean isOK) {
 		this.isOK = isOK;
 	}
+	
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-
-
-	public String getMessenger() {
-		return messenger;
+	public String getMessage() {
+		return message;
 	}
 
 	public String getName() {

@@ -54,7 +54,7 @@ public class Assertion {
 
 	private String makeMessage(String expected, String was) {
 		return "Expected: <" + expected
-				+ "> but was: >" + was+">";
+				+ "> but was: <" + was+">";
 	}
 
 	public void assertTrue(boolean condition) {
