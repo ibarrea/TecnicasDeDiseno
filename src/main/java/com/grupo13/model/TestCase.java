@@ -3,7 +3,7 @@ package com.grupo13.model;
 import com.grupo13.iview.IViewTestCase;
 import com.grupo13.view.ViewTestCase;
 
-public abstract class TestCase implements Runnable {
+public abstract class TestCase implements ITestCase {
 	protected String nombre = "TestCase";
 
 	private static AssertManager am;
@@ -14,9 +14,11 @@ public abstract class TestCase implements Runnable {
 	}
 
 	public void start() {
+		setup();
 		am = new AssertManager();
 		run();
 		am.pushCurrentTestResult();
+		tearDown();
 		showTest();
 	}
 
@@ -75,4 +77,6 @@ public abstract class TestCase implements Runnable {
 		IViewTestCase iviewTestCase = new ViewTestCase(am.getResultList());
 		iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
+	
+
 }
