@@ -12,16 +12,32 @@ public class Calculator {
 		return NumberA + NumberB;
 	}
 	
+	public double addAwithBBug(double NumberA, double NumberB){
+		return NumberA + NumberB + 1.0;
+	}
+	
 	public double mulAwithB(double NumberA, double NumberB){
-		return NumberA + NumberB;
+		return NumberA * NumberB;
+	}
+	
+	public double mulAwithBBug(double NumberA, double NumberB){
+		return NumberA * NumberB * 2;
 	}
 	
 	public double divideAwithBparts(double NumberA, double NumberB){
 		return NumberA / NumberB;
 	}
 	
-	public double deductAwithB(double NumberA, double NumberB){
+	public double divideAwithBpartsBug(double NumberA, double NumberB){
+		return (NumberA / NumberB) + 1.0;
+	}
+	
+	public double minusAwithB(double NumberA, double NumberB){
 		return NumberA - NumberB;
+	}
+	
+	public double minusAwithBBug(double NumberA, double NumberB){
+		return NumberA - NumberB - 1.0;
 	}
 	
 	public void rememberResul(double result){
@@ -32,7 +48,7 @@ public class Calculator {
 		return NumberA + accumulator;
 	}
 	
-	public double deductAwithAccumulator(double NumberA){
+	public double minusAwithAccumulator(double NumberA){
 		return NumberA - accumulator;
 	}
 	
