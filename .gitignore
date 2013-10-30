@@ -5,7 +5,7 @@
 *.war
 *.ear
 *.zargo~
-
+~*.docx
 .classpath
 /.settings/*
 /target/*
