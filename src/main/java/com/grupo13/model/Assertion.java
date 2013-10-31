@@ -78,12 +78,10 @@ public class Assertion {
 
 	public void assertFalse(boolean condition) {
 		assertTrue(!condition);
-
 	}
 
 	public void fail() {
 		updateStatus(false, "Failed");
-		
 	}
 
 }
