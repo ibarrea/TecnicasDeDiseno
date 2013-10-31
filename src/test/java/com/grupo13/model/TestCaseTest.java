@@ -70,6 +70,18 @@ public class TestCaseTest {
 				//fail
 				exampleFailTest();
 				
+			}
+
+			@Override
+			public void setup() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void tearDown() {
+				// TODO Auto-generated method stub
+				
 			};
 		};
 		test.start();
