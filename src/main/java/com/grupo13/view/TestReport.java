@@ -37,7 +37,7 @@ public class TestReport extends JTextArea{
             setText(getText() +
             	Index++ + ". Status: " +
             	status + " Method: " +
-            	testFail.getName() + " Messenger: " +
+            	testFail.getName() + " Message: " +
               	testFail.getMessage() + "  ");
         }
     }

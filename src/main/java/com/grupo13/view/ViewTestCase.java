@@ -62,7 +62,6 @@ public class ViewTestCase extends JPanel implements IViewTestCase{
 		testReport.addItems(testResults);
 		if(testReport.isOKAllTest()){
         	statusBar.validState();
-        	// viewTestReport.setVisible(false);
        	}
       	else{
         	statusBar.failedState();
