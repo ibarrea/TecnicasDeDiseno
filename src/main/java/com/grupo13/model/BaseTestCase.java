@@ -2,14 +2,22 @@ package com.grupo13.model;
 
 public abstract class BaseTestCase implements ITestCase {
 
-	protected static AssertManager assertManager;
+	protected AssertManager assertManager;
 
 	public void start() {
 		setup();
 		assertManager = new AssertManager();
 		run();
-		assertManager.pushCurrentTestResult();
+		pushRemainingTests();
 		tearDown();
+	}
+
+	private void pushRemainingTests() {
+		assertManager.pushCurrentTestResult();
+	}
+	
+	public void printResults() {
+		assertManager.printResults();
 	}
 	
 	// devuelve el nombre del methodo que ivoca al metodo que usa a este
@@ -70,8 +78,7 @@ public abstract class BaseTestCase implements ITestCase {
 		assertManager.processAssertion(assertion);
 	}
 
-	
-	
+
 	public void setup(){
 		
 	}
@@ -79,6 +86,5 @@ public abstract class BaseTestCase implements ITestCase {
 	public void tearDown(){
 		
 	}
-	
 
 }

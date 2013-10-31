@@ -1,6 +1,6 @@
 package com.grupo13.model;
 
-public class TestCaseTestReplicated extends BaseTestCase {
+public class TestCaseTestReplicated extends TestCase {
 
 	private BaseTestCase test;
 
@@ -68,6 +68,7 @@ public class TestCaseTestReplicated extends BaseTestCase {
 
 		};
 		test.start();
+
 	}
 
 	public void existingTestIsPassingIfItsAssertTrueDontFail() {
@@ -111,7 +112,6 @@ public class TestCaseTestReplicated extends BaseTestCase {
 	}
 	
 	public void verifyTestThatExecuteFailReturnsFalse() {
-		
 		assertFalse(test.verifyTest("exampleFailTest"));
 	}
 
@@ -132,7 +132,7 @@ public class TestCaseTestReplicated extends BaseTestCase {
 		existingTestIsPassingIfItsAssertEqualFloatDontFail();
 		
 		existingTestIsntPassingIfItsAssertEqualFloatFail();
-		
+
 		verifyTestThatExecuteFailReturnsFalse();
 
 	}

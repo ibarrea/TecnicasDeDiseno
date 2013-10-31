@@ -5,8 +5,8 @@ import java.util.List;
 
 public class AssertManager {
 
-	List<TestResult> resultList = new ArrayList<TestResult>();
-	TestResult currentResult = new TestResult();
+	private List<TestResult> resultList = new ArrayList<TestResult>();
+	private TestResult currentResult = new TestResult();
 
 	public List<TestResult> getResultList() {
 		return resultList;
