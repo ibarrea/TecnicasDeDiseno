@@ -17,7 +17,8 @@ public class AssertManager {
 	}
 
 	private void restartTestResult(Assertion assertion) {
-		currentResult = new TestResult(assertion.getCallerMethod(), assertion.getMessage(), assertion.isOk());
+		String msg = assertion.isOk()?"":assertion.getMessage();
+		currentResult = new TestResult(assertion.getCallerMethod(), msg, assertion.isOk());
 	}
 
 	public boolean currentTestIsPassing() {

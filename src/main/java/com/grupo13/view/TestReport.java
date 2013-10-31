@@ -28,17 +28,18 @@ public class TestReport extends JTextArea{
     public void addItems(List<TestResult> tests){
         int Index = 1;
         String status;
+        String msg;
         countAllTest = tests.size();
         for (TestResult testFail : tests) {
         	status = getStatus(testFail.isOK());
+        	msg = testFail.isOK()?"":" Message: " +testFail.getMessage();
             if(Index > 1) {
             	setText(getText() + "\n");
             }
             setText(getText() +
             	Index++ + ". Status: " +
             	status + " Method: " +
-            	testFail.getName() + " Message: " +
-              	testFail.getMessage() + "  ");
+            	testFail.getName() + msg);
         }
     }
     
