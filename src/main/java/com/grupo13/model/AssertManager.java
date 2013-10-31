@@ -32,7 +32,9 @@ public class AssertManager {
 	}
 
 	private void updateTestResult(Assertion assertion) {
-		currentResult.setMessage(assertion.getMessage());
+		if (!assertion.isOk()) {
+			currentResult.setMessage(assertion.getMessage());
+		}
 		currentResult.setOK(assertion.isOk());
 		
 	}

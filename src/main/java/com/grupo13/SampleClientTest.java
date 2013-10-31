@@ -4,21 +4,14 @@ import com.grupo13.model.TestCase;
 
 public class SampleClientTest extends TestCase {
 
-	public SampleClientTest() {
-		super();
-		nombre = "EjemploCliente";
-		
-	}
-
 	@Override
 	public void run() {
-		// TODO el cliente debe llamar su codigo aca
+		// TODO el cliente debe llamar sus metodos a testear aca
 	}
 	
 
 	public static void main(String[] args) {
 
-		
 		(new SampleClientTest()).start();
 
 	}
