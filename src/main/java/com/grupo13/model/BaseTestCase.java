@@ -1,6 +1,6 @@
 package com.grupo13.model;
 
-public abstract class BaseTestCase implements ITestComponent {
+public abstract class BaseTestCase extends TestComponent {
 
 	protected AssertManager assertManager;
 
