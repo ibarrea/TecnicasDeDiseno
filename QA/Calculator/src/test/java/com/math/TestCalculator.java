@@ -1,9 +1,10 @@
 package com.math;
 
+import com.grupo13.model.ITestCase;
 import com.grupo13.model.TestCase;
 import com.math.calculator.Calculator;
 
-public class TestCalculator extends TestCase {
+public class TestCalculator extends TestCase implements ITestCase{
 
 	public static void main(String[] args) {
 
@@ -61,5 +62,17 @@ public class TestCalculator extends TestCase {
 	public void testDivideBug(){
 		Calculator calculator = new Calculator();
 		assertEquals(4.0, calculator.divideAwithBpartsBug(2, 2));
+	}
+
+	@Override
+	public void setup() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tearDown() {
+		// TODO Auto-generated method stub
+		
 	}
 }
