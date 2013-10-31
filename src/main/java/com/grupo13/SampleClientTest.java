@@ -15,15 +15,6 @@ public class SampleClientTest extends TestCase {
 		// TODO el cliente debe llamar su codigo aca
 	}
 	
-	@Override
-	public void setup(){
-		
-	}
-	
-	@Override
-	public void tearDown(){
-		
-	}
 
 	public static void main(String[] args) {
 

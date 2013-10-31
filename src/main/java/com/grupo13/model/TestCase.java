@@ -78,5 +78,14 @@ public abstract class TestCase implements ITestCase {
 		iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 	
+	
+	public void setup(){
+		
+	}
+	
+	public void tearDown(){
+		
+	}
+	
 
 }
