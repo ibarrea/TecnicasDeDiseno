@@ -1,6 +1,6 @@
 package com.grupo13.model;
 
-public interface ITestCase {
+public interface ITestComponent {
 	
 	void run();
 	void setup();
