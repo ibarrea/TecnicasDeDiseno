@@ -1,12 +1,12 @@
 package com.grupo13.model;
 
-public class TestCaseTestReplicated extends TestCase {
+public class TestCaseTestReplicated extends BaseTestCase {
 
-	private TestCase test;
+	private BaseTestCase test;
 
 	public void setup() {
 		// creo una clase anonima para testear TestCase que es abstracta
-		test = new TestCase() {
+		test = new BaseTestCase() {
 			
 			public void exampleFailTest() {
 				fail();

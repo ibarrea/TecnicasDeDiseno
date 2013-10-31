@@ -6,12 +6,12 @@ import org.junit.Test;
 
 public class TestCaseTest {
 
-	private TestCase test;
+	private BaseTestCase test;
 
 	@Before
 	public void setup() {
 		// creo una clase anonima para testear TestCase que es abstracta
-		test = new TestCase() {
+		test = new BaseTestCase() {
 			
 			public void exampleFailTest() {
 				fail();
