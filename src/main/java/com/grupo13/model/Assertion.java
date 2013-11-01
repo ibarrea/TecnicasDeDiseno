@@ -5,6 +5,15 @@ public class Assertion {
 	private String callerMethod;
 	private String message;
 	private boolean isOk;
+	private boolean hasError;
+
+	public boolean hasError() {
+		return hasError;
+	}
+
+	public void setHasError(boolean hasError) {
+		this.hasError = hasError;
+	}
 
 	public Assertion(String callerName) {
 		setCallerMethod(callerName);
@@ -44,10 +53,11 @@ public class Assertion {
 	}
 
 	public void assertEquals(Object a, Object b) {
-		if (!isNull(a) && !isNull(b)) {
+		try {
 			updateStatus(a.equals(b), makeMessage(a.toString(), b.toString()));
-		} else {
-			updateStatus(false, "NullPointer Exception occured.");
+		} catch (Exception e) {
+			setHasError(true);
+			updateStatus(false, e.getMessage());
 		}
 
 	}

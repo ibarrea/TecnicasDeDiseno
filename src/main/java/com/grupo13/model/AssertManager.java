@@ -5,10 +5,10 @@ import java.util.List;
 
 public class AssertManager {
 
-	private List<TestResult> resultList = new ArrayList<TestResult>();
-	private TestResult currentResult = new TestResult();
+	private List<TestCase> resultList = new ArrayList<TestCase>();
+	private TestCase currentResult = new TestCase();
 
-	public List<TestResult> getResultList() {
+	public List<TestCase> getResultList() {
 		return resultList;
 	}
 
@@ -18,7 +18,7 @@ public class AssertManager {
 
 	private void restartTestResult(Assertion assertion) {
 		String msg = assertion.isOk()?"":assertion.getMessage();
-		currentResult = new TestResult(assertion.getCallerMethod(), msg, assertion.isOk());
+		currentResult = new TestCase(assertion.getCallerMethod(), msg, assertion.isOk());
 	}
 
 	public boolean currentTestIsPassing() {
@@ -55,7 +55,7 @@ public class AssertManager {
 	}
 
 	public boolean methodPassed(String testName) throws IllegalStateException{
-		for (TestResult result : resultList) {
+		for (TestCase result : resultList) {
 			if (testName.equalsIgnoreCase(result.getName())) {
 				return result.isOK();
 			}
@@ -65,7 +65,7 @@ public class AssertManager {
 	
 	public void printResults() {
 		System.out.println("Number of tests: " + resultList.size());
-		for (TestResult result : resultList) {
+		for (TestCase result : resultList) {
 			System.out.println(result.toString());
 
 		}

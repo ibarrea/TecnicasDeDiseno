@@ -2,7 +2,8 @@ package com.grupo13.model;
 
 public abstract class TestComponent {
 	
-	private String name;
+	protected String name;
+	protected boolean isOK;
 	
 	public abstract void run();
 	
@@ -16,12 +17,24 @@ public abstract class TestComponent {
 		return name;
 	}
 	
-	public void setup(){
-		
+	public boolean isValid() {
+		return !name.equals("");
+	}
+
+	public boolean isOK() {
+		return isOK;
+	}
+
+	public void setOK(boolean isOK) {
+		this.isOK = isOK;
 	}
 	
-	public void tearDown(){
-		
-	}
+//	public void setup(){
+//		
+//	}
+//	
+//	public void tearDown(){
+//		
+//	}
 
 }

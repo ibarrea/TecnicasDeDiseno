@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextArea;
 import java.util.List;
-import com.grupo13.model.TestResult;
+import com.grupo13.model.TestCase;
 
 
 public class TestReport extends JTextArea{
@@ -25,12 +25,12 @@ public class TestReport extends JTextArea{
         setForeground(Color.darkGray);
     }
     
-    public void addItems(List<TestResult> tests){
+    public void addItems(List<TestCase> tests){
         int Index = 1;
         String status;
         String msg;
         countAllTest = tests.size();
-        for (TestResult testFail : tests) {
+        for (TestCase testFail : tests) {
         	status = getStatus(testFail.isOK());
         	msg = testFail.isOK()?"":" Message: " +testFail.getMessage();
             if(Index > 1) {

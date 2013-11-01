@@ -1,12 +1,12 @@
 package com.grupo13.model;
 
-public class TestCaseTestReplicated extends TestCase {
+public class TestCaseTestReplicated extends TestSuite {
 
-	private BaseTestCase test;
+	private TestSuite test;
 
 	public void setup() {
 		// creo una clase anonima para testear TestCase que es abstracta
-		test = new BaseTestCase() {
+		test = new TestSuite() {
 			
 			public void exampleFailTest() {
 				fail();
@@ -138,8 +138,10 @@ public class TestCaseTestReplicated extends TestCase {
 	}
 	
 	public static void main(String[] args) {
+		TestCaseTestReplicated someTest = new TestCaseTestReplicated();
 
-		(new TestCaseTestReplicated()).start();
+		someTest.start();
+		someTest.showTest();
 
 	}
 }

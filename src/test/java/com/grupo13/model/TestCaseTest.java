@@ -6,12 +6,12 @@ import org.junit.Test;
 
 public class TestCaseTest {
 
-	private BaseTestCase test;
+	private TestSuite test;
 
 	@Before
 	public void setup() {
 		// creo una clase anonima para testear TestCase que es abstracta
-		test = new BaseTestCase() {
+		test = new TestSuite() {
 			
 			public void exampleFailTest() {
 				fail();
@@ -21,8 +21,16 @@ public class TestCaseTest {
 				assertTrue(true);
 			}
 			
+			public void exampleAssertTrueTestFail() {
+				assertTrue(false);
+			}
+			
 			public void exampleAssertFalseTest() {
 				assertFalse(false);
+			}
+			
+			public void exampleAssertFalseTestFail() {
+				assertFalse(true);
 			}
 			
 			public void exampleAssertEqualsObjectsTestThatShouldPass() {
@@ -35,25 +43,33 @@ public class TestCaseTest {
 			
 			
 			public void exampleAssertEqualsIntTestThatShouldPass() {
-				assertEquals(45, 45);
+				int a = 45;
+				assertEquals(a, a);
 			}
 			
 			public void exampleAssertEqualsIntTestThatShouldntPass() {
-				assertEquals(23,1988);
+				int a = 23;
+				int b = 1988;
+				assertEquals(a, b);
 			}
 			
 			public void exampleAssertEqualsFloatTestThatShouldPass() {
-				assertEquals(23.7,23.7);
+				float a = (float) 23.7;
+				assertEquals(a, a);
 			}
 			
 			public void exampleAssertEqualsFloatTestThatShouldntPass() {
-				assertEquals(23.7,23.6);
+				float a = (float) 23.7;
+				float b = (float) 23.6;
+				assertEquals(a, b);
 			}
 
 			public void run() {
 				//booleans
 				exampleAssertTrueTest();
+				exampleAssertTrueTestFail();
 				exampleAssertFalseTest();
+				exampleAssertFalseTestFail();
 				
 				//objects
 				exampleAssertEqualsObjectsTestThatShouldPass();
@@ -72,17 +88,6 @@ public class TestCaseTest {
 				
 			}
 
-			@Override
-			public void setup() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void tearDown() {
-				// TODO Auto-generated method stub
-				
-			};
 		};
 		test.start();
 	}
@@ -92,11 +97,24 @@ public class TestCaseTest {
 		
 		Assert.assertTrue(test.verifyTest("exampleAssertTrueTest"));
 	}
+	
+	@Test
+	public void existingTestIsntPassingIfItsAssertTrueFail() {
+		
+		Assert.assertFalse(test.verifyTest("exampleAssertTrueTestFail"));
+	}
 
 	@Test
 	public void existingTestIsPassingIfItsAssertFalseDontFail() {
 		
 		Assert.assertTrue(test.verifyTest("exampleAssertFalseTest"));
+	}
+	
+
+	@Test
+	public void existingTestIsntPassingIfItsAssertFalseFail() {
+		
+		Assert.assertFalse(test.verifyTest("exampleAssertFalseTestFail"));
 	}
 
 	@Test

@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 
 import com.grupo13.iview.IViewTestCase;
 import com.grupo13.iview.IShowViewTestCase;
-import com.grupo13.model.TestResult;
+import com.grupo13.model.TestCase;
 
 public class ViewTestCase extends JPanel implements IViewTestCase{
 
@@ -27,7 +27,7 @@ public class ViewTestCase extends JPanel implements IViewTestCase{
     private JScrollPane viewTestReport = new JScrollPane (testReport);
 
         
-    public ViewTestCase(List<TestResult> testResults){
+    public ViewTestCase(List<TestCase> testResults){
     	iniComponentViewTestCase();
       	setViewTestCase(testResults);
       	addComponentViewTestCase();
@@ -58,7 +58,7 @@ public class ViewTestCase extends JPanel implements IViewTestCase{
 	}
         
 
-	private void setViewTestCase(List<TestResult> testResults){
+	private void setViewTestCase(List<TestCase> testResults){
 		testReport.addItems(testResults);
 		if(testReport.isOKAllTest()){
         	statusBar.validState();
