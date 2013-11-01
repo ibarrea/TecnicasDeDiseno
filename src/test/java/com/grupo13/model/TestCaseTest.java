@@ -41,6 +41,25 @@ public class TestCaseTest {
 				assertEquals("Hola","Chau");
 			}
 			
+			public void exampleAssertIsNullTestThatShouldPass() {
+				String objectString = null;
+				assertIsNull(objectString);
+			}
+			
+			public void exampleAssertIsNullTestThatShouldntPass() {
+				String objectString = new String("Hello world");
+				assertIsNull(objectString);
+			}
+			
+			public void exampleAssertIsNotNullTestThatShouldPass() {
+				String objectString = new String("Hello world");
+				assertIsNotNull(objectString);
+			}
+			
+			public void exampleAssertIsNotNullTestThatShouldntPass() {
+				String objectString = null;
+				assertIsNotNull(objectString);
+			}
 			
 			public void exampleAssertEqualsIntTestThatShouldPass() {
 				int a = 45;
@@ -74,6 +93,10 @@ public class TestCaseTest {
 				//objects
 				exampleAssertEqualsObjectsTestThatShouldPass();
 				exampleAssertEqualsObjectsTestThatShouldntPass();
+				exampleAssertIsNullTestThatShouldPass();
+				exampleAssertIsNullTestThatShouldntPass();
+				exampleAssertIsNotNullTestThatShouldPass();
+				exampleAssertIsNotNullTestThatShouldntPass();
 				
 				
 				//floats
@@ -128,7 +151,31 @@ public class TestCaseTest {
 		
 		Assert.assertFalse(test.verifyTest("exampleAssertEqualsObjectsTestThatShouldntPass"));
 	}
+	
+	@Test
+	public void testIsntPassingIfItsAssertNullFail() {
+		
+		Assert.assertFalse(test.verifyTest("exampleAssertIsNullTestThatShouldntPass"));
+	}
+	
+	@Test
+	public void testIsPassingIfItsAssertNullPass() {
+		
+		Assert.assertTrue(test.verifyTest("exampleAssertIsNullTestThatShouldPass"));
+	}
 
+	@Test
+	public void testIsntPassingIfItsAssertNotNullFail() {
+		
+		Assert.assertFalse(test.verifyTest("exampleAssertIsNotNullTestThatShouldntPass"));
+	}
+	
+	@Test
+	public void testIsPassingIfItsAssertNotNullPass() {
+		
+		Assert.assertTrue(test.verifyTest("exampleAssertIsNotNullTestThatShouldPass"));
+	}
+	
 	@Test
 	public void existingTestIsPassingIfItsAssertEqualIntDontFail() {
 		

@@ -86,6 +86,18 @@ public abstract class TestSuite extends TestComponent {
 		assertManager.processAssertion(assertion);
 	}
 	
+	public void assertIsNull(Object o) {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.assertIsNull(o);
+		assertManager.processAssertion(assertion);
+	}
+	
+	public void assertIsNotNull(Object o) {
+		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		assertion.assertIsNotNull(o);
+		assertManager.processAssertion(assertion);
+	}
+	
 	public void fail() {
 		Assertion assertion = Assertion.createWithCaller(getCallerName());
 		assertion.fail();
