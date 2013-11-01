@@ -41,6 +41,21 @@ public class TestCaseTest {
 				assertEquals("Hola","Chau");
 			}
 			
+			public void assertEqualsShouldntPassIfReceiveNullObjectAs1stParam() {
+				String objectString = null;
+				assertEquals(objectString,"Chau");
+			}
+			
+			public void assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam() {
+				String objectString = null;
+				assertEquals("Hello",objectString);
+			}
+			
+			public void assertEqualsShouldntPassIfReceiveBothNullObjects() {
+				String objectString = null;
+				assertEquals(objectString,objectString);
+			}
+			
 			public void exampleAssertIsNullTestThatShouldPass() {
 				String objectString = null;
 				assertIsNull(objectString);
@@ -97,6 +112,9 @@ public class TestCaseTest {
 				exampleAssertIsNullTestThatShouldntPass();
 				exampleAssertIsNotNullTestThatShouldPass();
 				exampleAssertIsNotNullTestThatShouldntPass();
+				assertEqualsShouldntPassIfReceiveNullObjectAs1stParam();
+				assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam();
+				assertEqualsShouldntPassIfReceiveBothNullObjects();
 				
 				
 				//floats
@@ -177,7 +195,7 @@ public class TestCaseTest {
 	}
 	
 	@Test
-	public void existingTestIsPassingIfItsAssertEqualIntDontFail() {
+	public void testIsPassingIfItsAssertEqualIntDontFail() {
 		
 		Assert.assertTrue(test.verifyTest("exampleAssertEqualsIntTestThatShouldPass"));
 	}
@@ -198,6 +216,24 @@ public class TestCaseTest {
 	public void existingTestIsntPassingIfItsAssertEqualFloatFail() {
 		
 		Assert.assertFalse(test.verifyTest("exampleAssertEqualsFloatTestThatShouldntPass"));
+	}
+	
+	@Test
+	public void testIsntPassingIfItsAssertEqualReceiveNullObjectAs1stParam() {
+		
+		Assert.assertFalse(test.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs1stParam"));
+	}
+	
+	@Test
+	public void testIsntPassingIfItsAssertEqualReceiveNullObjectAs2stParam() {
+		
+		Assert.assertFalse(test.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam"));
+	}
+	
+	@Test
+	public void testIsntPassingIfItsAssertEqualReceiveBothNullObjects() {
+		
+		Assert.assertFalse(test.verifyTest("assertEqualsShouldntPassIfReceiveBothNullObjects"));
 	}
 	
 	@Test
