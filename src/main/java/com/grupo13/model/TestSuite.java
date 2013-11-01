@@ -17,9 +17,16 @@ public abstract class TestSuite extends TestComponent {
 
 	}
 	
+	@Override
+	public void start() {
+		for (TestComponent component: components) {
+			component.start();
+		}
+
+	}
+	
 	public void addTestComponent(TestComponent component){
 		components.add(component);
 	}
-	
 
 }
