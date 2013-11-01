@@ -2,11 +2,16 @@ package com.grupo13.model;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class TestCaseTest {
 
 	private TestSuite test;
+	
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
 
 	@Before
 	public void setup() {
@@ -31,6 +36,11 @@ public class TestCaseTest {
 			
 			public void exampleAssertFalseTestFail() {
 				assertFalse(true);
+			}
+			
+			public void assertTruePassingAndFailTest() {
+				assertTrue(true);
+				fail();
 			}
 			
 			public void exampleAssertEqualsObjectsTestThatShouldPass() {
@@ -126,6 +136,9 @@ public class TestCaseTest {
 				
 				//fail
 				exampleFailTest();
+				
+				//combined tests
+				assertTruePassingAndFailTest();
 				
 			}
 
@@ -240,5 +253,17 @@ public class TestCaseTest {
 	public void verifyTestThatExecuteFailReturnsFalse() {
 		
 		Assert.assertFalse(test.verifyTest("exampleFailTest"));
+	}
+	
+	@Test
+	public void twoAssertsInTestsAssertTruePassingAndFailShoudntPass() {
+		
+		Assert.assertFalse(test.verifyTest("assertTruePassingAndFailTest"));
+	}
+	
+	@Test
+	public void verifyTestThrowsIllegalStateExceptionWhenTestDoesntExists() {
+		exception.expect(IllegalStateException.class);
+		test.verifyTest("nonExistingTest");
 	}
 }

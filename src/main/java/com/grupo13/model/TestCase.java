@@ -2,11 +2,7 @@ package com.grupo13.model;
 
 public class TestCase  extends TestComponent {
 
-
-
 	private String message;
-	//private String name;
-	//private boolean isOK;
 
 	public TestCase(String testName, String msg, boolean result) {
 		message = msg;
@@ -18,7 +14,6 @@ public class TestCase  extends TestComponent {
 		this.name = name;
 		isOK = true;
 	}
-
 
 	public TestCase() {
 		name = "";
