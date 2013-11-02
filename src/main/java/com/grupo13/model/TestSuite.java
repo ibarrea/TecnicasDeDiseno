@@ -8,7 +8,7 @@ import com.grupo13.view.ViewTestCase;
 
 public abstract class TestSuite extends TestComponent {
 
-	protected AssertManager assertManager;
+	private AssertManager assertManager;
 	private List<TestComponent> components = new ArrayList<TestComponent>();
 
 	public void start() {
@@ -34,7 +34,7 @@ public abstract class TestSuite extends TestComponent {
 		assertManager.printResults();
 	}
 	
-	// devuelve el nombre del methodo que ivoca al metodo que usa a este
+	// devuelve el nombre del methodo que invoca al metodo que usa a este
 	// debe ir una cantidad fija de niveles en el stack para traer el dato.
 	private String getCallerName() {
 		final int depthInStack = 4;
@@ -114,8 +114,10 @@ public abstract class TestSuite extends TestComponent {
 	}
 	
 	public void showTest(){
-		IViewTestCase iviewTestCase = new ViewTestCase(assertManager.getResultList());
-		iviewTestCase.prepareViewTestCase().showViewTestCase();
+		ViewTestCase.getInstance().loadResults(assertManager.getResultList());
+		
+//		IViewTestCase iviewTestCase = new ViewTestCase(assertManager.getResultList());
+//		iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 
 }

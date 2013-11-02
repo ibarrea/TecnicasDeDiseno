@@ -50,6 +50,7 @@ public class Assertion {
 	public void updateStatus(boolean assertPass, String msg) {
 		setOk(assertPass);
 		setMessage(msg);
+		
 	}
 
 	public void assertEquals(Object a, Object b) {
@@ -59,27 +60,22 @@ public class Assertion {
 			setHasError(true);
 			updateStatus(false, e.getMessage());
 		}
-
 	}
 
 	private String makeMessage(String expected, String was) {
-		return "Expected: <" + expected
-				+ "> but was: <" + was+">";
+		return "Expected: <" + expected + "> but was: <" + was + ">";
 	}
 
 	public void assertTrue(boolean condition) {
 		assertEquals(new Boolean(true), new Boolean(condition));
-
 	}
 
 	public void assertIsNotNull(Object obj) {
 		updateStatus(!isNull(obj), makeMessage("Not null", "Null"));
-
 	}
 
 	public void assertIsNull(Object obj) {
-		updateStatus(isNull(obj),  makeMessage("Null", "Not Null"));
-
+		updateStatus(isNull(obj), makeMessage("Null", "Not Null"));
 	}
 
 	private boolean isNull(Object obj) {
