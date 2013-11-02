@@ -114,10 +114,9 @@ public abstract class TestSuite extends TestComponent {
 	}
 	
 	public void showTest(){
-		ViewTestCase.getInstance().loadResults(assertManager.getResultList());
 		
-//		IViewTestCase iviewTestCase = new ViewTestCase(assertManager.getResultList());
-//		iviewTestCase.prepareViewTestCase().showViewTestCase();
+		IViewTestCase iviewTestCase = new ViewTestCase(assertManager.getResultList());
+		iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 
 }
