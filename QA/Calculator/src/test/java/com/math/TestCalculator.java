@@ -1,13 +1,15 @@
 package com.math;
 
-import com.grupo13.model.TestCase;
+import com.grupo13.model.TestSuite;
 import com.math.calculator.Calculator;
 
-public class TestCalculator extends TestCase{
+public class TestCalculator extends TestSuite {
 
 	public static void main(String[] args) {
-
-		(new TestCalculator()).start();
+		
+		TestCalculator tc = new TestCalculator();
+		tc.start();
+		tc.showTest();
 
 	}
 
