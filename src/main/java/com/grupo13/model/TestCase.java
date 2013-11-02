@@ -3,6 +3,8 @@ package com.grupo13.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.grupo13.mock.dto.DtoTestCase;
+import com.grupo13.mock.dto.DtoTestSuite;
 import com.grupo13.mock.idto.IDtoTest;
 
 public class TestCase extends TestComponent {
@@ -58,6 +60,8 @@ public class TestCase extends TestComponent {
 	@Override
 	public void loadDTO(IDtoTest dto) {
 		// TODO Auto-generated method stub
+		IDtoTest dtoTestSuite2 = new DtoTestCase(getMessage());
+		((DtoTestSuite) dto).add(dtoTestSuite2);
 		
 	}
 }
