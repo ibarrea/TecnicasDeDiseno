@@ -11,15 +11,15 @@ public class TestCase  extends TestComponent {
 	}
 	
 	public TestCase(String name) {
+		super();
 		this.name = name;
-		isOK = true;
 	}
 
 	public TestCase() {
+		super();
 		name = "";
 		isOK = false;
 	}
-	
 
 	public void setMessage(String message) {
 		this.message = message;

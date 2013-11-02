@@ -11,6 +11,10 @@ public abstract class TestSuite extends TestComponent {
 	private AssertManager assertManager;
 	private List<TestComponent> components = new ArrayList<TestComponent>();
 
+	public TestSuite() {
+		super();
+	}
+
 	public void start() {
 		setup();
 		assertManager = new AssertManager();

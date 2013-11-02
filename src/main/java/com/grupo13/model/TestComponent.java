@@ -7,6 +7,12 @@ public abstract class TestComponent {
 	protected boolean error;
 	protected boolean finished;
 	
+	public TestComponent() {
+		this.isOK = true;
+		this.error = false;
+		this.finished = false;
+	}
+
 	public boolean isFinished() {
 		return finished;
 	}
