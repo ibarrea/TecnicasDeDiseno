@@ -19,6 +19,7 @@ public class TestCase extends TestComponent {
 	public TestCase(String name) {
 		super();
 		this.name = name;
+		message = "Ok!";
 	}
 
 	public void setMessage(String message) {
@@ -30,11 +31,12 @@ public class TestCase extends TestComponent {
 	}
 
 	public String toString() {
-		// int maxLength = (inputString.length() <
-		// MAX_CHAR)?inputString.length():MAX_CHAR;
-		// inputString = inputString.substring(0, maxLength);
-		return String.format("%1$-" + 55 + "s", name) + "|"
-				+ String.format("%1$-" + 10 + "s", isOK() ? "Pass" : "Failed")
+		int allowedNameLength = 40;
+		int maxLength = (name.length() < allowedNameLength) ? name.length() : allowedNameLength;
+		String inputString = name.substring(0, maxLength);
+		String msg = isOK() ? "Pass" :(hasError()?"Error":"Failed");
+		return String.format("%1$-" + allowedNameLength + "s", inputString) + "|"
+				+ String.format("%1$-" + 10 + "s", msg)
 				+ "|" + String.format("%1$-" + 30 + "s", message);
 	}
 
@@ -60,7 +62,7 @@ public class TestCase extends TestComponent {
 	@Override
 	public void loadDTO(IDtoTest dto) {
 		// TODO Auto-generated method stub
-		IDtoTest dtoTestSuite2 = new DtoTestCase(getMessage());
+		IDtoTest dtoTestSuite2 = new DtoTestCase(toString());
 		((DtoTestSuite) dto).add(dtoTestSuite2);
 		
 	}

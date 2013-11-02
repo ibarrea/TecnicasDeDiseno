@@ -48,17 +48,17 @@ public class TestSuiteTest {
 			assertEquals("Hola", "Chau");
 		}
 
-		public void assertEqualsShouldntPassIfReceiveNullObjectAs1stParam() {
+		public void equalsFailIf1stParamIsNullObject() {
 			String objectString = null;
 			assertEquals(objectString, "Chau");
 		}
 
-		public void assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam() {
+		public void equalsFailIf2ndParamIsNullObject() {
 			String objectString = null;
 			assertEquals("Hello", objectString);
 		}
 
-		public void assertEqualsShouldntPassIfReceiveBothNullObjects() {
+		public void equalsFailIfReceiveBothNullObjects() {
 			String objectString = null;
 			assertEquals(objectString, objectString);
 		}
@@ -119,9 +119,9 @@ public class TestSuiteTest {
 			assertIsNullTestThatShouldntPass();
 			assertIsNotNullTestThatShouldPass();
 			assertIsNotNullTestThatShouldntPass();
-			assertEqualsShouldntPassIfReceiveNullObjectAs1stParam();
-			assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam();
-			assertEqualsShouldntPassIfReceiveBothNullObjects();
+			equalsFailIf1stParamIsNullObject();
+			equalsFailIf2ndParamIsNullObject();
+			equalsFailIfReceiveBothNullObjects();
 
 			// floats
 			assertEqualsFloatTestThatShouldPass();
@@ -255,19 +255,19 @@ public class TestSuiteTest {
 	@Test
 	public void testIsntPassingIfItsAssertEqualReceiveNullObjectAs1stParam() {
 
-		Assert.assertFalse(test1.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs1stParam"));
+		Assert.assertFalse(test1.verifyTest("equalsFailIf1stParamIsNullObject"));
 	}
 
 	@Test
 	public void testIsntPassingIfItsAssertEqualReceiveNullObjectAs2stParam() {
 
-		Assert.assertFalse(test1.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam"));
+		Assert.assertFalse(test1.verifyTest("equalsFailIf2ndParamIsNullObject"));
 	}
 
 	@Test
 	public void testIsntPassingIfItsAssertEqualReceiveBothNullObjects() {
 
-		Assert.assertFalse(test1.verifyTest("assertEqualsShouldntPassIfReceiveBothNullObjects"));
+		Assert.assertFalse(test1.verifyTest("equalsFailIfReceiveBothNullObjects"));
 	}
 
 	@Test
@@ -286,5 +286,41 @@ public class TestSuiteTest {
 	public void verifyTestThrowsIllegalStateExceptionWhenTestDoesntExists() {
 		exception.expect(IllegalStateException.class);
 		test1.verifyTest("nonExistingTest");
+	}
+	
+	@Test
+	public void addingExistingTestNameThrowsDuplicateTestException() {
+		String existingTestCaseNameShouldCrashIfAdded = "assertTrueTest";
+		TestCase example = new TestCase(existingTestCaseNameShouldCrashIfAdded);
+		exception.expect(IllegalStateException.class);
+		//exception.expect(Grupo13DuplicateTestException.class);//usa esta y sacá la otra
+		test1.addTestComponent(example);
+	}
+	
+	@Test
+	public void newTestNameAddedToSuiteIsOk() {
+		String nonExistingTest = "nonExistingTest";
+		TestCase example = new TestCase(nonExistingTest);
+		test1.addTestComponent(example);
+		Assert.assertTrue(example.isOK());
+	}
+	
+	@Test
+	public void addingExistingTestSuiteNameThrowsDuplicateTestException() {
+		String existingTestSuiteNameShouldCrashIfAdded = "TestSuite2";
+		TestSuite example = new TestSuite1();
+		example.setName(existingTestSuiteNameShouldCrashIfAdded);
+		exception.expect(IllegalStateException.class);
+		//exception.expect(Grupo13DuplicateTestException.class);//usa esta y sacá la otra
+		test1.addTestComponent(example);
+	}
+	
+	@Test
+	public void addingNewTestSuiteNameToSuiteIsOk() {
+		String nonExistingSuite = "TestSuite200";
+		TestSuite example = new TestSuite1();
+		example.setName(nonExistingSuite);
+		test1.addTestComponent(example);
+		Assert.assertTrue(example.isOK());
 	}
 }

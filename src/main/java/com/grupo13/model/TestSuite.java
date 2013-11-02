@@ -49,8 +49,8 @@ public abstract class TestSuite extends TestComponent {
 		return ste[depth].getMethodName();
 	}
 
-	// devuelve el nombre de la clase creada (dicha clase hereda de TestSuite)
-	// el formato de salida es package.className
+	// Asigna el className a el nombre del TestSuite
+	// Asigna el el nombre del paquete a packageName
 	private void definePackageClassName() {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		final int depthInStack = 4;
@@ -110,7 +110,6 @@ public abstract class TestSuite extends TestComponent {
 		Assertion assertion = new Assertion();
 		assertion.assertEquals(a, b);
 		addAssertionToComponent(assertion, getTestCallerName());
-		// assertManager.processAssertion(assertion);
 	}
 
 	public void assertEquals(int a, int b) {

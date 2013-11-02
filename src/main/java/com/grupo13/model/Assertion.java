@@ -41,7 +41,7 @@ public class Assertion {
 			updateStatus(a.equals(b), makeMessage(a.toString(), b.toString()));
 		} catch (Exception e) {
 			setHasError(true);
-			updateStatus(false, e.getMessage());
+			updateStatus(false, e.toString());
 		}
 	}
 

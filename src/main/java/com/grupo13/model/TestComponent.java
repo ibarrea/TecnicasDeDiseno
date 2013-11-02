@@ -34,10 +34,6 @@ public abstract class TestComponent {
 	public String getName() {
 		return name;
 	}
-	
-	public boolean isValid() {
-		return !name.equals("");
-	}
 
 	public boolean isOK() {
 		return isOK;
