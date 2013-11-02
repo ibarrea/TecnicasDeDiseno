@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class TestCaseTest {
+public class TestSuiteTest {
 
 	private TestSuite test;
 	

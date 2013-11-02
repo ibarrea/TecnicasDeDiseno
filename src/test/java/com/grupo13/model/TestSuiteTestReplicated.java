@@ -1,6 +1,6 @@
 package com.grupo13.model;
 
-public class TestCaseTestReplicated extends TestSuite {
+public class TestSuiteTestReplicated extends TestSuite {
 
 	private TestSuite test;
 
@@ -138,7 +138,7 @@ public class TestCaseTestReplicated extends TestSuite {
 	}
 	
 	public static void main(String[] args) {
-		TestCaseTestReplicated someTest = new TestCaseTestReplicated();
+		TestSuiteTestReplicated someTest = new TestSuiteTestReplicated();
 
 		someTest.start();
 		someTest.showTest();
