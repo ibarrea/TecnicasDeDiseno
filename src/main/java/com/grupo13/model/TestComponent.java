@@ -4,18 +4,27 @@ public abstract class TestComponent {
 	
 	protected String name;
 	protected boolean isOK;
-	protected boolean hasErrors;
+	protected boolean error;
+	protected boolean finished;
 	
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
 	public abstract void run();
 	
 	public abstract void start();
 
-	public boolean isHasErrors() {
-		return hasErrors;
+	public boolean hasError() {
+		return error;
 	}
 
-	public void setHasErrors(boolean hasErrors) {
-		this.hasErrors = hasErrors;
+	public void setError(boolean hasErrors) {
+		this.error = hasErrors;
 	}
 
 	public void setName(String name) {
