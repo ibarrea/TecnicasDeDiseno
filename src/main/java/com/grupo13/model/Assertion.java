@@ -11,8 +11,9 @@ public class Assertion {
 		return hasError;
 	}
 
-	public void setHasError(boolean hasError) {
+	public Assertion setHasError(boolean hasError) {
 		this.hasError = hasError;
+		return this;
 	}
 
 	public Assertion(String callerName) {
@@ -43,23 +44,25 @@ public class Assertion {
 		return isOk;
 	}
 
-	public void setOk(boolean isOk) {
+	public Assertion setOk(boolean isOk) {
 		this.isOk = isOk;
+		return this;
 	}
 
 	public void updateStatus(boolean assertPass, String msg) {
-		setOk(assertPass);
-		setMessage(msg);
+		setHasError(false).setOk(assertPass).setMessage(msg);
+	}
+	
+	public void updateStatusFail(String msg) {
+		setHasError(true).setOk(false).setMessage(msg);
 	}
 
 	public void assertEquals(Object a, Object b) {
 		try {
 			updateStatus(a.equals(b), makeMessage(a.toString(), b.toString()));
 		} catch (Exception e) {
-			setHasError(true);
-			updateStatus(false, e.getMessage());
+			updateStatusFail(e.getMessage());
 		}
-
 	}
 
 	private String makeMessage(String expected, String was) {
@@ -73,13 +76,19 @@ public class Assertion {
 	}
 
 	public void assertIsNotNull(Object obj) {
-		updateStatus(!isNull(obj), makeMessage("Not null", "Null"));
-
+		try{
+			updateStatus(!isNull(obj), makeMessage("Not null", "Null"));
+		}catch(Exception e){
+			updateStatusFail(e.getMessage());
+		}
 	}
 
 	public void assertIsNull(Object obj) {
-		updateStatus(isNull(obj),  makeMessage("Null", "Not Null"));
-
+		try{
+			updateStatus(isNull(obj),  makeMessage("Null", "Not Null"));
+		}catch(Exception e){
+			updateStatusFail(e.getMessage());
+		}
 	}
 
 	private boolean isNull(Object obj) {
@@ -91,7 +100,8 @@ public class Assertion {
 	}
 
 	public void fail() {
-		updateStatus(false, "Failed");
+		//updateStatus(false, "Failed");
+		updateStatusFail("Failed");
 	}
 
 }
