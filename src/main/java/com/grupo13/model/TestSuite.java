@@ -1,46 +1,43 @@
 package com.grupo13.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import com.grupo13.iview.IViewTestCase;
+import com.grupo13.mock.idto.IDtoTest;
 import com.grupo13.view.ViewTestCase;
 
 public abstract class TestSuite extends TestComponent {
 
-	private AssertManager assertManager;
-	private List<TestComponent> components = new ArrayList<TestComponent>();
+	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 
 	public TestSuite() {
 		super();
+		name = getClassName();
 	}
 
 	public void start() {
 		setup();
-		assertManager = new AssertManager();
 		run();
-		pushRemainingTests();
+		startComponents();
 		tearDown();
-		for (TestComponent component: components) {
-			component.start();
+
+	}
+
+	public void startComponents() {
+		Iterator<String> keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			components.get(keySetIterator.next()).start();
 		}
 	}
 	
 	public void addTestComponent(TestComponent component){
-		components.add(component);
-	}
-
-	private void pushRemainingTests() {
-		assertManager.pushCurrentTestResult();
-	}
-	
-	public void printResults() {
-		assertManager.printResults();
+		components.put(component.getName(),component);
 	}
 	
 	// devuelve el nombre del methodo que invoca al metodo que usa a este
 	// debe ir una cantidad fija de niveles en el stack para traer el dato.
-	private String getCallerName() {
+	private String getTestCallerName() {
 		final int depthInStack = 4;
 		return getMethodName(depthInStack);
 	}
@@ -49,63 +46,95 @@ public abstract class TestSuite extends TestComponent {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		return ste[depth].getMethodName();
 	}
+	
+	// devuelve el nombre de la clase creada (dicha clase hereda de TestSuite)
+	// el formato de salida es package.className
+	private String getClassName() {
+		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+		final int depthInStack = 4;
+		String temp = ste[depthInStack].getClassName();
+		int posDollar = temp.lastIndexOf("$");
+		if (temp.lastIndexOf("$") > -1) {
+			String packageName = temp.substring(0, temp.lastIndexOf(".") + 1);
+			String className = temp.substring(posDollar + 1, temp.length());
+			temp = packageName + className;
+		}
+		return temp;
+	}
 
 	// devuleve true si el metodo paso
 	// precondicion: el test debe existir. Si no esta, te tira un IllegalStateException
 	public boolean verifyTest(String testName) {
-		return assertManager.methodPassed(testName);
+		if (components.containsKey(testName)) {
+			return components.get(testName).isOK();
+		}
+		throw new IllegalStateException();
 
+	}
+	
+	private void addAssertionToComponent(Assertion assertion, String componentName) {
+		TestCase test;
+		if (components.containsKey(componentName)) {
+			//TODO if is finished throw testCalled is repetido
+			test = (TestCase)components.get(componentName);
+		} else {
+			test = new TestCase(componentName);
+			addTestComponent(test);
+			
+		}
+		test.getAssertions().add(assertion);
 	}
 
 	/* Asserts: crea un assertion para el metodo que llama (Caller)
-	   el resultado es mantenido por el assertManager */
+	   el resultado es en cada TestCase del cual proviene */
 	
 	public void assertTrue(boolean condition) {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion = new Assertion();
 		assertion.assertTrue(condition);
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
 	}
 	
 	public void assertFalse(boolean condition) {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion = new Assertion();
 		assertion.assertFalse(condition);
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
 	}
 	
 	public void assertEquals(Object a, Object b) {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion =  new Assertion();
 		assertion.assertEquals(a,b);
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
+		//assertManager.processAssertion(assertion);
 	}
 	
 	public void assertEquals(int a, int b) {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion = new Assertion();
 		assertion.assertEquals(new Integer(a),new Integer(b));
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
 	}
 	
 	public void assertEquals(float a, float b) {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion = new Assertion();
 		assertion.assertEquals(new Float(a),new Float(b));
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
 	}
 	
 	public void assertIsNull(Object o) {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion = new Assertion();
 		assertion.assertIsNull(o);
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
 	}
 	
 	public void assertIsNotNull(Object o) {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion = new Assertion();
 		assertion.assertIsNotNull(o);
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
 	}
 	
 	public void fail() {
-		Assertion assertion = Assertion.createWithCaller(getCallerName());
+		Assertion assertion = new Assertion();
 		assertion.fail();
-		assertManager.processAssertion(assertion);
+		addAssertionToComponent(assertion, getTestCallerName());
 	}
 
 
@@ -119,8 +148,13 @@ public abstract class TestSuite extends TestComponent {
 	
 	public void showTest(){
 		
-		IViewTestCase iviewTestCase = new ViewTestCase(assertManager.getResultList());
-		iviewTestCase.prepareViewTestCase().showViewTestCase();
+//		IViewTestCase iviewTestCase = new ViewTestCase(assertManager.getResultList());
+//		iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 
+	@Override
+	public void loadDTO(IDtoTest dto) {
+		// TODO Auto-generated method stub
+		
+	}
 }

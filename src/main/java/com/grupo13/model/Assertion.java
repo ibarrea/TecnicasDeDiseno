@@ -2,7 +2,6 @@ package com.grupo13.model;
 
 public class Assertion {
 
-	private String callerMethod;
 	private String message;
 	private boolean isOk;
 	private boolean hasError;
@@ -13,22 +12,6 @@ public class Assertion {
 
 	public void setHasError(boolean hasError) {
 		this.hasError = hasError;
-	}
-
-	public Assertion(String callerName) {
-		setCallerMethod(callerName);
-	}
-
-	public static Assertion createWithCaller(String callerName) {
-		return new Assertion(callerName);
-	}
-
-	public String getCallerMethod() {
-		return callerMethod;
-	}
-
-	public void setCallerMethod(String callerMethod) {
-		this.callerMethod = callerMethod;
 	}
 
 	public String getMessage() {
@@ -50,7 +33,7 @@ public class Assertion {
 	public void updateStatus(boolean assertPass, String msg) {
 		setOk(assertPass);
 		setMessage(msg);
-		
+
 	}
 
 	public void assertEquals(Object a, Object b) {

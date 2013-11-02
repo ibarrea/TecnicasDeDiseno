@@ -1,29 +1,23 @@
 package com.grupo13.model;
 
+import com.grupo13.mock.idto.IDtoTest;
+
 public abstract class TestComponent {
 	
 	protected String name;
 	protected boolean isOK;
 	protected boolean error;
-	protected boolean finished;
 	
 	public TestComponent() {
 		this.isOK = true;
 		this.error = false;
-		this.finished = false;
-	}
-
-	public boolean isFinished() {
-		return finished;
-	}
-
-	public void setFinished(boolean finished) {
-		this.finished = finished;
 	}
 
 	public abstract void run();
 	
 	public abstract void start();
+	
+	public abstract void loadDTO(IDtoTest dto);
 
 	public boolean hasError() {
 		return error;
@@ -52,5 +46,7 @@ public abstract class TestComponent {
 	public void setOK(boolean isOK) {
 		this.isOK = isOK;
 	}
+	
+	
 
 }

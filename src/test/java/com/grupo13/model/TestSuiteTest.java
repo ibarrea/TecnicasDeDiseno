@@ -8,262 +8,297 @@ import org.junit.rules.ExpectedException;
 
 public class TestSuiteTest {
 
-	private TestSuite test;
-	
+	private TestSuite test1;
+
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
+	private class TestSuite1 extends TestSuite {
+
+		public void exampleFailTest() {
+			fail();
+		}
+
+		public void exampleAssertTrueTest() {
+			assertTrue(true);
+		}
+
+		public void exampleAssertTrueTestFail() {
+			assertTrue(false);
+		}
+
+		public void exampleAssertFalseTest() {
+			assertFalse(false);
+		}
+
+		public void exampleAssertFalseTestFail() {
+			assertFalse(true);
+		}
+
+		public void assertTruePassingAndFailTest() {
+			assertTrue(true);
+			fail();
+		}
+
+		public void exampleAssertEqualsObjectsTestThatShouldPass() {
+			assertEquals("Hola", "Hola");
+		}
+
+		public void exampleAssertEqualsObjectsTestThatShouldntPass() {
+			assertEquals("Hola", "Chau");
+		}
+
+		public void assertEqualsShouldntPassIfReceiveNullObjectAs1stParam() {
+			String objectString = null;
+			assertEquals(objectString, "Chau");
+		}
+
+		public void assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam() {
+			String objectString = null;
+			assertEquals("Hello", objectString);
+		}
+
+		public void assertEqualsShouldntPassIfReceiveBothNullObjects() {
+			String objectString = null;
+			assertEquals(objectString, objectString);
+		}
+
+		public void exampleAssertIsNullTestThatShouldPass() {
+			String objectString = null;
+			assertIsNull(objectString);
+		}
+
+		public void exampleAssertIsNullTestThatShouldntPass() {
+			String objectString = new String("Hello world");
+			assertIsNull(objectString);
+		}
+
+		public void exampleAssertIsNotNullTestThatShouldPass() {
+			String objectString = new String("Hello world");
+			assertIsNotNull(objectString);
+		}
+
+		public void exampleAssertIsNotNullTestThatShouldntPass() {
+			String objectString = null;
+			assertIsNotNull(objectString);
+		}
+
+		public void exampleAssertEqualsIntTestThatShouldPass() {
+			int a = 45;
+			assertEquals(a, a);
+		}
+
+		public void exampleAssertEqualsIntTestThatShouldntPass() {
+			int a = 23;
+			int b = 1988;
+			assertEquals(a, b);
+		}
+
+		public void exampleAssertEqualsFloatTestThatShouldPass() {
+			float a = (float) 23.7;
+			assertEquals(a, a);
+		}
+
+		public void exampleAssertEqualsFloatTestThatShouldntPass() {
+			float a = (float) 23.7;
+			float b = (float) 23.6;
+			assertEquals(a, b);
+		}
+
+		public void run() {
+			// booleans
+			exampleAssertTrueTest();
+			exampleAssertTrueTestFail();
+			exampleAssertFalseTest();
+			exampleAssertFalseTestFail();
+
+			// objects
+			exampleAssertEqualsObjectsTestThatShouldPass();
+			exampleAssertEqualsObjectsTestThatShouldntPass();
+			exampleAssertIsNullTestThatShouldPass();
+			exampleAssertIsNullTestThatShouldntPass();
+			exampleAssertIsNotNullTestThatShouldPass();
+			exampleAssertIsNotNullTestThatShouldntPass();
+			assertEqualsShouldntPassIfReceiveNullObjectAs1stParam();
+			assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam();
+			assertEqualsShouldntPassIfReceiveBothNullObjects();
+
+			// floats
+			exampleAssertEqualsFloatTestThatShouldPass();
+			exampleAssertEqualsFloatTestThatShouldntPass();
+			// integers
+			exampleAssertEqualsIntTestThatShouldntPass();
+			exampleAssertEqualsIntTestThatShouldPass();
+
+			// fail
+			exampleFailTest();
+
+			// combined tests
+			assertTruePassingAndFailTest();
+
+		}
+
+	}
+
+	private class TestSuite2 extends TestSuite {
+
+		public void anotherFailTest() {
+			fail();
+		}
+
+		public void anotherAssertTrueTest() {
+			assertTrue(true);
+		}
+
+		public void run() {
+			// second level depth tests
+			anotherFailTest();
+			anotherAssertTrueTest();
+
+		}
+
+	}
+
 	@Before
 	public void setup() {
-		// creo una clase anonima para testear TestCase que es abstracta
-		test = new TestSuite() {
-			
-			public void exampleFailTest() {
-				fail();
-			}
-			
-			public void exampleAssertTrueTest() {
-				assertTrue(true);
-			}
-			
-			public void exampleAssertTrueTestFail() {
-				assertTrue(false);
-			}
-			
-			public void exampleAssertFalseTest() {
-				assertFalse(false);
-			}
-			
-			public void exampleAssertFalseTestFail() {
-				assertFalse(true);
-			}
-			
-			public void assertTruePassingAndFailTest() {
-				assertTrue(true);
-				fail();
-			}
-			
-			public void exampleAssertEqualsObjectsTestThatShouldPass() {
-				assertEquals("Hola","Hola");
-			}
-			
-			public void exampleAssertEqualsObjectsTestThatShouldntPass() {
-				assertEquals("Hola","Chau");
-			}
-			
-			public void assertEqualsShouldntPassIfReceiveNullObjectAs1stParam() {
-				String objectString = null;
-				assertEquals(objectString,"Chau");
-			}
-			
-			public void assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam() {
-				String objectString = null;
-				assertEquals("Hello",objectString);
-			}
-			
-			public void assertEqualsShouldntPassIfReceiveBothNullObjects() {
-				String objectString = null;
-				assertEquals(objectString,objectString);
-			}
-			
-			public void exampleAssertIsNullTestThatShouldPass() {
-				String objectString = null;
-				assertIsNull(objectString);
-			}
-			
-			public void exampleAssertIsNullTestThatShouldntPass() {
-				String objectString = new String("Hello world");
-				assertIsNull(objectString);
-			}
-			
-			public void exampleAssertIsNotNullTestThatShouldPass() {
-				String objectString = new String("Hello world");
-				assertIsNotNull(objectString);
-			}
-			
-			public void exampleAssertIsNotNullTestThatShouldntPass() {
-				String objectString = null;
-				assertIsNotNull(objectString);
-			}
-			
-			public void exampleAssertEqualsIntTestThatShouldPass() {
-				int a = 45;
-				assertEquals(a, a);
-			}
-			
-			public void exampleAssertEqualsIntTestThatShouldntPass() {
-				int a = 23;
-				int b = 1988;
-				assertEquals(a, b);
-			}
-			
-			public void exampleAssertEqualsFloatTestThatShouldPass() {
-				float a = (float) 23.7;
-				assertEquals(a, a);
-			}
-			
-			public void exampleAssertEqualsFloatTestThatShouldntPass() {
-				float a = (float) 23.7;
-				float b = (float) 23.6;
-				assertEquals(a, b);
-			}
-
-			public void run() {
-				//booleans
-				exampleAssertTrueTest();
-				exampleAssertTrueTestFail();
-				exampleAssertFalseTest();
-				exampleAssertFalseTestFail();
-				
-				//objects
-				exampleAssertEqualsObjectsTestThatShouldPass();
-				exampleAssertEqualsObjectsTestThatShouldntPass();
-				exampleAssertIsNullTestThatShouldPass();
-				exampleAssertIsNullTestThatShouldntPass();
-				exampleAssertIsNotNullTestThatShouldPass();
-				exampleAssertIsNotNullTestThatShouldntPass();
-				assertEqualsShouldntPassIfReceiveNullObjectAs1stParam();
-				assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam();
-				assertEqualsShouldntPassIfReceiveBothNullObjects();
-				
-				
-				//floats
-				exampleAssertEqualsFloatTestThatShouldPass();
-				exampleAssertEqualsFloatTestThatShouldntPass();
-				//integers
-				exampleAssertEqualsIntTestThatShouldntPass();
-				exampleAssertEqualsIntTestThatShouldPass();
-				
-				//fail
-				exampleFailTest();
-				
-				//combined tests
-				assertTruePassingAndFailTest();
-				
-			}
-
-		};
-		test.start();
+		test1 = new TestSuite1();
+		System.out.println(test1.getName());
+		TestSuite test2 = new TestSuite2();
+		//test1.addTestComponent(test2);
+		System.out.println(test2.getName());
+		test1.start();
 	}
 
 	@Test
 	public void existingTestIsPassingIfItsAssertTrueDontFail() {
-		
-		Assert.assertTrue(test.verifyTest("exampleAssertTrueTest"));
+
+		Assert.assertTrue(test1.verifyTest("exampleAssertTrueTest"));
 	}
-	
+
 	@Test
 	public void existingTestIsntPassingIfItsAssertTrueFail() {
-		
-		Assert.assertFalse(test.verifyTest("exampleAssertTrueTestFail"));
+
+		Assert.assertFalse(test1.verifyTest("exampleAssertTrueTestFail"));
 	}
 
 	@Test
 	public void existingTestIsPassingIfItsAssertFalseDontFail() {
-		
-		Assert.assertTrue(test.verifyTest("exampleAssertFalseTest"));
+
+		Assert.assertTrue(test1.verifyTest("exampleAssertFalseTest"));
 	}
-	
 
 	@Test
 	public void existingTestIsntPassingIfItsAssertFalseFail() {
-		
-		Assert.assertFalse(test.verifyTest("exampleAssertFalseTestFail"));
+
+		Assert.assertFalse(test1.verifyTest("exampleAssertFalseTestFail"));
 	}
 
 	@Test
 	public void existingTestIsPassingIfItsAssertEqualObjectDontFail() {
-		
-		Assert.assertTrue(test.verifyTest("exampleAssertEqualsObjectsTestThatShouldPass"));
+
+		Assert.assertTrue(test1
+				.verifyTest("exampleAssertEqualsObjectsTestThatShouldPass"));
 	}
-	
+
 	@Test
 	public void existingTestIsntPassingIfItsAssertEqualObjectFail() {
-		
-		Assert.assertFalse(test.verifyTest("exampleAssertEqualsObjectsTestThatShouldntPass"));
+
+		Assert.assertFalse(test1
+				.verifyTest("exampleAssertEqualsObjectsTestThatShouldntPass"));
 	}
-	
+
 	@Test
 	public void testIsntPassingIfItsAssertNullFail() {
-		
-		Assert.assertFalse(test.verifyTest("exampleAssertIsNullTestThatShouldntPass"));
+
+		Assert.assertFalse(test1
+				.verifyTest("exampleAssertIsNullTestThatShouldntPass"));
 	}
-	
+
 	@Test
 	public void testIsPassingIfItsAssertNullPass() {
-		
-		Assert.assertTrue(test.verifyTest("exampleAssertIsNullTestThatShouldPass"));
+
+		Assert.assertTrue(test1
+				.verifyTest("exampleAssertIsNullTestThatShouldPass"));
 	}
 
 	@Test
 	public void testIsntPassingIfItsAssertNotNullFail() {
-		
-		Assert.assertFalse(test.verifyTest("exampleAssertIsNotNullTestThatShouldntPass"));
+
+		Assert.assertFalse(test1
+				.verifyTest("exampleAssertIsNotNullTestThatShouldntPass"));
 	}
-	
+
 	@Test
 	public void testIsPassingIfItsAssertNotNullPass() {
-		
-		Assert.assertTrue(test.verifyTest("exampleAssertIsNotNullTestThatShouldPass"));
+
+		Assert.assertTrue(test1
+				.verifyTest("exampleAssertIsNotNullTestThatShouldPass"));
 	}
-	
+
 	@Test
 	public void testIsPassingIfItsAssertEqualIntDontFail() {
-		
-		Assert.assertTrue(test.verifyTest("exampleAssertEqualsIntTestThatShouldPass"));
+
+		Assert.assertTrue(test1
+				.verifyTest("exampleAssertEqualsIntTestThatShouldPass"));
 	}
 
 	@Test
 	public void existingTestIsntPassingIfItsAssertEqualIntFail() {
-		
-		Assert.assertFalse(test.verifyTest("exampleAssertEqualsIntTestThatShouldntPass"));
+
+		Assert.assertFalse(test1
+				.verifyTest("exampleAssertEqualsIntTestThatShouldntPass"));
 	}
-	
+
 	@Test
 	public void existingTestIsPassingIfItsAssertEqualFloatDontFail() {
-		
-		Assert.assertTrue(test.verifyTest("exampleAssertEqualsFloatTestThatShouldPass"));
+
+		Assert.assertTrue(test1
+				.verifyTest("exampleAssertEqualsFloatTestThatShouldPass"));
 	}
-	
+
 	@Test
 	public void existingTestIsntPassingIfItsAssertEqualFloatFail() {
-		
-		Assert.assertFalse(test.verifyTest("exampleAssertEqualsFloatTestThatShouldntPass"));
+
+		Assert.assertFalse(test1
+				.verifyTest("exampleAssertEqualsFloatTestThatShouldntPass"));
 	}
-	
+
 	@Test
 	public void testIsntPassingIfItsAssertEqualReceiveNullObjectAs1stParam() {
-		
-		Assert.assertFalse(test.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs1stParam"));
+
+		Assert.assertFalse(test1
+				.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs1stParam"));
 	}
-	
+
 	@Test
 	public void testIsntPassingIfItsAssertEqualReceiveNullObjectAs2stParam() {
-		
-		Assert.assertFalse(test.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam"));
+
+		Assert.assertFalse(test1
+				.verifyTest("assertEqualsShouldntPassIfReceiveNullObjectAs2ndParam"));
 	}
-	
+
 	@Test
 	public void testIsntPassingIfItsAssertEqualReceiveBothNullObjects() {
-		
-		Assert.assertFalse(test.verifyTest("assertEqualsShouldntPassIfReceiveBothNullObjects"));
+
+		Assert.assertFalse(test1
+				.verifyTest("assertEqualsShouldntPassIfReceiveBothNullObjects"));
 	}
-	
+
 	@Test
 	public void verifyTestThatExecuteFailReturnsFalse() {
-		
-		Assert.assertFalse(test.verifyTest("exampleFailTest"));
+
+		Assert.assertFalse(test1.verifyTest("exampleFailTest"));
 	}
-	
+
 	@Test
 	public void twoAssertsInTestsAssertTruePassingAndFailShoudntPass() {
-		
-		Assert.assertFalse(test.verifyTest("assertTruePassingAndFailTest"));
+
+		Assert.assertFalse(test1.verifyTest("assertTruePassingAndFailTest"));
 	}
-	
+
 	@Test
 	public void verifyTestThrowsIllegalStateExceptionWhenTestDoesntExists() {
 		exception.expect(IllegalStateException.class);
-		test.verifyTest("nonExistingTest");
+		test1.verifyTest("nonExistingTest");
 	}
 }
