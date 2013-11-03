@@ -1,8 +1,10 @@
 package com.grupo13.model;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -154,14 +156,20 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 		System.out.println(dto.getMessage(packageName));
+
 		PrintWriter writer = null;
+		java.util.Date date= new java.util.Date();
 		try {
-			writer = new PrintWriter("testResult.txt", "UTF-8");
+			String fileName = "testResult-"+ new Timestamp(date.getTime())+ ".txt";
+			File file = new File("testLogs/" + fileName);
+			file.getParentFile().mkdirs();
+			writer = new PrintWriter(file, "UTF-8");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+
 		writer.println(dto.getMessage(packageName));
 		writer.close();
 	}
