@@ -142,6 +142,7 @@ public class TestSuiteTestReplicated extends TestSuite {
 
 		someTest.start();
 		someTest.showTest();
+		someTest.saveTestResults();
 
 	}
 }

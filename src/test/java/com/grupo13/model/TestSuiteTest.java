@@ -171,6 +171,7 @@ public class TestSuiteTest {
 		test1.addTestComponent(test2);
 		test1.start();
 		test1.showTest();
+		test1.saveTestResults();
 	}
 
 	@Test

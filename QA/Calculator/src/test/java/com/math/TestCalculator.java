@@ -10,7 +10,7 @@ public class TestCalculator extends TestSuite {
 		TestCalculator tc = new TestCalculator();
 		tc.start();
 		tc.showTest();
-
+		tc.saveTestResults();
 	}
 
 	@Override
