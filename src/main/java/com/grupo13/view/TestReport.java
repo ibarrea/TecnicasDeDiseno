@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JTextArea;
-import com.grupo13.mock.idto.IDtoTest;
+
+import com.grupo13.idto.IDtoTest;
 
 public class TestReport extends JTextArea {
 

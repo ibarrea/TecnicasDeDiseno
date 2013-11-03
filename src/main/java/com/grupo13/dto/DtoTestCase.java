@@ -1,6 +1,6 @@
-package com.grupo13.mock.dto;
+package com.grupo13.dto;
 
-import com.grupo13.mock.idto.IDtoTest;
+import com.grupo13.idto.IDtoTest;
 
 public class DtoTestCase implements IDtoTest {
 	String message;

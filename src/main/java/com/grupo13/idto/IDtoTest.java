@@ -1,4 +1,4 @@
-package com.grupo13.mock.idto;
+package com.grupo13.idto;
 
 public interface IDtoTest {
 	String getMessage(String nameProject);

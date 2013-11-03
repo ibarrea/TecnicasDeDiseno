@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.grupo13.mock.dto.DtoTestSuite;
-import com.grupo13.mock.idto.IDtoTest;
+import com.grupo13.dto.DtoTestSuite;
+import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestCase;
-import com.grupo13.view.ViewTestCase;
+import com.grupo13.view.ViewTestSuite;
 
 public abstract class TestSuite extends TestComponent {
 

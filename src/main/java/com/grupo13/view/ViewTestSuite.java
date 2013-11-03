@@ -1,14 +1,15 @@
 package com.grupo13.view;
 import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestCase;
 import com.grupo13.iview.IShowViewTestCase;
-import com.grupo13.mock.idto.IDtoTest;
 
-public class ViewTestCase extends JPanel implements IViewTestCase {
+public class ViewTestSuite extends JPanel implements IViewTestCase {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +25,7 @@ public class ViewTestCase extends JPanel implements IViewTestCase {
 	private TestReport testReport = new TestReport();
 	private JScrollPane viewTestReport = new JScrollPane(testReport);
 
-	public ViewTestCase(IDtoTest iDtoTest) {
+	public ViewTestSuite(IDtoTest iDtoTest) {
 		iniComponentViewTestCase();
 		setViewTestCase(iDtoTest);
 		addComponentViewTestCase();
@@ -87,7 +88,7 @@ public class ViewTestCase extends JPanel implements IViewTestCase {
 
 		private static final long serialVersionUID = 1L;
 
-		public View(ViewTestCase viewTestCase) {
+		public View(ViewTestSuite viewTestCase) {
 			setLayout(null);
 			setTitle(" Test Case");
 			viewTestCase.setPosition(0, 0);

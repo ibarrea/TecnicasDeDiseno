@@ -1,6 +1,6 @@
 package com.grupo13.model;
 
-import com.grupo13.mock.idto.IDtoTest;
+import com.grupo13.idto.IDtoTest;
 
 public abstract class TestComponent {
 	
