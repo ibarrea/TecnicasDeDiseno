@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -158,8 +158,9 @@ public abstract class TestSuite extends TestComponent {
 
 		PrintWriter writer = null;
 		java.util.Date date= new java.util.Date();
+		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HHmmss");
 		try {
-			String fileName = "testResult-"+ new Timestamp(date.getTime())+ ".txt";
+			String fileName = "testResult-"+ dateFormater.format(date)+ ".txt";
 			File file = new File("testLogs/" + fileName);
 			file.getParentFile().mkdirs();
 			writer = new PrintWriter(file, "UTF-8");
