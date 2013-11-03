@@ -66,4 +66,8 @@ public class TestCase extends TestComponent {
 		((DtoTestSuite) dto).add(dtoTestSuite2);
 		
 	}
+	
+	public boolean isTestCase() {
+		return true;
+	}
 }

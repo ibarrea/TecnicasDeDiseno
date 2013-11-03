@@ -283,9 +283,10 @@ public class TestSuiteTest {
 	}
 
 	@Test
-	public void verifyTestThrowsIllegalStateExceptionWhenTestDoesntExists() {
+	public void throwsIllegalStateExceptionWhenTestDoesntExists() {
+		String nonExistingTest = "nonExistingTest";
 		exception.expect(IllegalStateException.class);
-		test1.verifyTest("nonExistingTest");
+		test1.verifyTest(nonExistingTest);
 	}
 	
 	@Test

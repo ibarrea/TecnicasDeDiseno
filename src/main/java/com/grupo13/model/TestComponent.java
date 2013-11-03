@@ -43,6 +43,8 @@ public abstract class TestComponent {
 		this.isOK = isOK;
 	}
 	
-	
+	public boolean isTestCase() {
+		return false;
+	}
 
 }

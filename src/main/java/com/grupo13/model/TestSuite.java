@@ -165,7 +165,17 @@ public abstract class TestSuite extends TestComponent {
 	public void initializaDTO(IDtoTest dto) {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
-			components.get(keySetIterator.next()).loadDTO(dto);
+			TestComponent test = components.get(keySetIterator.next());
+			if (test.isTestCase()) {
+				test.loadDTO(dto);
+			}
+		}
+		keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			TestComponent test = components.get(keySetIterator.next());
+			if (!test.isTestCase()) {
+				test.loadDTO(dto);
+			}
 		}
 	}
 
