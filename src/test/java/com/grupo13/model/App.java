@@ -13,7 +13,7 @@ public class App {
 	public static void main(String[] args) {
     	IDtoTest idtoTestCase1 = new DtoTestCase(false, false,  "TestCase1: FAIL");
     	IDtoTest idtoTestCase2 = new DtoTestCase(false, true, "TestCase2: OK");
-    	IDtoTest idtoTestCase3 = new DtoTestCase(true, false,  "TestCase3: FAIL");
+    	IDtoTest idtoTestCase3 = new DtoTestCase(true, false,  "TestCase3: ERROR");
     	DtoTestSuite dtoTestSuite1 = new DtoTestSuite("MyTestSuite1");
     	
     	dtoTestSuite1.add(idtoTestCase1);
@@ -26,7 +26,7 @@ public class App {
     	
     	IDtoTest idtoTestCase4 = new DtoTestCase(false, false, "TestCase4: FAIL");
     	IDtoTest idtoTestCase5 = new DtoTestCase(false, false, "TestCase5: FAIL");
-    	IDtoTest idtoTestCase6 = new DtoTestCase(true, true, "TestCase6: FAIL");
+    	IDtoTest idtoTestCase6 = new DtoTestCase(true, false, "TestCase6: ERROR");
     	IDtoTest idtoTestCase7 = new DtoTestCase(false, true,"TestCase7: OK");
     	IDtoTest idtoTestCase8 = new DtoTestCase(false, true,"TestCase8: OK");
     	IDtoTest idtoTestCase9 = new DtoTestCase(false, false, "TestCase9: FAIL");

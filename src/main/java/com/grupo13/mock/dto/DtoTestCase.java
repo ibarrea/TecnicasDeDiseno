@@ -5,12 +5,12 @@ import com.grupo13.mock.idto.IDtoTest;
 public class DtoTestCase implements IDtoTest {
 	String message;
 	boolean isOk;
-	boolean isFail;
+	boolean isError;
 
-	public DtoTestCase(boolean isFail, boolean isOk, String message) {
+	public DtoTestCase(boolean isError, boolean isOk, String message) {
 		this.message = message;
 		this.isOk = isOk;
-		this.isFail = isFail;
+		this.isError = isError;
 	}
 
 	@Override
@@ -25,11 +25,11 @@ public class DtoTestCase implements IDtoTest {
 
 	@Override
 	public int getNumberOfErrors() {
-		return ((!isFail) && (!isOk)) ? 1 : 0;
+		return (isError) ? 1 : 0;
 	}
 
 	@Override
 	public int getNumberOfFailures() {
-		return (isFail) ? 1 : 0;
+		return ((!isError) && (!isOk)) ? 1 : 0;
 	}
 }
