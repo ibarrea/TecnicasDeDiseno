@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 
 import com.grupo13.iview.IViewTestCase;
 import com.grupo13.iview.IShowViewTestCase;
+import com.grupo13.mock.idto.IDtoTest;
 import com.grupo13.model.TestCase;
 
 public class ViewTestCase extends JPanel implements IViewTestCase {
@@ -26,9 +27,9 @@ public class ViewTestCase extends JPanel implements IViewTestCase {
 	private TestReport testReport = new TestReport();
 	private JScrollPane viewTestReport = new JScrollPane(testReport);
 
-	public ViewTestCase(List<TestCase> testResults) {
+	public ViewTestCase(IDtoTest iDtoTest) {
 		iniComponentViewTestCase();
-		setViewTestCase(testResults);
+		setViewTestCase(iDtoTest);
 		addComponentViewTestCase();
 	}
 
@@ -55,16 +56,15 @@ public class ViewTestCase extends JPanel implements IViewTestCase {
 		add(viewTestReport);
 	}
 
-	private void setViewTestCase(List<TestCase> testResults) {
-		testReport.addItems(testResults);
+	private void setViewTestCase(IDtoTest iDtoTest) {
+		testReport.addItems(iDtoTest);
 		if (testReport.isOKAllTest()) {
 			statusBar.validState();
 		} else {
 			statusBar.failedState();
 			headerText.setText("Passed: "
-					+ (testReport.getCountAllTest() - testReport
-							.getCountTestFail()) + "/"
-					+ testReport.getCountAllTest() + " Test/s");
+					+ testReport.getCountAllOkTestCase() + "/"
+					+ testReport.getCountAllTestCase() + " Test/s");
 		}
 	}
 

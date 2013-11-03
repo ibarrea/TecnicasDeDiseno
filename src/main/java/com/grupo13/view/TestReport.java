@@ -2,17 +2,22 @@ package com.grupo13.view;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JTextArea;
+
 import java.util.List;
+
+import com.grupo13.mock.idto.IDtoTest;
 import com.grupo13.model.TestCase;
 
 public class TestReport extends JTextArea {
 
 	private static final long serialVersionUID = 1L;
 
-	private boolean isOkAllTest = true;
-	private int countFail = 0;
-	private int countAllTest = 0;
+	private boolean isOkAllTestCase = true;
+	private int numberOfErrors = 0;
+	private int numberOfFailures = 0;
+	private int countAllTestCase = 0;
 
 	private final String OK = new String("OK  ");
 	private final String FAIL = new String("FAIL");
@@ -23,41 +28,30 @@ public class TestReport extends JTextArea {
 		setForeground(Color.darkGray);
 	}
 
-	public void addItems(List<TestCase> tests) {
-		int Index = 1;
-		String status;
-		String msg;
-		countAllTest = tests.size();
-		for (TestCase testResult : tests) {
-			status = getStatus(testResult.isOK());
-			msg = testResult.isOK() ? "" : " Message: "
-					+ testResult.getMessage();
-			if (Index > 1) {
-				setText(getText() + "\n");
-			}
-			setText(getText() + Index++ + ". Status: " + status + " Method: "
-					+ testResult.getName() + msg + "   ");
+	public void addItems(IDtoTest iDtoTest) {
+		setText(iDtoTest.getMessage(""));
+		numberOfErrors = iDtoTest.getNumberOfErrors();
+		numberOfFailures = iDtoTest.getNumberOfFailures();
+		countAllTestCase = iDtoTest.getNumberOfTestCase();
+		if(numberOfErrors + numberOfFailures != 0){
+			isOkAllTestCase = false;
 		}
 	}
 
 	public boolean isOKAllTest() {
-		return isOkAllTest;
+		return isOkAllTestCase;
 	}
 
-	public int getCountTestFail() {
-		return countFail;
+	public int getNumberOfErrors() {
+		return numberOfErrors;
 	}
 
-	public int getCountAllTest() {
-		return countAllTest;
+	public int getCountAllTestCase() {
+		return countAllTestCase;
+	}
+	
+	public int getCountAllOkTestCase() {
+		return countAllTestCase - numberOfErrors - numberOfFailures;
 	}
 
-	private String getStatus(boolean isOk) {
-		if (isOk) {
-			return OK;
-		}
-		isOkAllTest = false;
-		countFail++;
-		return FAIL;
-	}
 }

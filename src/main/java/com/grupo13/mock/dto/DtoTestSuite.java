@@ -34,4 +34,31 @@ public class DtoTestSuite implements IDtoTest {
 		return str;
 	}
 
+	@Override
+	public int getNumberOfTestCase() {
+		int count = 0;
+		for (IDtoTest idtoTest : lDtoTestCase) {
+			count += idtoTest.getNumberOfTestCase();
+		}
+		return count;
+	}
+
+	@Override
+	public int getNumberOfErrors() {
+		int count = 0;
+		for (IDtoTest idtoTest : lDtoTestCase) {
+			count += idtoTest.getNumberOfErrors();
+		}
+		return count;
+	}
+
+	@Override
+	public int getNumberOfFailures() {
+		int count = 0;
+		for (IDtoTest idtoTest : lDtoTestCase) {
+			count += idtoTest.getNumberOfFailures();
+		}
+		return count;
+	}
+
 }
