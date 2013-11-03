@@ -169,7 +169,9 @@ public abstract class TestSuite extends TestComponent {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
+		writer.println("Run: " + dto.getNumberOfTestCase());
+		writer.println("Errors: " + dto.getNumberOfErrors());
+		writer.println("Failures: " + dto.getNumberOfFailures());
 		writer.println(dto.getMessage(packageName));
 		writer.close();
 	}
