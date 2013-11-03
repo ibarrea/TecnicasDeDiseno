@@ -57,11 +57,8 @@ public abstract class TestSuite extends TestComponent {
 		String temp = ste[depthInStack].getClassName();
 		packageName = temp.substring(0, temp.lastIndexOf("."));
 		int limitPos = temp.lastIndexOf("$");
-		if (temp.lastIndexOf("$") < 0) {
-			limitPos = temp.lastIndexOf(".");
-		}
+		System.out.println(temp);
 		name = temp.substring(limitPos + 1, temp.length());
-//		return temp;
 	}
 
 	// devuleve true si el metodo paso
@@ -155,7 +152,7 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		System.out.println(dto.getMessage(packageName));
+		//System.out.println(dto.getMessage(packageName));
 
 		// IViewTestCase iviewTestCase = new
 		// ViewTestCase(assertManager.getResultList());
