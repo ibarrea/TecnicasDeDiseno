@@ -153,7 +153,7 @@ public abstract class TestSuite extends TestComponent {
 	public void showTest() {
 
 		IDtoTest dto = new DtoTestSuite(name);
-		initializaDTO(dto);
+		initializeDTO(dto);
 
 		System.out.println(dto.getMessage(packageName));
 
@@ -162,18 +162,16 @@ public abstract class TestSuite extends TestComponent {
 		// iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 
-	public void initializaDTO(IDtoTest dto) {
+	public void initializeDTO(IDtoTest dto) {
+		loadComponentsToDTO(dto, true);
+		loadComponentsToDTO(dto, false);
+	}
+
+	private void loadComponentsToDTO(IDtoTest dto, boolean applyToTestCases) {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent test = components.get(keySetIterator.next());
-			if (test.isTestCase()) {
-				test.loadDTO(dto);
-			}
-		}
-		keySetIterator = components.keySet().iterator();
-		while (keySetIterator.hasNext()) {
-			TestComponent test = components.get(keySetIterator.next());
-			if (!test.isTestCase()) {
+			if (test.isTestCase() == applyToTestCases) {
 				test.loadDTO(dto);
 			}
 		}
@@ -183,7 +181,7 @@ public abstract class TestSuite extends TestComponent {
 	public void loadDTO(IDtoTest dto) {
 		DtoTestSuite dtoTestSuite2 = new DtoTestSuite(name);
 		((DtoTestSuite) dto).add(dtoTestSuite2);
-		initializaDTO(dto);
+		initializeDTO(dto);
 
 	}
 }
