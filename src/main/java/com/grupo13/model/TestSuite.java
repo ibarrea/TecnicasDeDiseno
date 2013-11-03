@@ -162,7 +162,7 @@ public abstract class TestSuite extends TestComponent {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		writer.println("Archivo de ejemplo");
+		writer.println(dto.getMessage(packageName));
 		writer.close();
 	}
 
@@ -170,8 +170,6 @@ public abstract class TestSuite extends TestComponent {
 
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
-
-		//System.out.println(dto.getMessage(packageName));
 
 		// IViewTestCase iviewTestCase = new
 		// ViewTestCase(assertManager.getResultList());
