@@ -105,6 +105,10 @@ public class TestSuiteTest {
 			assertEquals(a, b);
 		}
 
+		public void veryLongLongMethodNameThatExceedMaximunShowablewInResulstsexampleFailTest() {
+			fail();
+		}
+
 		public void run() {
 			// booleans
 			assertTrueTest();
@@ -132,6 +136,7 @@ public class TestSuiteTest {
 
 			// fail
 			exampleFailTest();
+			veryLongLongMethodNameThatExceedMaximunShowablewInResulstsexampleFailTest();
 
 			// combined tests
 			assertTruePassingAndFailTest();
@@ -275,6 +280,15 @@ public class TestSuiteTest {
 
 		Assert.assertFalse(test1.verifyTest("exampleFailTest"));
 	}
+	
+
+	@Test
+	public void tooLongTestsNameAreVerifiedCorrectly() {
+
+		Assert.assertFalse(test1.verifyTest("veryLongLongMethodNameThatExceedMaximunShowablewInResulstsexampleFailTest"));
+	}
+	
+	
 
 	@Test
 	public void twoAssertsInTestsAssertTruePassingAndFailShoudntPass() {
@@ -323,5 +337,13 @@ public class TestSuiteTest {
 		example.setName(nonExistingSuite);
 		test1.addTestComponent(example);
 		Assert.assertTrue(example.isOK());
+	}
+	
+	@Test
+	public void runInTestCaseThrowsUnsupportedOperationException() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		exception.expect(UnsupportedOperationException.class);
+		example.run();
 	}
 }

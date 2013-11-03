@@ -26,10 +26,6 @@ public class TestCase extends TestComponent {
 		this.message = message;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
 	public String toString() {
 		int allowedNameLength = 40;
 		int maxLength = (name.length() < allowedNameLength) ? name.length() : allowedNameLength;
@@ -49,7 +45,7 @@ public class TestCase extends TestComponent {
 	@Override
 	public void start() {
 		for (Assertion assertion : assertions) {
-			if (!assertion.isOk() || assertion.hasError()) {
+			if (!assertion.isOk()) {
 				setMessage(assertion.getMessage());
 				setError(assertion.hasError());
 				setOK(false);
