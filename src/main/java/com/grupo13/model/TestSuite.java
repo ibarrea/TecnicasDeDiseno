@@ -146,6 +146,13 @@ public abstract class TestSuite extends TestComponent {
 	public void tearDown() {
 
 	}
+	
+	public void saveTestResults(){
+		IDtoTest dto = new DtoTestSuite(name);
+		initializeDTO(dto);
+		System.out.println(dto.getMessage(packageName));
+
+	}
 
 	public void showTest() {
 
