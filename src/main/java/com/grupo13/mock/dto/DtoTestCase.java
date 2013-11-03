@@ -25,7 +25,7 @@ public class DtoTestCase implements IDtoTest {
 
 	@Override
 	public int getNumberOfErrors() {
-		return ((!isFail) && (isOk)) ? 1 : 0;
+		return ((!isFail) && (!isOk)) ? 1 : 0;
 	}
 
 	@Override
