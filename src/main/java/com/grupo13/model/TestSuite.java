@@ -1,5 +1,8 @@
 package com.grupo13.model;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -151,7 +154,16 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 		System.out.println(dto.getMessage(packageName));
-
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("testResult.txt", "UTF-8");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		writer.println("Archivo de ejemplo");
+		writer.close();
 	}
 
 	public void showTest() {
