@@ -61,9 +61,8 @@ public class TestCase extends TestComponent {
 
 	@Override
 	public void loadDTO(IDtoTest dto) {
-		// TODO Auto-generated method stub
-		/*IDtoTest dtoTestSuite2 = new DtoTestCase(toString());
-		((DtoTestSuite) dto).add(dtoTestSuite2);*/
+		IDtoTest dtoTestSuite2 = new DtoTestCase(hasError(),isOK(),toString());
+		((DtoTestSuite) dto).add(dtoTestSuite2);
 		
 	}
 	
