@@ -62,7 +62,6 @@ public abstract class TestSuite extends TestComponent {
 		String temp = ste[depthInStack].getClassName();
 		packageName = temp.substring(0, temp.lastIndexOf("."));
 		int limitPos = temp.lastIndexOf("$");
-		System.out.println(temp);
 		name = temp.substring(limitPos + 1, temp.length());
 	}
 
@@ -181,9 +180,8 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		// IViewTestCase iviewTestCase = new
-		// ViewTestCase(assertManager.getResultList());
-		// iviewTestCase.prepareViewTestCase().showViewTestCase();
+		 IViewTestCase iviewTestCase = new ViewTestSuite(dto);
+		 iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 
 	public void initializeDTO(IDtoTest dto) {

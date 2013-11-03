@@ -170,7 +170,7 @@ public class TestSuiteTest {
 		TestSuite test2 = new TestSuite2();
 		test1.addTestComponent(test2);
 		test1.start();
-		test1.showTest();
+		//test1.showTest();
 	}
 
 	@Test
