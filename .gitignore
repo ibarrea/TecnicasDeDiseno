@@ -13,4 +13,5 @@
 /QA/Calculator/target/*
 .project
 /target
+/testLogs
 /QA/Calculator/target
