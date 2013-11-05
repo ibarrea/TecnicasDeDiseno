@@ -85,16 +85,10 @@ public abstract class TestSuite extends TestComponent {
 			String componentName) {
 		TestCase test;
 		if (components.containsKey(componentName)) {
-			// TODO if is finished throw testCalled is repetido
 			test = (TestCase) components.get(componentName);
 		} else {
 			test = new TestCase(componentName);
-			try {
-				addTestComponent(test);
-			} catch (Grupo13DuplicateTestException e) {
-				e.printStackTrace();
-			}
-
+			addTestComponent(test);
 		}
 		test.getAssertions().add(assertion);
 	}
