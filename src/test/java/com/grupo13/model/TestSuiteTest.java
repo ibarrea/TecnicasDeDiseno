@@ -110,6 +110,20 @@ public class TestSuiteTest {
 		public void veryLongLongMethodNameThatExceedMaximunShowablewInResulstsexampleFailTest() {
 			fail();
 		}
+		
+		public void doubleAssertEqualsFloatTestThatShouldPass() {
+			float a = (float) 23.7;
+			assertEquals(a, a);
+			float b = (float)54.94;
+			assertEquals(b, b);
+		}
+		
+		public void doubleAssertEqualsFloatTestThatShouldntPass() {
+			float a = (float) 23.7;
+			assertEquals(a, a);
+			float b = (float)54.94;
+			assertEquals(b, a);
+		}
 
 		public void run() {
 			// booleans
@@ -132,6 +146,8 @@ public class TestSuiteTest {
 			// floats
 			assertEqualsFloatTestThatShouldPass();
 			assertEqualsFloatTestThatShouldntPass();
+			doubleAssertEqualsFloatTestThatShouldPass();
+			doubleAssertEqualsFloatTestThatShouldntPass();
 			// integers
 			assertEqualsIntTestThatShouldntPass();
 			assertEqualsIntTestThatShouldPass();
@@ -256,6 +272,18 @@ public class TestSuiteTest {
 
 		Assert.assertTrue(test1.verifyTest("assertEqualsFloatTestThatShouldPass"));
 	}
+	
+	@Test
+	public void testDoubleAssertEqualsFloatShouldPass() {
+		
+		Assert.assertTrue(test1.verifyTest("doubleAssertEqualsFloatTestThatShouldPass"));
+	}
+	
+	@Test
+	public void testDoubleAssertEqualsFloatShouldntPass() {
+		
+		Assert.assertFalse(test1.verifyTest("doubleAssertEqualsFloatTestThatShouldntPass"));
+	}
 
 	@Test
 	public void existingTestIsntPassingIfItsAssertEqualFloatFail() {
@@ -309,10 +337,11 @@ public class TestSuiteTest {
 		test1.verifyTest(nonExistingTest);
 	}
 	
-	@Test (expected = Grupo13DuplicateTestException.class)
+	@Test
 	public void addingExistingTestNameThrowsDuplicateTestException() throws Grupo13DuplicateTestException{
 		String existingTestCaseNameShouldCrashIfAdded = "assertTrueTest";
 		TestCase example = new TestCase(existingTestCaseNameShouldCrashIfAdded);
+		exception.expect(Grupo13DuplicateTestException.class);
 		test1.addTestComponent(example);
 
 	}
@@ -321,21 +350,16 @@ public class TestSuiteTest {
 	public void newTestNameAddedToSuiteIsOk() {
 		String nonExistingTest = "nonExistingTest";
 		TestCase example = new TestCase(nonExistingTest);
-		try {
-			test1.addTestComponent(example);
-		} catch (Grupo13DuplicateTestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		test1.addTestComponent(example);
 		Assert.assertTrue(example.isOK());
 	}
 	
-	@Test (expected = Grupo13DuplicateTestException.class)
+	@Test
 	public void addingExistingTestSuiteNameThrowsDuplicateTestException() throws Grupo13DuplicateTestException {
 		String existingTestSuiteNameShouldCrashIfAdded = "TestSuite2";
 		TestSuite example = new TestSuite1();
 		example.setName(existingTestSuiteNameShouldCrashIfAdded);
-//		exception.expect(Grupo13DuplicateTestException.class);//usa esta y sacá la otra
+		exception.expect(Grupo13DuplicateTestException.class);
 		test1.addTestComponent(example);
 	}
 	
@@ -344,12 +368,7 @@ public class TestSuiteTest {
 		String nonExistingSuite = "TestSuite200";
 		TestSuite example = new TestSuite1();
 		example.setName(nonExistingSuite);
-		try {
-			test1.addTestComponent(example);
-		} catch (Grupo13DuplicateTestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		test1.addTestComponent(example);
 		Assert.assertTrue(example.isOK());
 	}
 	

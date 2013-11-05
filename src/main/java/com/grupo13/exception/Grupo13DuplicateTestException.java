@@ -1,6 +1,6 @@
 package com.grupo13.exception;
 
-public class Grupo13DuplicateTestException extends Exception {
+public class Grupo13DuplicateTestException extends IllegalStateException {
 
 	/**
 	 * 

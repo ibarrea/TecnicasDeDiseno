@@ -40,7 +40,7 @@ public abstract class TestSuite extends TestComponent {
 		}
 	}
 
-	public void addTestComponent(TestComponent component) throws Grupo13DuplicateTestException{
+	public void addTestComponent(TestComponent component) {
 		if (components.containsKey(component.getName())) {
 			throw new Grupo13DuplicateTestException(component.getName() + " ya existe.");
 		}
