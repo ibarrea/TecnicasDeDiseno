@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 import com.grupo13.mock.dto.DtoTestSuite;
 import com.grupo13.mock.idto.IDtoTest;
+import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.iview.IViewTestCase;
 import com.grupo13.view.ViewTestCase;
 
@@ -38,7 +39,10 @@ public abstract class TestSuite extends TestComponent {
 		}
 	}
 
-	public void addTestComponent(TestComponent component) {
+	public void addTestComponent(TestComponent component) throws Grupo13DuplicateTestException{
+		if (components.containsKey(component.getName())) {
+			throw new Grupo13DuplicateTestException(component.getName() + " ya existe.");
+		}
 		components.put(component.getName(), component);
 	}
 
@@ -85,7 +89,11 @@ public abstract class TestSuite extends TestComponent {
 			test = (TestCase) components.get(componentName);
 		} else {
 			test = new TestCase(componentName);
-			addTestComponent(test);
+			try {
+				addTestComponent(test);
+			} catch (Grupo13DuplicateTestException e) {
+				e.printStackTrace();
+			}
 
 		}
 		test.getAssertions().add(assertion);
