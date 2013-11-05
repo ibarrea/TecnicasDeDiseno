@@ -309,18 +309,12 @@ public class TestSuiteTest {
 		test1.verifyTest(nonExistingTest);
 	}
 	
-	@Test
-	public void addingExistingTestNameThrowsDuplicateTestException() {
+	@Test (expected = Grupo13DuplicateTestException.class)
+	public void addingExistingTestNameThrowsDuplicateTestException() throws Grupo13DuplicateTestException{
 		String existingTestCaseNameShouldCrashIfAdded = "assertTrueTest";
 		TestCase example = new TestCase(existingTestCaseNameShouldCrashIfAdded);
-		exception.expect(IllegalStateException.class);
-		//exception.expect(Grupo13DuplicateTestException.class);//usa esta y sacá la otra
-		try {
-			test1.addTestComponent(example);
-		} catch (Grupo13DuplicateTestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		test1.addTestComponent(example);
+
 	}
 	
 	@Test
