@@ -4,15 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.grupo13.mock.dto.DtoTestSuite;
-import com.grupo13.mock.idto.IDtoTest;
+
+import com.grupo13.dto.DtoTestSuite;
 import com.grupo13.exception.Grupo13DuplicateTestException;
+import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestCase;
-import com.grupo13.view.ViewTestCase;
+import com.grupo13.view.ViewTestSuite;
 
 public abstract class TestSuite extends TestComponent {
 
@@ -66,7 +67,6 @@ public abstract class TestSuite extends TestComponent {
 		String temp = ste[depthInStack].getClassName();
 		packageName = temp.substring(0, temp.lastIndexOf("."));
 		int limitPos = temp.lastIndexOf("$");
-		System.out.println(temp);
 		name = temp.substring(limitPos + 1, temp.length());
 	}
 
@@ -167,8 +167,9 @@ public abstract class TestSuite extends TestComponent {
 
 		PrintWriter writer = null;
 		java.util.Date date= new java.util.Date();
+		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HHmmss");
 		try {
-			String fileName = "testResult-"+ new Timestamp(date.getTime())+ ".txt";
+			String fileName = "testResult-"+ dateFormater.format(date)+ ".txt";
 			File file = new File("testLogs/" + fileName);
 			file.getParentFile().mkdirs();
 			writer = new PrintWriter(file, "UTF-8");
@@ -189,9 +190,8 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		// IViewTestCase iviewTestCase = new
-		// ViewTestCase(assertManager.getResultList());
-		// iviewTestCase.prepareViewTestCase().showViewTestCase();
+		 IViewTestCase iviewTestCase = new ViewTestSuite(dto);
+		 iviewTestCase.prepareViewTestCase().showViewTestCase();
 	}
 
 	public void initializeDTO(IDtoTest dto) {

@@ -176,7 +176,7 @@ public class TestSuiteTest {
 			e.printStackTrace();
 		}
 		test1.start();
-		test1.showTest();
+		//test1.showTest();
 	}
 
 	@Test

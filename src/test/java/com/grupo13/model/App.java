@@ -1,10 +1,10 @@
 package com.grupo13.model;
 
+import com.grupo13.dto.DtoTestCase;
+import com.grupo13.dto.DtoTestSuite;
+import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestCase;
-import com.grupo13.mock.dto.DtoTestCase;
-import com.grupo13.mock.dto.DtoTestSuite;
-import com.grupo13.mock.idto.IDtoTest;
-import com.grupo13.view.ViewTestCase;
+import com.grupo13.view.ViewTestSuite;
 
 
 
@@ -67,7 +67,7 @@ public class App {
     	dtoTestSuite5.add(idtoTestCase15);
 
 
-		IViewTestCase iviewTestCase = new ViewTestCase(dtoTestSuite1);
+		IViewTestCase iviewTestCase = new ViewTestSuite(dtoTestSuite1);
     	iviewTestCase.prepareViewTestCase().showViewTestCase();
         //System.out.println( dtoTestSuite1.getMessage("com") );
 

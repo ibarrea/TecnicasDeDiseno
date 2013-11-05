@@ -1,9 +1,9 @@
-package com.grupo13.mock.dto;
+package com.grupo13.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.grupo13.mock.idto.IDtoTest;
+import com.grupo13.idto.IDtoTest;
 
 public class DtoTestSuite implements IDtoTest {
 

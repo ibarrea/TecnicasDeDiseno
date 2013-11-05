@@ -5,10 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JTextArea;
 
-import java.util.List;
-
-import com.grupo13.mock.idto.IDtoTest;
-import com.grupo13.model.TestCase;
+import com.grupo13.idto.IDtoTest;
 
 public class TestReport extends JTextArea {
 
@@ -18,9 +15,6 @@ public class TestReport extends JTextArea {
 	private int numberOfErrors = 0;
 	private int numberOfFailures = 0;
 	private int countAllTestCase = 0;
-
-	private final String OK = new String("OK  ");
-	private final String FAIL = new String("FAIL");
 
 	public TestReport() {
 		setBackground(Color.white);
@@ -44,6 +38,10 @@ public class TestReport extends JTextArea {
 
 	public int getNumberOfErrors() {
 		return numberOfErrors;
+	}
+	
+	public int getNumberOfFailures() {
+		return numberOfFailures;
 	}
 
 	public int getCountAllTestCase() {
