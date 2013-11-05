@@ -6,6 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.grupo13.exception.Grupo13DuplicateTestException;
+
 public class TestSuiteTest {
 
 	private TestSuite test1;
@@ -168,7 +170,11 @@ public class TestSuiteTest {
 	public void setup() {
 		test1 = new TestSuite1();
 		TestSuite test2 = new TestSuite2();
-		test1.addTestComponent(test2);
+		try {
+			test1.addTestComponent(test2);
+		} catch (Grupo13DuplicateTestException e) {
+			e.printStackTrace();
+		}
 		test1.start();
 		test1.showTest();
 	}
@@ -309,24 +315,33 @@ public class TestSuiteTest {
 		TestCase example = new TestCase(existingTestCaseNameShouldCrashIfAdded);
 		exception.expect(IllegalStateException.class);
 		//exception.expect(Grupo13DuplicateTestException.class);//usa esta y sacá la otra
-		test1.addTestComponent(example);
+		try {
+			test1.addTestComponent(example);
+		} catch (Grupo13DuplicateTestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	public void newTestNameAddedToSuiteIsOk() {
 		String nonExistingTest = "nonExistingTest";
 		TestCase example = new TestCase(nonExistingTest);
-		test1.addTestComponent(example);
+		try {
+			test1.addTestComponent(example);
+		} catch (Grupo13DuplicateTestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Assert.assertTrue(example.isOK());
 	}
 	
-	@Test
-	public void addingExistingTestSuiteNameThrowsDuplicateTestException() {
+	@Test (expected = Grupo13DuplicateTestException.class)
+	public void addingExistingTestSuiteNameThrowsDuplicateTestException() throws Grupo13DuplicateTestException {
 		String existingTestSuiteNameShouldCrashIfAdded = "TestSuite2";
 		TestSuite example = new TestSuite1();
 		example.setName(existingTestSuiteNameShouldCrashIfAdded);
-		exception.expect(IllegalStateException.class);
-		//exception.expect(Grupo13DuplicateTestException.class);//usa esta y sacá la otra
+//		exception.expect(Grupo13DuplicateTestException.class);//usa esta y sacá la otra
 		test1.addTestComponent(example);
 	}
 	
@@ -335,7 +350,12 @@ public class TestSuiteTest {
 		String nonExistingSuite = "TestSuite200";
 		TestSuite example = new TestSuite1();
 		example.setName(nonExistingSuite);
-		test1.addTestComponent(example);
+		try {
+			test1.addTestComponent(example);
+		} catch (Grupo13DuplicateTestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Assert.assertTrue(example.isOK());
 	}
 	
