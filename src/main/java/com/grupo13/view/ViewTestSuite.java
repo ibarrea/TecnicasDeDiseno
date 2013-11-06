@@ -6,10 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.grupo13.idto.IDtoTest;
-import com.grupo13.iview.IViewTestCase;
-import com.grupo13.iview.IShowViewTestCase;
+import com.grupo13.iview.IViewTestSuite;
+import com.grupo13.iview.IShowViewTestSuite;
 
-public class ViewTestSuite extends JPanel implements IViewTestCase {
+public class ViewTestSuite extends JPanel implements IViewTestSuite {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class ViewTestSuite extends JPanel implements IViewTestCase {
 		setBounds(positionX, positionY, width, high);
 	}
 
-	public View prepareViewTestCase() {
+	public View prepareViewTestSuite() {
 		return new View(this);
 	}
 
@@ -84,18 +84,18 @@ public class ViewTestSuite extends JPanel implements IViewTestCase {
 		description.closeText();
 	}
 
-	private class View extends JFrame implements IShowViewTestCase {
+	private class View extends JFrame implements IShowViewTestSuite {
 
 		private static final long serialVersionUID = 1L;
 
 		public View(ViewTestSuite viewTestCase) {
 			setLayout(null);
-			setTitle(" Test Case");
+			setTitle(" TEST SUITE");
 			viewTestCase.setPosition(0, 0);
 			add(viewTestCase);
 		}
 
-		public void showViewTestCase() {
+		public void showViewTestSuite() {
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(0, 0, width, high);
 			setResizable(false);

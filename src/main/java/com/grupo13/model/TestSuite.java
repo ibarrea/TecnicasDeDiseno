@@ -9,10 +9,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 
+
 import com.grupo13.dto.DtoTestSuite;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.idto.IDtoTest;
-import com.grupo13.iview.IViewTestCase;
+import com.grupo13.iview.IViewTestSuite;
 import com.grupo13.view.ViewTestSuite;
 
 public abstract class TestSuite extends TestComponent {
@@ -195,8 +196,8 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		 IViewTestCase iviewTestCase = new ViewTestSuite(dto);
-		 iviewTestCase.prepareViewTestCase().showViewTestCase();
+		 IViewTestSuite iviewTestSuite = new ViewTestSuite(dto);
+		 iviewTestSuite.prepareViewTestSuite().showViewTestSuite();
 	}
 
 	public void initializeDTO(IDtoTest dto) {
