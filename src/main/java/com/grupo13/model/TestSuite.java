@@ -19,6 +19,17 @@ public abstract class TestSuite extends TestComponent {
 
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 	String packageName;
+	String regex;
+	
+	
+
+	public String getRegex() {
+		return regex;
+	}
+
+	public void setRegex(String regex) {
+		this.regex = regex;
+	}
 
 	public TestSuite() {
 		super();
@@ -197,10 +208,17 @@ public abstract class TestSuite extends TestComponent {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent test = components.get(keySetIterator.next());
-			if (test.isTestCase() == applyToTestCases) {
+			if (test.isTestCase() == applyToTestCases && testCaseMathRegex(test)) {
 				test.loadDTO(dto);
 			}
 		}
+	}
+	
+	private boolean testCaseMathRegex(TestComponent test){
+		if (regex == null) {
+			return true;
+		}
+		return test.getName().matches(regex);
 	}
 
 	@Override
