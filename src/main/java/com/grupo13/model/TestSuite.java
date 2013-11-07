@@ -10,7 +10,9 @@ import java.util.Iterator;
 
 
 
+
 import com.grupo13.dto.DtoTestSuite;
+import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestSuite;
@@ -21,8 +23,6 @@ public abstract class TestSuite extends TestComponent {
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 	String packageName;
 	String regex;
-	
-	
 
 	public String getRegex() {
 		return regex;
@@ -42,13 +42,18 @@ public abstract class TestSuite extends TestComponent {
 		run();
 		startComponents();
 		tearDown();
+		setExecuted(true);
 
 	}
 
 	public void startComponents() {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
-			components.get(keySetIterator.next()).start();
+			TestComponent component = components.get(keySetIterator.next());
+			if (testComponentMatchRegex(component) || !component.isTestCase()) {
+				component.start();
+			}
+			
 		}
 	}
 
@@ -87,7 +92,10 @@ public abstract class TestSuite extends TestComponent {
 	// IllegalStateException
 	public boolean verifyTest(String testName) {
 		if (components.containsKey(testName)) {
-			return components.get(testName).isOK();
+			if (components.get(testName).isExecuted()) {
+				return components.get(testName).isOK();
+			}
+			throw new Grupo13CannotVerifyNonExecutedTestException();
 		}
 		throw new IllegalStateException();
 
@@ -175,7 +183,7 @@ public abstract class TestSuite extends TestComponent {
 		java.util.Date date= new java.util.Date();
 		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HHmmss");
 		try {
-			String fileName = "testResult-"+ dateFormater.format(date)+ ".txt";
+			String fileName = "testResult-" + dateFormater.format(date) + ".txt";
 			File file = new File("testLogs/" + fileName);
 			file.getParentFile().mkdirs();
 			writer = new PrintWriter(file, "UTF-8");
@@ -209,13 +217,13 @@ public abstract class TestSuite extends TestComponent {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent test = components.get(keySetIterator.next());
-			if (test.isTestCase() == applyToTestCases && testCaseMathRegex(test)) {
+			if (test.isTestCase() == applyToTestCases && test.isExecuted()) {
 				test.loadDTO(dto);
 			}
 		}
 	}
 	
-	private boolean testCaseMathRegex(TestComponent test){
+	private boolean testComponentMatchRegex(TestComponent test){
 		if (regex == null) {
 			return true;
 		}

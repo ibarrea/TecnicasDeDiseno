@@ -7,10 +7,20 @@ public abstract class TestComponent {
 	protected String name;
 	protected boolean isOK;
 	protected boolean error;
+	protected boolean executed;
 	
+	public boolean isExecuted() {
+		return executed;
+	}
+
+	public void setExecuted(boolean executed) {
+		this.executed = executed;
+	}
+
 	public TestComponent() {
-		this.isOK = true;
-		this.error = false;
+		isOK = true;
+		error = false;
+		executed = false;
 	}
 
 	public abstract void run();

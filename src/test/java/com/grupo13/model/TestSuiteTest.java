@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 
 public class TestSuiteTest {
@@ -186,11 +187,7 @@ public class TestSuiteTest {
 	public void setup() {
 		test1 = new TestSuite1();
 		TestSuite test2 = new TestSuite2();
-		try {
-			test1.addTestComponent(test2);
-		} catch (Grupo13DuplicateTestException e) {
-			e.printStackTrace();
-		}
+		test1.addTestComponent(test2);
 		test1.start();
 		//test1.showTest();
 	}
@@ -338,7 +335,7 @@ public class TestSuiteTest {
 	}
 	
 	@Test
-	public void addingExistingTestNameThrowsDuplicateTestException() throws Grupo13DuplicateTestException{
+	public void addingExistingTestNameThrowsDuplicateTestException() {
 		String existingTestCaseNameShouldCrashIfAdded = "assertTrueTest";
 		TestCase example = new TestCase(existingTestCaseNameShouldCrashIfAdded);
 		exception.expect(Grupo13DuplicateTestException.class);
@@ -355,7 +352,7 @@ public class TestSuiteTest {
 	}
 	
 	@Test
-	public void addingExistingTestSuiteNameThrowsDuplicateTestException() throws Grupo13DuplicateTestException {
+	public void addingExistingTestSuiteNameThrowsDuplicateTestException() {
 		String existingTestSuiteNameShouldCrashIfAdded = "TestSuite2";
 		TestSuite example = new TestSuite1();
 		example.setName(existingTestSuiteNameShouldCrashIfAdded);
@@ -378,5 +375,24 @@ public class TestSuiteTest {
 		TestCase example = new TestCase(anyTestName);
 		exception.expect(UnsupportedOperationException.class);
 		example.run();
+	}
+	
+	@Test
+	public void regex() {
+		TestSuite anotherTest = new TestSuite1();
+		anotherTest.setRegex("(.*)Int(.*)");
+		anotherTest.start();
+		String existingTestNameNotMatchingRegex = "assertIsNullTestThatShouldPass";
+		exception.expect(Grupo13CannotVerifyNonExecutedTestException.class);
+		Assert.assertTrue(anotherTest.verifyTest(existingTestNameNotMatchingRegex));
+	}
+	
+	@Test
+	public void regex2() {
+		TestSuite anotherTest = new TestSuite1();
+		anotherTest.setRegex("(.*)IsNull(.*)");
+		anotherTest.start();
+		String existingTestNameNotMatchingRegex = "assertIsNullTestThatShouldPass";
+		Assert.assertTrue(anotherTest.verifyTest(existingTestNameNotMatchingRegex));
 	}
 }

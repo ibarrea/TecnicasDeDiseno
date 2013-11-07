@@ -44,6 +44,7 @@ public class TestCase extends TestComponent {
 
 	@Override
 	public void start() {
+		setExecuted(true);
 		for (Assertion assertion : assertions) {
 			if (!assertion.isOk()) {
 				setMessage(assertion.getMessage());

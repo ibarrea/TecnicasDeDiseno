@@ -139,7 +139,7 @@ public class TestSuiteTestReplicated extends TestSuite {
 	
 	public static void main(String[] args) {
 		TestSuiteTestReplicated someTest = new TestSuiteTestReplicated();
-		someTest.setRegex("(.*)verify(.*)");
+		someTest.setRegex("(.*)Int(.*)");
 
 		someTest.start();
 		someTest.showTest();
