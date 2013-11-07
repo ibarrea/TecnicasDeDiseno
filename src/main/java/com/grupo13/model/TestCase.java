@@ -7,6 +7,11 @@ import com.grupo13.dto.DtoTestCase;
 import com.grupo13.dto.DtoTestSuite;
 import com.grupo13.idto.IDtoTest;
 
+
+/* Clase TestCase: Almacena informacion de los tests individuales que definió
+ * el cliente y que son ejecutados dentro del método run() de TestSuite.
+ * Almacena una lista de Assertion que son las ejecutadas dentro del test.
+ * */
 public class TestCase extends TestComponent {
 
 	private String message;

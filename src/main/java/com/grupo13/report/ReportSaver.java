@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 
 import com.grupo13.idto.IDtoTest;
 
+/* Clase ReportSaver: Recibe los resultados de un TestSuite por medio de un DTO
+ * y lo guarda en un archivo.
+ * */
 public class ReportSaver {
 	IDtoTest dto;
 

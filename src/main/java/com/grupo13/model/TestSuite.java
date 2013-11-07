@@ -11,6 +11,12 @@ import com.grupo13.iview.IViewTestSuite;
 import com.grupo13.report.ReportSaver;
 import com.grupo13.view.ViewTestSuite;
 
+/* TestSuite: Clase de la cual debe heredar el cliente para poder usar el
+ * framework de tests. Permite definir métodos setup() y tearDown().
+ * Se debe redefinir el metodo run().
+ * Puede incluir TestCases u otros TestSuites, para esto se usa el patrón Composite. 
+ * */
+
 public abstract class TestSuite extends TestComponent {
 
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
