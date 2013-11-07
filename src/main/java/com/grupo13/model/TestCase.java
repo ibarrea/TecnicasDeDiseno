@@ -58,8 +58,8 @@ public class TestCase extends TestComponent {
 
 	@Override
 	public void loadDTO(IDtoTest dto) {
-		IDtoTest dtoTestSuite2 = new DtoTestCase(hasError(),isOK(),toString());
-		((DtoTestSuite) dto).add(dtoTestSuite2);
+		IDtoTest dtoTestCase = new DtoTestCase(hasError(),isOK(),toString());
+		((DtoTestSuite) dto).add(dtoTestCase);
 		
 	}
 	

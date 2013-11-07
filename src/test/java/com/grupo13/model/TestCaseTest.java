@@ -52,5 +52,15 @@ public class TestCaseTest {
 				"anyTestName                             |Error     |java.lang.NullPointerException",
 				example.toString().trim());
 	}
+	
+	
+	@Test
+	public void formatCheckTestCaseLongNameToString() {
+		String anyTestName = "thisIsAVeryVeryVeryVeryVeryVeryVeryVeryLongLongLongMethodName";
+		TestCase example = new TestCase(anyTestName);
+		Assert.assertEquals(
+				"thisIsAVeryVeryVeryVeryVeryVeryVeryVeryL|Pass      |Ok!",
+				example.toString().trim());
+	}
 
 }

@@ -388,4 +388,14 @@ public class TestSuiteTest {
 		String existingTestNameNotMatchingRegex = "assertIsNullTestThatShouldPass";
 		Assert.assertTrue(anotherTest.verifyTest(existingTestNameNotMatchingRegex));
 	}
+	
+	@Test
+	public void suitesAreExecutedEvenIfTheyNameDoesntMatchRegex() {
+		TestSuite oneTestSuite = new TestSuite1();
+		TestSuite anotherSuiteTest = new TestSuite2();
+		oneTestSuite.setRegex("(.*)NonMatching(.*)");
+		oneTestSuite.addTestComponent(anotherSuiteTest);
+		oneTestSuite.start();
+		Assert.assertTrue(anotherSuiteTest.isExecuted());
+	}
 }
