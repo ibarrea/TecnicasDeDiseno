@@ -371,7 +371,7 @@ public class TestSuiteTest {
 
 	
 	@Test
-	public void regex() {
+	public void nonMatchingTestCannotBeVerified() {
 		TestSuite anotherTest = new TestSuite1();
 		anotherTest.setRegex("(.*)Int(.*)");
 		anotherTest.start();
@@ -381,7 +381,7 @@ public class TestSuiteTest {
 	}
 	
 	@Test
-	public void regex2() {
+	public void matchingTestCanBeVerified() {
 		TestSuite anotherTest = new TestSuite1();
 		anotherTest.setRegex("(.*)IsNull(.*)");
 		anotherTest.start();

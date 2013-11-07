@@ -1,21 +1,14 @@
 package com.grupo13.model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
-
-
-
 
 import com.grupo13.dto.DtoTestSuite;
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestSuite;
+import com.grupo13.report.ReportSaver;
 import com.grupo13.view.ViewTestSuite;
 
 public abstract class TestSuite extends TestComponent {
@@ -49,13 +42,14 @@ public abstract class TestSuite extends TestComponent {
 			if (testComponentMatchRegex(component) || !component.isTestCase()) {
 				component.start();
 			}
-			
+
 		}
 	}
 
 	public void addTestComponent(TestComponent component) {
 		if (components.containsKey(component.getName())) {
-			throw new Grupo13DuplicateTestException(component.getName() + " ya existe.");
+			throw new Grupo13DuplicateTestException(component.getName()
+					+ " ya existe.");
 		}
 		components.put(component.getName(), component);
 	}
@@ -169,30 +163,14 @@ public abstract class TestSuite extends TestComponent {
 	public void tearDown() {
 
 	}
-	
-	public void saveTestResults(){
+
+	public void saveTestResults() {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 		System.out.println(dto.getMessage(packageName));
 
-		PrintWriter writer = null;
-		java.util.Date date= new java.util.Date();
-		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HHmmss");
-		try {
-			String fileName = "testResult-" + dateFormater.format(date) + ".txt";
-			File file = new File("testLogs/" + fileName);
-			file.getParentFile().mkdirs();
-			writer = new PrintWriter(file, "UTF-8");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		writer.println("Run: " + dto.getNumberOfTestCase());
-		writer.println("Errors: " + dto.getNumberOfErrors());
-		writer.println("Failures: " + dto.getNumberOfFailures());
-		writer.println(dto.getMessage(packageName));
-		writer.close();
+		ReportSaver saver = new ReportSaver(dto);
+		saver.save();
 	}
 
 	public void showTest() {
@@ -200,8 +178,8 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		 IViewTestSuite iviewTestSuite = new ViewTestSuite(dto);
-		 iviewTestSuite.prepareViewTestSuite().showViewTestSuite();
+		IViewTestSuite iviewTestSuite = new ViewTestSuite(dto);
+		iviewTestSuite.prepareViewTestSuite().showViewTestSuite();
 	}
 
 	public void initializeDTO(IDtoTest dto) {
@@ -218,8 +196,8 @@ public abstract class TestSuite extends TestComponent {
 			}
 		}
 	}
-	
-	private boolean testComponentMatchRegex(TestComponent test){
+
+	private boolean testComponentMatchRegex(TestComponent test) {
 		if (regex == null) {
 			return true;
 		}
