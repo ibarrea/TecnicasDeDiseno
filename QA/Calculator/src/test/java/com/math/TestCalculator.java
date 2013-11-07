@@ -8,7 +8,10 @@ public class TestCalculator extends TestSuite {
 	public static void main(String[] args) {
 		
 		TestCalculator tc = new TestCalculator();
-		tc.setRegex(".*Bug");
+		TestCalculator tc2 = new TestCalculator();
+		//Anidamiento de suites
+		tc.addTestComponent(tc2);
+		//tc.setRegex(".*Bug");
 		tc.start();
 		tc.showTest();
 		tc.saveTestResults();
