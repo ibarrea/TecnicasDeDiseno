@@ -368,14 +368,7 @@ public class TestSuiteTest {
 		test1.addTestComponent(example);
 		Assert.assertTrue(example.isOK());
 	}
-	
-	@Test
-	public void runInTestCaseThrowsUnsupportedOperationException() {
-		String anyTestName = "anyTestName";
-		TestCase example = new TestCase(anyTestName);
-		exception.expect(UnsupportedOperationException.class);
-		example.run();
-	}
+
 	
 	@Test
 	public void regex() {
