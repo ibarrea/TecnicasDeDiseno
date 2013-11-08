@@ -11,7 +11,7 @@ public class TestCalculator extends TestSuite {
 		TestCalculator tc2 = new TestCalculator();
 		//Anidamiento de suites
 		tc.addTestComponent(tc2);
-		//tc.setRegex(".*Bug");
+		tc.setRegex(".*Bug.*");
 		tc.start();
 		tc.showTest();
 		tc.saveTestResults();
