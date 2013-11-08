@@ -24,12 +24,24 @@ public class ViewTestSuite extends JPanel implements IViewTestSuite {
 	private StatusBar statusBar = new StatusBar(width);
 	private TestReport testReport = new TestReport();
 	private JScrollPane viewTestReport = new JScrollPane(testReport);
+	
+	private static ViewTestSuite instance;
 
-	public ViewTestSuite(IDtoTest iDtoTest) {
-		iniComponentViewTestCase();
+	public void setDTO(IDtoTest iDtoTest) {
 		setViewTestCase(iDtoTest);
 		addComponentViewTestCase();
 		addDescription();
+	}
+	
+	private ViewTestSuite() {
+		iniComponentViewTestCase();
+	}
+	
+	public static ViewTestSuite getInstance(){
+		if (instance == null) {
+			instance = new ViewTestSuite();
+		}
+		return instance;
 	}
 
 	public void setPosition(int positionX, int positionY) {

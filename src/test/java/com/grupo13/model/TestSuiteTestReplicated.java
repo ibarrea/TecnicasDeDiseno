@@ -139,8 +139,12 @@ public class TestSuiteTestReplicated extends TestSuite {
 	
 	public static void main(String[] args) {
 		TestSuiteTestReplicated someTest = new TestSuiteTestReplicated();
-		someTest.setRegex("(.*)Int(.*)");
+		TestSuiteTestReplicated someTestNew = new TestSuiteTestReplicated();
 
+//		someTest.setRegex("(.*)Int(.*)");
+		TestSuiteTestReplicated someTest2 = new TestSuiteTestReplicated();
+		someTest.addTestComponent(someTestNew);
+		someTest.addTestComponent(someTest2);
 		someTest.start();
 		someTest.showTest();
 		someTest.saveTestResults();

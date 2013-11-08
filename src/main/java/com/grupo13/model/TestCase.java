@@ -58,6 +58,7 @@ public class TestCase extends TestComponent {
 				return;
 			}
 		}
+		//LLamar al singleton y pasarle un DtoTestCase y pedirle porfavor q lo imprima por consola
 
 	}
 

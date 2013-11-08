@@ -2,6 +2,7 @@ package com.grupo13.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Timer;
 
 import com.grupo13.dto.DtoTestSuite;
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
@@ -22,6 +23,8 @@ public abstract class TestSuite extends TestComponent {
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 	String packageName;
 	String regex;
+	long startTime;
+	long ellapsedTime;
 
 	public void setRegex(String regex) {
 		this.regex = regex;
@@ -33,12 +36,28 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void start() {
+		startTimer();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setup();
 		run();
 		startComponents();
 		tearDown();
 		setExecuted(true);
+		endTimer();
 
+	}
+
+	private void endTimer() {
+		ellapsedTime = System.currentTimeMillis() - startTime;
+	}
+
+	private void startTimer() {
+		startTime = System.currentTimeMillis();
 	}
 
 	public void startComponents() {
@@ -184,7 +203,8 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		IViewTestSuite iviewTestSuite = new ViewTestSuite(dto);
+		IViewTestSuite iviewTestSuite = ViewTestSuite.getInstance();
+		iviewTestSuite.setDTO(dto);
 		iviewTestSuite.prepareViewTestSuite().showViewTestSuite();
 	}
 
@@ -212,7 +232,7 @@ public abstract class TestSuite extends TestComponent {
 
 	@Override
 	public void loadDTO(IDtoTest dto) {
-		DtoTestSuite dtoTestSuite2 = new DtoTestSuite(name);
+		DtoTestSuite dtoTestSuite2 = new DtoTestSuite(name + " Time: " + ellapsedTime);
 		((DtoTestSuite) dto).add(dtoTestSuite2);
 		initializeDTO(dto);
 
