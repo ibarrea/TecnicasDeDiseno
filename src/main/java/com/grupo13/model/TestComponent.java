@@ -60,5 +60,10 @@ public abstract class TestComponent {
 	public boolean isTestCase() {
 		return false;
 	}
+	
+	public abstract int count();
+	public abstract int countErrors();
+	public abstract int countFailures();
+	public abstract String toString();
 
 }

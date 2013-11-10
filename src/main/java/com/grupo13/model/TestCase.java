@@ -72,4 +72,19 @@ public class TestCase extends TestComponent {
 	public boolean isTestCase() {
 		return true;
 	}
+
+	@Override
+	public int count() {
+		return 1;
+	}
+
+	@Override
+	public int countErrors() {
+		return (error) ? 1 : 0;
+	}
+
+	@Override
+	public int countFailures() {
+		return (isOK) ? 1 : 0;
+	}
 }

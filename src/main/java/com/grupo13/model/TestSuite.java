@@ -208,6 +208,37 @@ public abstract class TestSuite extends TestComponent {
 		ro.setData(dto);
 		ro.produceResult();
 	}
+	
+	public String toString() {
+		String result = testCasesToString();
+		result = result + testSuitesToString();
+		return result;
+		
+	}
+
+	private String testSuitesToString() {
+		String result = new String();
+		Iterator<String> keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			TestComponent test = components.get(keySetIterator.next());
+			if (!test.isTestCase()) {
+				result += test.toString() + "\n";
+			}
+		}
+		return result;
+	}
+
+	private String testCasesToString() {
+		String result = new String();
+		Iterator<String> keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			TestComponent test = components.get(keySetIterator.next());
+			if (test.isTestCase() && test.isExecuted()) {
+				result += test.toString() + "\n";
+			}
+		}
+		return result;
+	}
 
 	public void initializeDTO(IDtoTest dto) {
 		loadComponentsToDTO(dto, true);
@@ -237,5 +268,38 @@ public abstract class TestSuite extends TestComponent {
 		((DtoTestSuite) dto).add(dtoTestSuite2);
 		initializeDTO(dto);
 
+	}
+	
+	@Override
+	public int count() {
+		int countTests = 0;
+		Iterator<String> keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			TestComponent component = components.get(keySetIterator.next());
+			countTests += component.count();
+		}
+		return countTests;
+	}
+
+	@Override
+	public int countErrors() {
+		int countTests = 0;
+		Iterator<String> keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			TestComponent component = components.get(keySetIterator.next());
+			countTests += component.countErrors();
+		}
+		return countTests;
+	}
+
+	@Override
+	public int countFailures() {
+		int countTests = 0;
+		Iterator<String> keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			TestComponent component = components.get(keySetIterator.next());
+			countTests += component.countFailures();
+		}
+		return countTests;
 	}
 }
