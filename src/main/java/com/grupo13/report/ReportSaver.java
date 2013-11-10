@@ -7,18 +7,20 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 
 import com.grupo13.idto.IDtoTest;
+import com.grupo13.view.ResultOutputter;
 
 /* Clase ReportSaver: Recibe los resultados de un TestSuite por medio de un DTO
  * y lo guarda en un archivo.
  * */
-public class ReportSaver {
-	IDtoTest dto;
-
-	public ReportSaver(IDtoTest dto) {
-		this.dto = dto;
-	}
+public class ReportSaver extends ResultOutputter {
 	
 	public void save () {
+
+
+	}
+
+	@Override
+	public void produceResult() {
 		PrintWriter writer = null;
 		java.util.Date date= new java.util.Date();
 		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HHmmss");
@@ -32,13 +34,13 @@ public class ReportSaver {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		writer.println("Run: " + dto.getNumberOfTestCase());
-		writer.println("Errors: " + dto.getNumberOfErrors());
-		writer.println("Failures: " + dto.getNumberOfFailures());
-		dto.setPath("");
-		writer.println(dto.getMessage());
+		writer.println("Run: " + data.getNumberOfTestCase());
+		writer.println("Errors: " + data.getNumberOfErrors());
+		writer.println("Failures: " + data.getNumberOfFailures());
+		data.setPath("");
+		writer.println(data.getMessage());
 		writer.close();
-
+		
 	}
 	
 

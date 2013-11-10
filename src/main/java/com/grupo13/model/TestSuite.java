@@ -194,8 +194,9 @@ public abstract class TestSuite extends TestComponent {
 		dto.setPath(packageName);
 		System.out.println(dto.getMessage());
 
-		ReportSaver saver = new ReportSaver(dto);
-		saver.save();
+		ResultOutputter saver = new ReportSaver();
+		saver.setData(dto);
+		saver.produceResult();
 	}
 
 	public void showTest() {
