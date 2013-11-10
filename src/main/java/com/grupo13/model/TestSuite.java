@@ -2,14 +2,13 @@ package com.grupo13.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Timer;
 
 import com.grupo13.dto.DtoTestSuite;
-//import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
+import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestSuite;
-//import com.grupo13.report.ReportSaver;
+import com.grupo13.report.ReportSaver;
 import com.grupo13.view.ViewTestSuite;
 
 /* TestSuite: Clase de la cual debe heredar el cliente para poder usar el
@@ -110,7 +109,7 @@ public abstract class TestSuite extends TestComponent {
 			if (components.get(testName).isExecuted()) {
 				return components.get(testName).isOK();
 			}
-	//		throw new Grupo13CannotVerifyNonExecutedTestException();
+			throw new Grupo13CannotVerifyNonExecutedTestException();
 		}
 		throw new IllegalStateException();
 
@@ -194,8 +193,8 @@ public abstract class TestSuite extends TestComponent {
 		initializeDTO(dto);
 		System.out.println(dto.getMessage(packageName));
 
-		//ReportSaver saver = new ReportSaver(dto);
-		//saver.save();
+		ReportSaver saver = new ReportSaver(dto);
+		saver.save();
 	}
 
 	public void showTest() {
