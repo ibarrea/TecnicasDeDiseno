@@ -186,11 +186,7 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void saveTestResults() {
-//		IDtoTest dto = new DtoTestSuite(name);
-//		initializeDTO(dto);
-//		dto.setPath(packageName);
-		//TODO
-		//System.out.println(dto.getMessage());
+		System.out.println(this);
 
 		ResultOutputter saver = new ReportSaver();
 		saver.setData(this);
@@ -198,9 +194,6 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void showTest() {
-
-//		IDtoTest dto = new DtoTestSuite(name);
-//		initializeDTO(dto);
 
 		ResultOutputter ro = new ResultView();
 		ro.setData(this);
@@ -237,38 +230,12 @@ public abstract class TestSuite extends TestComponent {
 		return result;
 	}
 
-	// TODO : SACAR CODIGO COMENTADO
-//	public void initializeDTO(IDtoTest dto) {
-//		loadComponentsToDTO(dto, true);
-//		loadComponentsToDTO(dto, false);
-//	}
-
-	// TODO : SACAR CODIGO COMENTADO
-//	private void loadComponentsToDTO(IDtoTest dto, boolean applyToTestCases) {
-//		Iterator<String> keySetIterator = components.keySet().iterator();
-//		while (keySetIterator.hasNext()) {
-//			TestComponent test = components.get(keySetIterator.next());
-//			if (test.isTestCase() == applyToTestCases && test.isExecuted()) {
-//				test.loadDTO(dto);
-//			}
-//		}
-//	}
-
 	private boolean testComponentMatchRegex(TestComponent test) {
 		if (regex == null) {
 			return true;
 		}
 		return test.getName().matches(regex);
 	}
-
-	// TODO : SACAR CODIGO COMENTADO
-//	@Override
-//	public void loadDTO(IDtoTest dto) {
-//		DtoTestSuite dtoTestSuite2 = new DtoTestSuite(name + " Time: " + ellapsedTime);
-//		((DtoTestSuite) dto).add(dtoTestSuite2);
-//		initializeDTO(dto);
-//
-//	}
 	
 	@Override
 	public int count() {

@@ -29,9 +29,6 @@ public abstract class TestComponent {
 	public abstract void run();
 	
 	public abstract void start();
-	
-	// TODO : SACAR CODIGO COMENTADO
-	//public abstract void loadDTO(IDtoTest dto);
 
 	public boolean hasError() {
 		return error;

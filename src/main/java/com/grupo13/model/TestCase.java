@@ -57,14 +57,6 @@ public class TestCase extends TestComponent {
 		//LLamar al singleton y pasarle un DtoTestCase y pedirle porfavor q lo imprima por consola
 
 	}
-
-	// TODO : SACAR CODIGO COMENTADO
-//	@Override
-//	public void loadDTO(IDtoTest dto) {
-//		IDtoTest dtoTestCase = new DtoTestCase(hasError(),isOK(),toString());
-//		((DtoTestSuite) dto).add(dtoTestCase);
-//		
-//	}
 	
 	public boolean isTestCase() {
 		return true;
