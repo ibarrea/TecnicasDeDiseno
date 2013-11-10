@@ -7,9 +7,9 @@ import com.grupo13.dto.DtoTestSuite;
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.idto.IDtoTest;
-import com.grupo13.iview.IViewTestSuite;
 import com.grupo13.report.ReportSaver;
-import com.grupo13.view.ViewTestSuite;
+import com.grupo13.view.ResultOutputter;
+import com.grupo13.view.ResultView;
 
 /* TestSuite: Clase de la cual debe heredar el cliente para poder usar el
  * framework de tests. Permite definir métodos setup() y tearDown().
@@ -203,9 +203,9 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		IViewTestSuite iviewTestSuite = new ViewTestSuite(dto);
-		//iviewTestSuite.setDTO(dto);
-		iviewTestSuite.prepareViewTestSuite().showViewTestSuite();
+		ResultOutputter ro = new ResultView();
+		ro.setData(dto);
+		ro.produceResult();
 	}
 
 	public void initializeDTO(IDtoTest dto) {
