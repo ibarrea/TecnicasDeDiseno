@@ -23,7 +23,8 @@ public class TestReport extends JTextArea {
 	}
 
 	public void addItems(IDtoTest iDtoTest) {
-		setText(iDtoTest.getMessage(""));
+		iDtoTest.setPath("");
+		setText(iDtoTest.getMessage());
 		numberOfErrors = iDtoTest.getNumberOfErrors();
 		numberOfFailures = iDtoTest.getNumberOfFailures();
 		countAllTestCase = iDtoTest.getNumberOfTestCase();

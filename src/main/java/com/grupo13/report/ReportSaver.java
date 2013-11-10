@@ -35,7 +35,8 @@ public class ReportSaver {
 		writer.println("Run: " + dto.getNumberOfTestCase());
 		writer.println("Errors: " + dto.getNumberOfErrors());
 		writer.println("Failures: " + dto.getNumberOfFailures());
-		writer.println(dto.getMessage(""));
+		dto.setPath("");
+		writer.println(dto.getMessage());
 		writer.close();
 
 	}

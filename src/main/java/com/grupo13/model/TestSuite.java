@@ -191,7 +191,8 @@ public abstract class TestSuite extends TestComponent {
 	public void saveTestResults() {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
-		System.out.println(dto.getMessage(packageName));
+		dto.setPath(packageName);
+		System.out.println(dto.getMessage());
 
 		ReportSaver saver = new ReportSaver(dto);
 		saver.save();

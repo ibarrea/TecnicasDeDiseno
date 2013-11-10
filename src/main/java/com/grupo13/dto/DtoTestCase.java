@@ -3,9 +3,10 @@ package com.grupo13.dto;
 import com.grupo13.idto.IDtoTest;
 
 public class DtoTestCase implements IDtoTest {
-	String message;
-	boolean isOk;
-	boolean isError;
+	private String message;
+	private boolean isOk;
+	private boolean isError;
+	private String path;
 	
 	public DtoTestCase(boolean isError, boolean isOk, String message) {
 		this.message = message;
@@ -14,7 +15,7 @@ public class DtoTestCase implements IDtoTest {
 	}
 
 	@Override
-	public String getMessage(String nameProject) {
+	public String getMessage() {
 		return "\n\t" + message;
 	}
 
@@ -31,5 +32,10 @@ public class DtoTestCase implements IDtoTest {
 	@Override
 	public int getNumberOfFailures() {
 		return ((!isError) && (!isOk)) ? 1 : 0;
+	}
+
+	@Override
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

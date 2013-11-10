@@ -6,7 +6,8 @@ import java.util.List;
 import com.grupo13.idto.IDtoTest;
 
 public class DtoTestSuite implements IDtoTest {
-	String message;
+	private String message;
+	private String path;
 	List<IDtoTest> lDtoTestCase = new ArrayList<IDtoTest>();
 
 	
@@ -21,15 +22,16 @@ public class DtoTestSuite implements IDtoTest {
 	}
 
 	@Override
-	public String getMessage(String nameProject) {
+	public String getMessage() {
 		String str = message;
-		String path = message;
-		if (!nameProject.equals("")) {
-			str = "\n" + nameProject + "." + message;
-			path = nameProject + "." + message;
+		String pathini = message;
+		if (!path.equals("")) {
+			str = "\n" + path + "." + message;
+			pathini = path + "." + message;
 		}
 		for (IDtoTest idtoTest : lDtoTestCase) {
-			str += idtoTest.getMessage(path);
+			idtoTest.setPath(pathini);
+			str += idtoTest.getMessage();
 		}
 		return str;
 	}
@@ -59,6 +61,11 @@ public class DtoTestSuite implements IDtoTest {
 			count += idtoTest.getNumberOfFailures();
 		}
 		return count;
+	}
+
+	@Override
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }
