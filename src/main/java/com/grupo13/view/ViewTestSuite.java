@@ -113,6 +113,12 @@ public class ViewTestSuite extends JPanel implements IViewTestSuite {
 			setResizable(false);
 			setVisible(true);
 		}
+
+
+		public void showXMLTestSuite() {
+
+			
+		}
 	}
 
 }
