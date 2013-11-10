@@ -2,10 +2,8 @@ package com.grupo13.view;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JTextArea;
-
-import com.grupo13.idto.IDtoTest;
+import com.grupo13.model.TestComponent;
 
 public class TestReport extends JTextArea {
 
@@ -22,12 +20,15 @@ public class TestReport extends JTextArea {
 		setForeground(Color.darkGray);
 	}
 
-	public void addItems(IDtoTest iDtoTest) {
-		iDtoTest.setPath("");
-		setText(iDtoTest.getMessage());
-		numberOfErrors = iDtoTest.getNumberOfErrors();
-		numberOfFailures = iDtoTest.getNumberOfFailures();
-		countAllTestCase = iDtoTest.getNumberOfTestCase();
+	public void addItems(TestComponent test) {
+		//iDtoTest.setPath("");
+		setText(test.toString());
+		System.out.println("Total: " + test.count());
+		System.out.println("Errors: " + test.countErrors());
+		System.out.println("Failures: " + test.countFailures());
+		numberOfErrors = test.countErrors();
+		numberOfFailures = test.countFailures();
+		countAllTestCase = test.count();
 		if(numberOfErrors + numberOfFailures != 0){
 			isOkAllTestCase = false;
 		}

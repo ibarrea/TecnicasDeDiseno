@@ -1,12 +1,12 @@
 package com.grupo13.view;
 
-import com.grupo13.idto.IDtoTest;
+import com.grupo13.model.TestComponent;
 
 public abstract class ResultOutputter {
 
-	protected IDtoTest data;
+	protected TestComponent data;
 	
-	public void setData(IDtoTest data) {
+	public void setData(TestComponent data) {
 		this.data = data;
 	}
 

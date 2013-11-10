@@ -189,31 +189,31 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void saveTestResults() {
-		IDtoTest dto = new DtoTestSuite(name);
-		initializeDTO(dto);
-		dto.setPath(packageName);
-		System.out.println(dto.getMessage());
+//		IDtoTest dto = new DtoTestSuite(name);
+//		initializeDTO(dto);
+//		dto.setPath(packageName);
+		//TODO
+		//System.out.println(dto.getMessage());
 
 		ResultOutputter saver = new ReportSaver();
-		saver.setData(dto);
+		saver.setData(this);
 		saver.produceResult();
 	}
 
 	public void showTest() {
 
-		IDtoTest dto = new DtoTestSuite(name);
-		initializeDTO(dto);
+//		IDtoTest dto = new DtoTestSuite(name);
+//		initializeDTO(dto);
 
 		ResultOutputter ro = new ResultView();
-		ro.setData(dto);
+		ro.setData(this);
 		ro.produceResult();
 	}
 	
 	public String toString() {
-		String result = testCasesToString();
+		String result = getName() + "\n" +testCasesToString();
 		result = result + testSuitesToString();
 		return result;
-		
 	}
 
 	private String testSuitesToString() {
@@ -234,7 +234,7 @@ public abstract class TestSuite extends TestComponent {
 		while (keySetIterator.hasNext()) {
 			TestComponent test = components.get(keySetIterator.next());
 			if (test.isTestCase() && test.isExecuted()) {
-				result += test.toString() + "\n";
+				result += "\t" + test.toString() + "\n";
 			}
 		}
 		return result;

@@ -4,10 +4,9 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import com.grupo13.idto.IDtoTest;
 import com.grupo13.iview.IViewTestSuite;
 import com.grupo13.iview.IShowViewTestSuite;
+import com.grupo13.model.TestComponent;
 
 public class ViewTestSuite extends JPanel implements IViewTestSuite {
 
@@ -25,11 +24,15 @@ public class ViewTestSuite extends JPanel implements IViewTestSuite {
 	private TestReport testReport = new TestReport();
 	private JScrollPane viewTestReport = new JScrollPane(testReport);
 
-	public ViewTestSuite(IDtoTest iDtoTest) {
+	public ViewTestSuite(TestComponent iDtoTest) {
 		iniComponentViewTestCase();
 		setViewTestCase(iDtoTest);
 		addComponentViewTestCase();
 		addDescription();
+	}
+
+	public ViewTestSuite() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public void setPosition(int positionX, int positionY) {
@@ -60,7 +63,7 @@ public class ViewTestSuite extends JPanel implements IViewTestSuite {
 		add(description);
 	}
 
-	private void setViewTestCase(IDtoTest iDtoTest) {
+	private void setViewTestCase(TestComponent iDtoTest) {
 		testReport.addItems(iDtoTest);
 		if (testReport.isOKAllTest()) {
 			statusBar.validState();

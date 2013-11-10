@@ -33,11 +33,11 @@ public class ReportSaver extends ResultOutputter {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		writer.println("Run: " + data.getNumberOfTestCase());
-		writer.println("Errors: " + data.getNumberOfErrors());
-		writer.println("Failures: " + data.getNumberOfFailures());
-		data.setPath("");
-		writer.println(data.getMessage());
+		writer.println("Run: " + data.count());
+		writer.println("Errors: " + data.countErrors());
+		writer.println("Failures: " + data.countFailures());
+		//data.setPath("");
+		writer.println(data.toString());
 		writer.close();
 		
 	}

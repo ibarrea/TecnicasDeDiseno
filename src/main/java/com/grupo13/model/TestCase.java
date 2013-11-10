@@ -85,6 +85,6 @@ public class TestCase extends TestComponent {
 
 	@Override
 	public int countFailures() {
-		return (isOK) ? 1 : 0;
+		return ((!isOK)&&(!error)) ? 1 : 0;
 	}
 }
