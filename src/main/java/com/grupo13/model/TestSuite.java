@@ -36,12 +36,12 @@ public abstract class TestSuite extends TestComponent {
 
 	public void start() {
 		startTimer();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(500);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		setup();
 		run();
 		startComponents();
@@ -203,8 +203,8 @@ public abstract class TestSuite extends TestComponent {
 		IDtoTest dto = new DtoTestSuite(name);
 		initializeDTO(dto);
 
-		IViewTestSuite iviewTestSuite = ViewTestSuite.getInstance();
-		iviewTestSuite.setDTO(dto);
+		IViewTestSuite iviewTestSuite = new ViewTestSuite(dto);
+		//iviewTestSuite.setDTO(dto);
 		iviewTestSuite.prepareViewTestSuite().showViewTestSuite();
 	}
 
