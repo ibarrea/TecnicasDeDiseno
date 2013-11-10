@@ -97,7 +97,7 @@ public abstract class TestSuite extends TestComponent {
 		final int depthInStack = 4;
 		String temp = ste[depthInStack].getClassName();
 		packageName = temp.substring(0, temp.lastIndexOf("."));
-		int limitPos = temp.lastIndexOf("$");
+		int limitPos = (temp.lastIndexOf("$")>temp.lastIndexOf("."))?temp.lastIndexOf("$"):temp.lastIndexOf(".");
 		name = temp.substring(limitPos + 1, temp.length());
 	}
 
