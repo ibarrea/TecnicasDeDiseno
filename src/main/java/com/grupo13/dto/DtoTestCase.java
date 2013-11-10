@@ -7,41 +7,6 @@ public class DtoTestCase implements IDtoTest {
 	boolean isOk;
 	boolean isError;
 	
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public boolean isOk() {
-		return isOk;
-	}
-
-	public void setOk(boolean isOk) {
-		this.isOk = isOk;
-	}
-
-	public boolean isError() {
-		return isError;
-	}
-
-	public void setError(boolean isError) {
-		this.isError = isError;
-	}
-
-	public DtoTestCase() {
-
-	}	
-	
-	
-	
-	
-	
-	
-	
-	
 	public DtoTestCase(boolean isError, boolean isOk, String message) {
 		this.message = message;
 		this.isOk = isOk;
