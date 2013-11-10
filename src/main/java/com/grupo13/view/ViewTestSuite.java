@@ -26,8 +26,10 @@ public class ViewTestSuite extends JPanel implements IViewTestSuite {
 	private JScrollPane viewTestReport = new JScrollPane(testReport);
 	
 	private static ViewTestSuite instance;
+	private IDtoTest iDtoTest;
 
 	public void setDTO(IDtoTest iDtoTest) {
+		this.iDtoTest = iDtoTest;
 		setViewTestCase(iDtoTest);
 		addComponentViewTestCase();
 		addDescription();
@@ -116,7 +118,13 @@ public class ViewTestSuite extends JPanel implements IViewTestSuite {
 
 
 		public void showXMLTestSuite() {
-
+	        String XMLLocation = "C:/FILE/myXMLFile.xml";
+	        BeansSerializationToXML serializer = new BeansSerializationToXML();
+	        try{
+	        	serializer.serializeObjectToXML(XMLLocation, iDtoTest);
+	        }catch(Exception e){
+	        	
+	        }
 			
 		}
 	}

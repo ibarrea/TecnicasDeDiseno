@@ -6,10 +6,35 @@ import java.util.List;
 import com.grupo13.idto.IDtoTest;
 
 public class DtoTestSuite implements IDtoTest {
-
 	String message;
 	List<IDtoTest> lDtoTestCase = new ArrayList<IDtoTest>();
+	
+	
+	public String getMessage() {
+		return message;
+	}
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public List<IDtoTest> getlDtoTestCase() {
+		return lDtoTestCase;
+	}
+
+	public void setlDtoTestCase(List<IDtoTest> lDtoTestCase) {
+		this.lDtoTestCase = lDtoTestCase;
+	}
+
+	public DtoTestSuite() {
+
+	}
+
+	
+	
+	
+	
+	
 	public DtoTestSuite(String message) {
 		this.message = message;
 	}
