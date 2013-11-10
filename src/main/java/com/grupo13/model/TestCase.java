@@ -3,6 +3,8 @@ package com.grupo13.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdom.Element;
+
 
 /* Clase TestCase: Almacena informacion de los tests individuales que definió
  * el cliente y que son ejecutados dentro del método run() de TestSuite.
@@ -75,5 +77,11 @@ public class TestCase extends TestComponent {
 	@Override
 	public int countFailures() {
 		return ((!isOK)&&(!error)) ? 1 : 0;
+	}
+
+	@Override
+	public Element toXMLElement() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

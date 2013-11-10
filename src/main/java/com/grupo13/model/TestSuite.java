@@ -2,6 +2,9 @@ package com.grupo13.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+
+import org.jdom.Element;
+
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.report.ReportSaver;
@@ -266,5 +269,11 @@ public abstract class TestSuite extends TestComponent {
 			countTests += component.countFailures();
 		}
 		return countTests;
+	}
+	
+	@Override
+	public Element toXMLElement() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
