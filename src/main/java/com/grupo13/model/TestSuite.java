@@ -187,14 +187,12 @@ public abstract class TestSuite extends TestComponent {
 
 	public void saveTestResults() {
 		System.out.println(this);
-
 		ResultOutputter saver = new ReportSaver();
 		saver.setData(this);
 		saver.produceResult();
 	}
 
 	public void showTest() {
-
 		ResultOutputter ro = new ResultView();
 		ro.setData(this);
 		ro.produceResult();

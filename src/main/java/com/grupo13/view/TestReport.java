@@ -21,11 +21,7 @@ public class TestReport extends JTextArea {
 	}
 
 	public void addItems(TestComponent test) {
-		//iDtoTest.setPath("");
 		setText(test.toString());
-		System.out.println("Total: " + test.count());
-		System.out.println("Errors: " + test.countErrors());
-		System.out.println("Failures: " + test.countFailures());
 		numberOfErrors = test.countErrors();
 		numberOfFailures = test.countFailures();
 		countAllTestCase = test.count();

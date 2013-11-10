@@ -1,5 +1,6 @@
 package com.grupo13.model;
 
+import org.jdom.Element;
 
 /* TestComponent: Representa el componente genérico del patrón Composite,
  * de esta clase heredan TestSuite y TestCase
@@ -62,5 +63,6 @@ public abstract class TestComponent {
 	public abstract int countErrors();
 	public abstract int countFailures();
 	public abstract String toString();
+	public abstract Element toXMLElement();
 
 }
