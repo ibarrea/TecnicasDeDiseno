@@ -3,10 +3,6 @@ package com.grupo13.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.grupo13.dto.DtoTestCase;
-import com.grupo13.dto.DtoTestSuite;
-import com.grupo13.idto.IDtoTest;
-
 
 /* Clase TestCase: Almacena informacion de los tests individuales que definió
  * el cliente y que son ejecutados dentro del método run() de TestSuite.
@@ -62,12 +58,13 @@ public class TestCase extends TestComponent {
 
 	}
 
-	@Override
-	public void loadDTO(IDtoTest dto) {
-		IDtoTest dtoTestCase = new DtoTestCase(hasError(),isOK(),toString());
-		((DtoTestSuite) dto).add(dtoTestCase);
-		
-	}
+	// TODO : SACAR CODIGO COMENTADO
+//	@Override
+//	public void loadDTO(IDtoTest dto) {
+//		IDtoTest dtoTestCase = new DtoTestCase(hasError(),isOK(),toString());
+//		((DtoTestSuite) dto).add(dtoTestCase);
+//		
+//	}
 	
 	public boolean isTestCase() {
 		return true;

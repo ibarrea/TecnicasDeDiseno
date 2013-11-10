@@ -1,6 +1,5 @@
 package com.grupo13.model;
 
-import com.grupo13.idto.IDtoTest;
 
 /* TestComponent: Representa el componente genérico del patrón Composite,
  * de esta clase heredan TestSuite y TestCase
@@ -31,7 +30,8 @@ public abstract class TestComponent {
 	
 	public abstract void start();
 	
-	public abstract void loadDTO(IDtoTest dto);
+	// TODO : SACAR CODIGO COMENTADO
+	//public abstract void loadDTO(IDtoTest dto);
 
 	public boolean hasError() {
 		return error;

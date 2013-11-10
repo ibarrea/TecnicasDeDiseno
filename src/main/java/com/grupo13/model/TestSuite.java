@@ -2,11 +2,8 @@ package com.grupo13.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
-
-import com.grupo13.dto.DtoTestSuite;
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
-import com.grupo13.idto.IDtoTest;
 import com.grupo13.report.ReportSaver;
 import com.grupo13.view.ResultOutputter;
 import com.grupo13.view.ResultView;
@@ -240,20 +237,22 @@ public abstract class TestSuite extends TestComponent {
 		return result;
 	}
 
-	public void initializeDTO(IDtoTest dto) {
-		loadComponentsToDTO(dto, true);
-		loadComponentsToDTO(dto, false);
-	}
+	// TODO : SACAR CODIGO COMENTADO
+//	public void initializeDTO(IDtoTest dto) {
+//		loadComponentsToDTO(dto, true);
+//		loadComponentsToDTO(dto, false);
+//	}
 
-	private void loadComponentsToDTO(IDtoTest dto, boolean applyToTestCases) {
-		Iterator<String> keySetIterator = components.keySet().iterator();
-		while (keySetIterator.hasNext()) {
-			TestComponent test = components.get(keySetIterator.next());
-			if (test.isTestCase() == applyToTestCases && test.isExecuted()) {
-				test.loadDTO(dto);
-			}
-		}
-	}
+	// TODO : SACAR CODIGO COMENTADO
+//	private void loadComponentsToDTO(IDtoTest dto, boolean applyToTestCases) {
+//		Iterator<String> keySetIterator = components.keySet().iterator();
+//		while (keySetIterator.hasNext()) {
+//			TestComponent test = components.get(keySetIterator.next());
+//			if (test.isTestCase() == applyToTestCases && test.isExecuted()) {
+//				test.loadDTO(dto);
+//			}
+//		}
+//	}
 
 	private boolean testComponentMatchRegex(TestComponent test) {
 		if (regex == null) {
@@ -262,13 +261,14 @@ public abstract class TestSuite extends TestComponent {
 		return test.getName().matches(regex);
 	}
 
-	@Override
-	public void loadDTO(IDtoTest dto) {
-		DtoTestSuite dtoTestSuite2 = new DtoTestSuite(name + " Time: " + ellapsedTime);
-		((DtoTestSuite) dto).add(dtoTestSuite2);
-		initializeDTO(dto);
-
-	}
+	// TODO : SACAR CODIGO COMENTADO
+//	@Override
+//	public void loadDTO(IDtoTest dto) {
+//		DtoTestSuite dtoTestSuite2 = new DtoTestSuite(name + " Time: " + ellapsedTime);
+//		((DtoTestSuite) dto).add(dtoTestSuite2);
+//		initializeDTO(dto);
+//
+//	}
 	
 	@Override
 	public int count() {
