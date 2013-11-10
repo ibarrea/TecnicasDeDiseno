@@ -24,6 +24,7 @@ public abstract class TestSuite extends TestComponent {
 	String regex;
 	long startTime;
 	long ellapsedTime;
+	int count, countError, countFailures, countSkipped;
 
 	public void setRegex(String regex) {
 		this.regex = regex;
@@ -31,6 +32,7 @@ public abstract class TestSuite extends TestComponent {
 
 	public TestSuite() {
 		super();
+		count = countError = countFailures = countSkipped = 0;
 		definePackageClassName();
 	}
 
@@ -47,6 +49,7 @@ public abstract class TestSuite extends TestComponent {
 		startComponents();
 		tearDown();
 		setExecuted(true);
+		updateCounts();
 		endTimer();
 
 	}
@@ -240,35 +243,33 @@ public abstract class TestSuite extends TestComponent {
 	
 	@Override
 	public int count() {
-		int countTests = 0;
-		Iterator<String> keySetIterator = components.keySet().iterator();
-		while (keySetIterator.hasNext()) {
-			TestComponent component = components.get(keySetIterator.next());
-			countTests += component.count();
-		}
-		return countTests;
+		return count;
 	}
 
-	@Override
-	public int countErrors() {
-		int countTests = 0;
+	public void updateCounts() {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());
-			countTests += component.countErrors();
+			count += component.count();
+			countError += component.countErrors();
+			countFailures += component.countFailures();
+			countSkipped += component.countSkipped();
 		}
-		return countTests;
+	}
+	@Override
+	public int countErrors() {
+		return countError;
 	}
 
 	@Override
 	public int countFailures() {
-		int countTests = 0;
-		Iterator<String> keySetIterator = components.keySet().iterator();
-		while (keySetIterator.hasNext()) {
-			TestComponent component = components.get(keySetIterator.next());
-			countTests += component.countFailures();
-		}
-		return countTests;
+		return countFailures;
+	}
+	
+
+	@Override
+	public int countSkipped() {
+		return countSkipped;
 	}
 	
 	@Override

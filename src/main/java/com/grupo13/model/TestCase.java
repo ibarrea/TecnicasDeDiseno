@@ -81,7 +81,12 @@ public class TestCase extends TestComponent {
 
 	@Override
 	public Element toXMLElement() {
-		// TODO Auto-generated method stub
+		Element e = new Element("testcase");
 		return null;
+	}
+
+	@Override
+	public int countSkipped() {
+		return (skipped) ? 1 : 0;
 	}
 }

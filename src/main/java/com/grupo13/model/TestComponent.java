@@ -12,6 +12,7 @@ public abstract class TestComponent {
 	protected boolean isOK;
 	protected boolean error;
 	protected boolean executed;
+	protected boolean skipped;
 	
 	public boolean isExecuted() {
 		return executed;
@@ -62,6 +63,7 @@ public abstract class TestComponent {
 	public abstract int count();
 	public abstract int countErrors();
 	public abstract int countFailures();
+	public abstract int countSkipped();
 	public abstract String toString();
 	public abstract Element toXMLElement();
 
