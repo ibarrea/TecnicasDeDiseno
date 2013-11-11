@@ -2,6 +2,7 @@ package com.grupo13.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jdom.Element;
 
@@ -22,8 +23,18 @@ public abstract class TestSuite extends TestComponent {
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 	String packageName;
 	String regex;
+	List<String> tags;
 	long startTime;
 	long ellapsedTime;
+
+	
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
 
 	public void setRegex(String regex) {
 		this.regex = regex;
@@ -36,12 +47,6 @@ public abstract class TestSuite extends TestComponent {
 
 	public void start() {
 		startTimer();
-//		try {
-//			Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		setup();
 		run();
 		startComponents();
@@ -63,7 +68,7 @@ public abstract class TestSuite extends TestComponent {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());
-			if (testComponentMatchRegex(component) || !component.isTestCase()) {
+			if (testComponentMatchRegex(component) || !component.isTestCase() || testComponentMatchTags(component)) {
 				component.start();
 			}
 
@@ -236,6 +241,18 @@ public abstract class TestSuite extends TestComponent {
 			return true;
 		}
 		return test.getName().matches(regex);
+	}
+	
+	private boolean testComponentMatchTags(TestComponent test) {
+		if (this.tags == null) {
+			return true;
+		}
+		for (String tag : this.tags) {
+			if (test.getTags().contains(tag)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
