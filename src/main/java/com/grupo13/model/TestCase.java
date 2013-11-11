@@ -24,6 +24,14 @@ public class TestCase extends TestComponent {
 		this.name = name;
 		message = "Ok!";
 	}
+	
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
 
 	public void setMessage(String message) {
 		this.message = message;
