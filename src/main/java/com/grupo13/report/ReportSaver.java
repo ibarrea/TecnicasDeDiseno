@@ -7,16 +7,11 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import com.grupo13.view.ResultOutputter;
 
-/* Clase ReportSaver: Recibe los resultados de un TestSuite por medio de un DTO
+/* Clase ReportSaver: Recibe los resultados de un TestSuite
  * y lo guarda en un archivo. Hereda de ResultOutputter y se maneja el patron Strategy
  * segun el output que desee el usuario.
  * */
 public class ReportSaver extends ResultOutputter {
-	
-	public void save () {
-
-
-	}
 
 	@Override
 	public void produceResult() {

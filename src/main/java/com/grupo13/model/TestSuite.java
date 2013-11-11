@@ -23,13 +23,30 @@ public abstract class TestSuite extends TestComponent {
 
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 	String packageName;
+	String superSuiteName;
 	String regex;
 	List<String> tags;
 	long startTime;
 	long ellapsedTime;
 	int count, countError, countFailures, countSkipped;
 
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
 	
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public String getSuperSuiteName() {
+		return superSuiteName;
+	}
+
+	public void setSuperSuiteName(String superSuiteName) {
+		this.superSuiteName = superSuiteName;
+	}
+
 	public List<String> getTags() {
 		return tags;
 	}
@@ -45,6 +62,7 @@ public abstract class TestSuite extends TestComponent {
 	public TestSuite() {
 		super();
 		count = countError = countFailures = countSkipped = 0;
+		superSuiteName = new String("");
 		definePackageClassName();
 	}
 
@@ -105,8 +123,9 @@ public abstract class TestSuite extends TestComponent {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		final int depthInStack = 4;
 		String temp = ste[depthInStack].getClassName();
-		packageName = temp.substring(0, temp.lastIndexOf("."));
 		int limitPos = (temp.lastIndexOf("$")>temp.lastIndexOf("."))?temp.lastIndexOf("$"):temp.lastIndexOf(".");
+		packageName = temp.substring(0, temp.lastIndexOf("."));
+		
 		name = temp.substring(limitPos + 1, temp.length());
 	}
 
@@ -124,8 +143,7 @@ public abstract class TestSuite extends TestComponent {
 
 	}
 
-	private void addAssertionToComponent(Assertion assertion,
-			String componentName) {
+	private void addAssertionToComponent(Assertion assertion, String componentName) {
 		TestCase test;
 		if (components.containsKey(componentName)) {
 			test = (TestCase) components.get(componentName);
@@ -215,8 +233,15 @@ public abstract class TestSuite extends TestComponent {
 	}
 	
 	public String toString() {
-		String result = getName() + "\n" +testCasesToString();
-		result = result + testSuitesToString();
+		String result = getFullName();
+		result +=  "\n" + testCasesToString() + testSuitesToString();
+		return result;
+	}
+
+	private String getFullName() {
+		String result = new String(packageName + ".");
+		result += getSuperSuiteName().isEmpty() ? "" : getSuperSuiteName() + "."; 
+		result += getName();
 		return result;
 	}
 
@@ -226,6 +251,7 @@ public abstract class TestSuite extends TestComponent {
 		while (keySetIterator.hasNext()) {
 			TestComponent test = components.get(keySetIterator.next());
 			if (!test.isTestCase()) {
+				((TestSuite)test).setSuperSuiteName(getName());
 				result += test.toString() + "\n";
 			}
 		}
@@ -287,7 +313,6 @@ public abstract class TestSuite extends TestComponent {
 	public Integer countFailures() {
 		return countFailures;
 	}
-	
 
 	@Override
 	public Integer countSkipped() {
@@ -297,7 +322,7 @@ public abstract class TestSuite extends TestComponent {
 	@Override
 	public Element toXMLElement() {
 		Element element = new Element("testsuite");
-		element.setAttribute("name", getName());
+		element.setAttribute("name", getFullName());
 		element.setAttribute("package", packageName);
 		element.setAttribute("tests", count().toString());
 		element.setAttribute("failures", countFailures().toString());
