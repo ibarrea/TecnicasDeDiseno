@@ -1,5 +1,7 @@
 package com.grupo13.model;
 
+import java.util.List;
+
 import org.jdom.Element;
 
 /* TestComponent: Representa el componente genérico del patrón Composite,
@@ -9,6 +11,7 @@ import org.jdom.Element;
 public abstract class TestComponent {
 	
 	protected String name;
+	protected List<String> tags;
 	protected boolean isOK;
 	protected boolean error;
 	protected boolean executed;
@@ -20,6 +23,12 @@ public abstract class TestComponent {
 	public void setExecuted(boolean executed) {
 		this.executed = executed;
 	}
+	
+	
+
+	public abstract List<String> getTags();
+
+	public abstract void setTags(List<String> tags) ;
 
 	public TestComponent() {
 		isOK = true;
