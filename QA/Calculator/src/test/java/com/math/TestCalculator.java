@@ -1,6 +1,6 @@
 package com.math;
 
-import com.grupo13.model.*;
+import com.grupo13.model.TestSuite;
 import com.math.calculator.Calculator;
 
 public class TestCalculator extends TestSuite {

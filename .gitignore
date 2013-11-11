@@ -11,6 +11,8 @@
 /.settings/*
 /target/*
 /QA/Calculator/target/*
+/QA/Calculator/.settings
+/QA/Calculator/testLogs
 .project
 /target
 /testLogs

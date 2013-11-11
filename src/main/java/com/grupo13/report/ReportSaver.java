@@ -31,7 +31,6 @@ public class ReportSaver extends ResultOutputter {
 		writer.println("Run: " + data.count());
 		writer.println("Errors: " + data.countErrors());
 		writer.println("Failures: " + data.countFailures());
-		//data.setPath("");
 		writer.println(data.toString());
 		writer.close();
 		
