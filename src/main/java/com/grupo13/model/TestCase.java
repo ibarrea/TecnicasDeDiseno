@@ -3,8 +3,8 @@ package com.grupo13.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdom.Attribute;
 import org.jdom.Element;
-
 
 /* Clase TestCase: Almacena informacion de los tests individuales que definió
  * el cliente y que son ejecutados dentro del método run() de TestSuite.
@@ -31,12 +31,17 @@ public class TestCase extends TestComponent {
 
 	public String toString() {
 		int allowedNameLength = 40;
-		int maxLength = (name.length() < allowedNameLength) ? name.length() : allowedNameLength;
+		int maxLength = (name.length() < allowedNameLength) ? name.length()
+				: allowedNameLength;
 		String inputString = name.substring(0, maxLength);
-		String msg = isOK() ? "Pass" :(hasError()?"Error":"Failed");
-		return String.format("%1$-" + allowedNameLength + "s", inputString) + "|"
-				+ String.format("%1$-" + 10 + "s", msg)
-				+ "|" + String.format("%1$-" + 30 + "s", message);
+		String msg = status();
+		return String.format("%1$-" + allowedNameLength + "s", inputString)
+				+ "|" + String.format("%1$-" + 10 + "s", msg) + "|"
+				+ String.format("%1$-" + 30 + "s", message);
+	}
+
+	private String status() {
+		return isOK() ? "Pass" : (hasError() ? "Error" : "Failed");
 	}
 
 	@Override
@@ -56,37 +61,52 @@ public class TestCase extends TestComponent {
 				return;
 			}
 		}
-		//LLamar al singleton y pasarle un DtoTestCase y pedirle porfavor q lo imprima por consola
+		// LLamar al singleton y pasarle un DtoTestCase y pedirle porfavor q lo
+		// imprima por consola
 
 	}
-	
+
 	public boolean isTestCase() {
 		return true;
 	}
 
 	@Override
-	public int count() {
+	public Integer count() {
 		return 1;
 	}
 
 	@Override
-	public int countErrors() {
+	public Integer countErrors() {
 		return (error) ? 1 : 0;
 	}
 
 	@Override
-	public int countFailures() {
-		return ((!isOK)&&(!error)) ? 1 : 0;
+	public Integer countFailures() {
+		return ((!isOK) && (!error)) ? 1 : 0;
 	}
 
 	@Override
 	public Element toXMLElement() {
-		Element e = new Element("testcase");
-		return null;
+		Element element = new Element("testcase");
+		element.setAttribute("name", getName());
+		element.setAttribute("status", status());
+		element.addContent(new Element("skipped").setText(countSkipped().toString()));
+		if (error) {
+			Element error = new Element("error");
+			error.setAttribute(new Attribute("message", message));
+			element.addContent(error);
+
+		} else if ((!isOK) && (!error)) {
+			Element failure = new Element("failure");
+			failure.setAttribute(new Attribute("message", message));
+			element.addContent(failure);
+
+		}
+		return element;
 	}
 
 	@Override
-	public int countSkipped() {
+	public Integer countSkipped() {
 		return (skipped) ? 1 : 0;
 	}
 }

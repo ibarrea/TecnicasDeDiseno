@@ -8,6 +8,7 @@ import org.jdom.Element;
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
 import com.grupo13.report.ReportSaver;
+import com.grupo13.report.XMLSaver;
 import com.grupo13.view.ResultOutputter;
 import com.grupo13.view.ResultView;
 
@@ -193,9 +194,13 @@ public abstract class TestSuite extends TestComponent {
 
 	public void saveTestResults() {
 		System.out.println(this);
-		ResultOutputter saver = new ReportSaver();
-		saver.setData(this);
-		saver.produceResult();
+		ResultOutputter plainTextSaver = new ReportSaver();
+		plainTextSaver.setData(this);
+		plainTextSaver.produceResult();
+		
+		ResultOutputter xmlSaver = new XMLSaver();
+		xmlSaver.setData(this);
+		xmlSaver.produceResult();
 	}
 
 	public void showTest() {
@@ -242,7 +247,7 @@ public abstract class TestSuite extends TestComponent {
 	}
 	
 	@Override
-	public int count() {
+	public Integer count() {
 		return count;
 	}
 
@@ -257,24 +262,34 @@ public abstract class TestSuite extends TestComponent {
 		}
 	}
 	@Override
-	public int countErrors() {
+	public Integer countErrors() {
 		return countError;
 	}
 
 	@Override
-	public int countFailures() {
+	public Integer countFailures() {
 		return countFailures;
 	}
 	
 
 	@Override
-	public int countSkipped() {
+	public Integer countSkipped() {
 		return countSkipped;
 	}
 	
 	@Override
 	public Element toXMLElement() {
-		// TODO Auto-generated method stub
-		return null;
+		Element element = new Element("testsuite");
+		element.setAttribute("name", getName());
+		element.setAttribute("package", packageName);
+		element.setAttribute("tests", count().toString());
+		element.setAttribute("failures", countFailures().toString());
+		element.setAttribute("errors", countErrors().toString());
+		Iterator<String> keySetIterator = components.keySet().iterator();
+		while (keySetIterator.hasNext()) {
+			TestComponent component = components.get(keySetIterator.next());
+			element.addContent(component.toXMLElement());
+		}
+		return element;
 	}
 }

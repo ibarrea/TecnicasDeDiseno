@@ -60,10 +60,10 @@ public abstract class TestComponent {
 		return false;
 	}
 	
-	public abstract int count();
-	public abstract int countErrors();
-	public abstract int countFailures();
-	public abstract int countSkipped();
+	public abstract Integer count();
+	public abstract Integer countErrors();
+	public abstract Integer countFailures();
+	public abstract Integer countSkipped();
 	public abstract String toString();
 	public abstract Element toXMLElement();
 
