@@ -22,6 +22,7 @@ public class TestCase extends TestComponent {
 	public TestCase(String name) {
 		super();
 		this.name = name;
+		tags = new ArrayList<String>();
 		message = "Ok!";
 	}
 	
@@ -116,5 +117,10 @@ public class TestCase extends TestComponent {
 	@Override
 	public Integer countSkipped() {
 		return (skipped) ? 1 : 0;
+	}
+
+	@Override
+	public void addTag(String tag) {
+		tags.add(tag);
 	}
 }

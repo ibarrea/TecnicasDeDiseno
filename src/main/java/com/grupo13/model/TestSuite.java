@@ -1,5 +1,6 @@
 package com.grupo13.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,11 +26,10 @@ public abstract class TestSuite extends TestComponent {
 	String packageName;
 	String superSuiteName;
 	String regex;
-	List<String> tags;
+	List<String> tagsToExecute;
 	long startTime;
 	long ellapsedTime;
 	int count, countError, countFailures, countSkipped;
-
 
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
@@ -55,12 +55,18 @@ public abstract class TestSuite extends TestComponent {
 		this.tags = tags;
 	}
 
+	@Override
+	public void addTag(String tag) {
+		tags.add(tag);
+	}
 	public void setRegex(String regex) {
 		this.regex = regex;
 	}
 
 	public TestSuite() {
 		super();
+		tagsToExecute = new ArrayList<String>();
+		tags = new ArrayList<String>();
 		count = countError = countFailures = countSkipped = 0;
 		superSuiteName = new String("");
 		definePackageClassName();
@@ -281,7 +287,7 @@ public abstract class TestSuite extends TestComponent {
 		if (this.tags == null) {
 			return true;
 		}
-		for (String tag : this.tags) {
+		for (String tag : this.tagsToExecute) {
 			if (test.getTags().contains(tag)) {
 				return true;
 			}

@@ -30,6 +30,8 @@ public abstract class TestComponent {
 	public abstract List<String> getTags();
 
 	public abstract void setTags(List<String> tags) ;
+	
+	public abstract void addTag(String tag);
 
 	public TestComponent() {
 		isOK = true;
