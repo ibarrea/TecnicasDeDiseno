@@ -100,6 +100,9 @@ public abstract class TestSuite extends TestComponent {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());
+			if (component.skipped) {
+				continue;
+			}
 			if (testComponentMatchRegex(component) || !component.isTestCase() || testComponentMatchTags(component)) {
 				component.start();
 			}
@@ -151,6 +154,17 @@ public abstract class TestSuite extends TestComponent {
 		}
 		throw new IllegalStateException();
 
+	}
+	
+	private void addSkipToComponent(String componentName){
+		TestCase test;
+		if (components.containsKey(componentName)) {
+			test = (TestCase) components.get(componentName);
+		} else {
+			test = new TestCase(componentName);
+			addTestComponent(test);
+		}
+		test.skip();
 	}
 
 	private void addAssertionToComponent(Assertion assertion, String componentName) {
@@ -327,6 +341,11 @@ public abstract class TestSuite extends TestComponent {
 	@Override
 	public Integer countSkipped() {
 		return countSkipped;
+	}
+	
+	@Override
+	public void skip() {
+		addSkipToComponent(getTestCallerName());
 	}
 	
 	@Override
