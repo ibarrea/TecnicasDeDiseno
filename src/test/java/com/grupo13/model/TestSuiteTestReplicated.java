@@ -119,6 +119,10 @@ public class TestSuiteTestReplicated extends TestSuite {
 		assertFalse(test.verifyTest("exampleFailTest"));
 	}
 
+	public void verifySkipIsWorkingFor1Method() {
+		assertEquals(1,test.countSkipped);
+	}
+	
 	@Override
 	public void run() {
 		existingTestIsPassingIfItsAssertTrueDontFail();
@@ -138,7 +142,11 @@ public class TestSuiteTestReplicated extends TestSuite {
 		existingTestIsntPassingIfItsAssertEqualFloatFail();
 
 		verifyTestThatExecuteFailReturnsFalse();
+		
 		verifySkipTestThatExecuteFailReturnsFalse();
+		
+		verifySkipIsWorkingFor1Method();
+		
 
 	}
 	
@@ -147,7 +155,6 @@ public class TestSuiteTestReplicated extends TestSuite {
 		TestSuiteTestReplicated someTestNew = new TestSuiteTestReplicated();
 
 //		someTest.setRegex("(.*)Int(.*)");
-		someTest.addTestComponent(someTestNew);
 		someTest.start();
 		someTest.showTest();
 		someTest.saveTestResults();
