@@ -31,6 +31,10 @@ public abstract class TestSuite extends TestComponent {
 	long ellapsedTime;
 	int count, countError, countFailures, countSkipped;
 
+	public void addTagToExecute(String tag){
+		tagsToExecute.add(tag);
+	}
+	
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
 	}
