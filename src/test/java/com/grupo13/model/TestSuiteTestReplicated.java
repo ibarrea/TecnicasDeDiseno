@@ -120,7 +120,8 @@ public class TestSuiteTestReplicated extends TestSuite {
 	}
 
 	public void verifySkipIsWorkingFor1Method() {
-		assertEquals(1,test.countSkipped);
+		updateCounts();
+		assertEquals(1, countSkipped);
 	}
 	
 	@Override
@@ -155,6 +156,7 @@ public class TestSuiteTestReplicated extends TestSuite {
 		TestSuiteTestReplicated someTestNew = new TestSuiteTestReplicated();
 
 //		someTest.setRegex("(.*)Int(.*)");
+		someTest.addTestComponent(someTestNew);
 		someTest.start();
 		someTest.showTest();
 		someTest.saveTestResults();

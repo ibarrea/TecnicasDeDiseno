@@ -319,6 +319,8 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void updateCounts() {
+		count = countError = countFailures = countSkipped = 0;
+		
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());
