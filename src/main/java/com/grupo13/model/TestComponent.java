@@ -25,6 +25,8 @@ public abstract class TestComponent {
 		this.executed = executed;
 	}
 	
+	public abstract void skip();
+	
 	
 
 	public abstract List<String> getTags();

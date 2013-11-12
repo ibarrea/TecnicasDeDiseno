@@ -123,4 +123,11 @@ public class TestCase extends TestComponent {
 	public void addTag(String tag) {
 		tags.add(tag);
 	}
+
+	@Override
+	public void skip() {
+		skipped = true;
+	}
+	
+	
 }
