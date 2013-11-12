@@ -97,7 +97,6 @@ public class TestSuiteTestReplicated extends TestSuite {
 	}
 
 	public void existingTestIsntPassingIfItsAssertEqualIntFail() {
-		
 		 assertFalse(test.verifyTest("exampleAssertEqualsIntTestThatShouldntPass"));
 	}
 	
@@ -112,6 +111,11 @@ public class TestSuiteTestReplicated extends TestSuite {
 	}
 	
 	public void verifyTestThatExecuteFailReturnsFalse() {
+		assertFalse(test.verifyTest("exampleFailTest"));
+	}
+	
+	public void verifySkipTestThatExecuteFailReturnsFalse() {
+		skip();
 		assertFalse(test.verifyTest("exampleFailTest"));
 	}
 
@@ -134,6 +138,7 @@ public class TestSuiteTestReplicated extends TestSuite {
 		existingTestIsntPassingIfItsAssertEqualFloatFail();
 
 		verifyTestThatExecuteFailReturnsFalse();
+		verifySkipTestThatExecuteFailReturnsFalse();
 
 	}
 	
