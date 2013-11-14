@@ -103,12 +103,17 @@ public abstract class TestSuite extends TestComponent {
 			if (component.skipped) {
 				continue;
 			}
-			if (testComponentMatchRegex(component) || !component.isTestCase() || testComponentMatchTags(component)) {
+			if (!component.isTestCase()) {
+				component.start();
+			}
+			
+			if (testComponentMatchRegex(component) && testComponentMatchTags(component)) {
 				component.start();
 			}
 
 		}
 	}
+	
 
 	public void addTestComponent(TestComponent component) {
 		if (components.containsKey(component.getName())) {
