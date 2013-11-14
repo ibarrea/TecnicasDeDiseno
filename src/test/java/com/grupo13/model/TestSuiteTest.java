@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 
-import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
-import com.grupo13.exception.Grupo13DuplicateTestException;
+import com.grupo13.exception.CannotVerifyNonExecutedTestException;
+import com.grupo13.exception.DuplicateTestException;
 
 public class TestSuiteTest {
 
@@ -126,6 +126,11 @@ public class TestSuiteTest {
 			float b = (float)54.94;
 			assertEquals(b, a);
 		}
+		
+		public void exampleInlineSkippedTest() {
+			skip();
+			fail();
+		}
 
 		public void run() {
 			// booleans
@@ -160,6 +165,9 @@ public class TestSuiteTest {
 
 			// combined tests
 			assertTruePassingAndFailTest();
+			
+			//skip
+			exampleInlineSkippedTest();
 
 		}
 
@@ -187,10 +195,9 @@ public class TestSuiteTest {
 	@Before
 	public void setup() {
 		test1 = new TestSuite1();
-		TestSuite test2 = new TestSuite2();
+		TestComponent test2 = new TestSuite2();
 		test1.addTestComponent(test2);
 		test1.start();
-		//test1.showTest();
 	}
 
 	@Test
@@ -313,14 +320,11 @@ public class TestSuiteTest {
 		Assert.assertFalse(test1.verifyTest("exampleFailTest"));
 	}
 	
-
 	@Test
 	public void tooLongTestsNameAreVerifiedCorrectly() {
 
 		Assert.assertFalse(test1.verifyTest("veryLongLongMethodNameThatExceedMaximunShowablewInResulstsexampleFailTest"));
 	}
-	
-	
 
 	@Test
 	public void twoAssertsInTestsAssertTruePassingAndFailShoudntPass() {
@@ -339,9 +343,8 @@ public class TestSuiteTest {
 	public void addingExistingTestNameThrowsDuplicateTestException() {
 		String existingTestCaseNameShouldCrashIfAdded = "assertTrueTest";
 		TestCase example = new TestCase(existingTestCaseNameShouldCrashIfAdded);
-		exception.expect(Grupo13DuplicateTestException.class);
+		exception.expect(DuplicateTestException.class);
 		test1.addTestComponent(example);
-
 	}
 	
 	@Test
@@ -355,21 +358,20 @@ public class TestSuiteTest {
 	@Test
 	public void addingExistingTestSuiteNameThrowsDuplicateTestException() {
 		String existingTestSuiteNameShouldCrashIfAdded = "TestSuite2";
-		TestSuite example = new TestSuite1();
+		TestComponent example = new TestSuite1();
 		example.setName(existingTestSuiteNameShouldCrashIfAdded);
-		exception.expect(Grupo13DuplicateTestException.class);
+		exception.expect(DuplicateTestException.class);
 		test1.addTestComponent(example);
 	}
 	
 	@Test
 	public void addingNewTestSuiteNameToSuiteIsOk() {
 		String nonExistingSuite = "TestSuite200";
-		TestSuite example = new TestSuite1();
+		TestComponent example = new TestSuite1();
 		example.setName(nonExistingSuite);
 		test1.addTestComponent(example);
 		Assert.assertTrue(example.isOK());
 	}
-
 	
 	@Test
 	public void nonMatchingTestCannotBeVerified() {
@@ -377,7 +379,7 @@ public class TestSuiteTest {
 		anotherTest.setRegex("(.*)Int(.*)");
 		anotherTest.start();
 		String existingTestNameNotMatchingRegex = "assertIsNullTestThatShouldPass";
-		exception.expect(Grupo13CannotVerifyNonExecutedTestException.class);
+		exception.expect(CannotVerifyNonExecutedTestException.class);
 		Assert.assertTrue(anotherTest.verifyTest(existingTestNameNotMatchingRegex));
 	}
 	
@@ -393,10 +395,54 @@ public class TestSuiteTest {
 	@Test
 	public void suitesAreExecutedEvenIfTheyNameDoesntMatchRegex() {
 		TestSuite oneTestSuite = new TestSuite1();
-		TestSuite anotherSuiteTest = new TestSuite2();
+		TestComponent anotherSuiteTest = new TestSuite2();
 		oneTestSuite.setRegex("(.*)NonMatching(.*)");
 		oneTestSuite.addTestComponent(anotherSuiteTest);
 		oneTestSuite.start();
 		Assert.assertTrue(anotherSuiteTest.isExecuted());
+	}
+	
+	@Test
+	public void getSuperSuiteNameForNotNestedTestSuitesIsEmpty() {
+		TestSuite oneTestSuite = new TestSuite1();
+		Assert.assertTrue(oneTestSuite.getSuperSuiteName().isEmpty());
+	}
+	
+	@Test
+	public void getSuperSuiteNameForNestedTestSuitesIsntEmpty() {
+		TestSuite oneTestSuite = new TestSuite1();
+		TestSuite anotherSuiteTest = new TestSuite2();
+		oneTestSuite.addTestComponent(anotherSuiteTest);
+		Assert.assertFalse(anotherSuiteTest.getSuperSuiteName().isEmpty());
+	}
+	
+	@Test
+	public void getSuperSuiteNameForNestedTestSuitesReturnsParentClassName() {
+		TestSuite oneTestSuite = new TestSuite1();
+		TestSuite anotherSuiteTest = new TestSuite2();
+		oneTestSuite.addTestComponent(anotherSuiteTest);
+		Assert.assertEquals(anotherSuiteTest.getSuperSuiteName(), TestSuite1.class);
+	}
+	
+	@Test
+	public void skippingOneTestProducesOneLessExecutedTest() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.start();
+		int countTestsExecuted = oneTestSuite.countTests();
+		
+		TestSuite anotherSuiteTest = new TestSuite1();
+		String existingTestNameInTestSuite1 = "exampleFailTest";
+		anotherSuiteTest.skipTest(existingTestNameInTestSuite1);
+		anotherSuiteTest.start();
+		int countTestsExecutedWhenSkip = anotherSuiteTest.countTests();
+		
+		Assert.assertEquals(countTestsExecuted - 1, countTestsExecutedWhenSkip);
+	}
+	
+	@Test
+	public void inlineSkippedTestThrowsExceptionWhenIsVerified() {
+		String existingInlineSkippedTest = "exampleInlineSkippedTest";
+		exception.expect(CannotVerifyNonExecutedTestException.class);
+		test1.verifyTest(existingInlineSkippedTest);
 	}
 }

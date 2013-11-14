@@ -28,7 +28,7 @@ public class PlainTextSaver extends ResultOutputter {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		writer.println("Run: " + data.count());
+		writer.println("Run: " + data.countTests());
 		writer.println("Errors: " + data.countErrors());
 		writer.println("Failures: " + data.countFailures());
 		writer.println(data.toString());

@@ -24,7 +24,7 @@ public class TestReport extends JTextArea {
 		setText(test.toString());
 		numberOfErrors = test.countErrors();
 		numberOfFailures = test.countFailures();
-		countAllTestCase = test.count();
+		countAllTestCase = test.countTests();
 		if(numberOfErrors + numberOfFailures != 0){
 			isOkAllTestCase = false;
 		}

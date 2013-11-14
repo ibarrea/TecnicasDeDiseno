@@ -22,17 +22,17 @@ public class TestCase extends TestComponent {
 	public TestCase(String name) {
 		super();
 		this.name = name;
-		tags = new ArrayList<String>();
+//		tags = new ArrayList<String>();
 		message = "Ok!";
 	}
 	
-	public List<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
+//	public List<String> getTags() {
+//		return tags;
+//	}
+//
+//	public void setTags(List<String> tags) {
+//		this.tags = tags;
+//	}
 
 	public void setMessage(String message) {
 		this.message = message;
@@ -80,7 +80,7 @@ public class TestCase extends TestComponent {
 	}
 
 	@Override
-	public Integer count() {
+	public Integer countTests() {
 		return 1;
 	}
 
@@ -105,12 +105,13 @@ public class TestCase extends TestComponent {
 			error.setAttribute(new Attribute("message", message));
 			element.addContent(error);
 
-		} else if ((!isOK) && (!error)) {
+		} else if (!isOK) {
 			Element failure = new Element("failure");
 			failure.setAttribute(new Attribute("message", message));
 			element.addContent(failure);
 
 		}
+		
 		return element;
 	}
 
@@ -118,11 +119,11 @@ public class TestCase extends TestComponent {
 	public Integer countSkipped() {
 		return (skipped) ? 1 : 0;
 	}
-
-	@Override
-	public void addTag(String tag) {
-		tags.add(tag);
-	}
+//
+//	@Override
+//	public void addTag(String tag) {
+//		tags.add(tag);
+//	}
 
 	@Override
 	public void skip() {

@@ -21,11 +21,11 @@ public class TestSuiteTestReplicated extends TestSuite {
 			}
 			
 			public void exampleAssertEqualsObjectsTestThatShouldPass() {
-				assertEquals("Hola","Hola");
+				assertEquals("Hola", "Hola");
 			}
 			
 			public void exampleAssertEqualsObjectsTestThatShouldntPass() {
-				assertEquals("Hola","Chau");
+				assertEquals("Hola", "Chau");
 			}
 			
 			public void exampleAssertEqualsIntTestThatShouldPass() {
@@ -33,15 +33,15 @@ public class TestSuiteTestReplicated extends TestSuite {
 			}
 			
 			public void exampleAssertEqualsIntTestThatShouldntPass() {
-				assertEquals(23,1988);
+				assertEquals(23, 1988);
 			}
 			
 			public void exampleAssertEqualsFloatTestThatShouldPass() {
-				assertEquals(23.7,23.7);
+				assertEquals(23.7, 23.7);
 			}
 			
 			public void exampleAssertEqualsFloatTestThatShouldntPass() {
-				assertEquals(23.7,23.6);
+				assertEquals(23.7, 23.6);
 			}
 
 			public void run() {
@@ -97,6 +97,7 @@ public class TestSuiteTestReplicated extends TestSuite {
 	}
 
 	public void existingTestIsntPassingIfItsAssertEqualIntFail() {
+		
 		 assertFalse(test.verifyTest("exampleAssertEqualsIntTestThatShouldntPass"));
 	}
 	
@@ -111,18 +112,19 @@ public class TestSuiteTestReplicated extends TestSuite {
 	}
 	
 	public void verifyTestThatExecuteFailReturnsFalse() {
+		
 		assertFalse(test.verifyTest("exampleFailTest"));
 	}
 	
-	public void verifySkipTestThatExecuteFailReturnsFalse() {
-		skip();
-		assertFalse(test.verifyTest("exampleFailTest"));
-	}
+//	public void verifySkipTestThatExecuteFailReturnsFalse() {
+//		skip();
+//		assertFalse(test.verifyTest("exampleFailTest"));
+//	}
 
-	public void verifySkipIsWorkingFor1Method() {
-		updateCounts();
-		assertEquals(1, countSkipped);
-	}
+//	public void verifySkipIsWorkingFor1Method() {
+//		updateCounts();
+//		assertEquals(1, countSkipped);
+//	}
 	
 	@Override
 	public void run() {
@@ -144,9 +146,9 @@ public class TestSuiteTestReplicated extends TestSuite {
 
 		verifyTestThatExecuteFailReturnsFalse();
 		
-		verifySkipTestThatExecuteFailReturnsFalse();
-		
-		verifySkipIsWorkingFor1Method();
+//		verifySkipTestThatExecuteFailReturnsFalse();
+//		
+//		verifySkipIsWorkingFor1Method();
 		
 
 	}

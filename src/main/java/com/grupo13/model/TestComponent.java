@@ -1,5 +1,6 @@
 package com.grupo13.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom.Element;
@@ -16,6 +17,7 @@ public abstract class TestComponent {
 	protected boolean error;
 	protected boolean executed;
 	protected boolean skipped;
+	protected String superSuiteName;
 	
 	public boolean isExecuted() {
 		return executed;
@@ -27,18 +29,27 @@ public abstract class TestComponent {
 	
 	public abstract void skip();
 	
-	
 
-	public abstract List<String> getTags();
+	public List<String> getTags() {
+		return tags;
+	}
 
-	public abstract void setTags(List<String> tags) ;
+	public void addTag(String tag) {
+		tags.add(tag);
+	}
+
+//	public abstract List<String> getTags();
+
+//	public abstract void setTags(List<String> tags) ;
 	
-	public abstract void addTag(String tag);
+//	public abstract void addTag(String tag);
 
 	public TestComponent() {
 		isOK = true;
 		error = false;
 		executed = false;
+		skipped = false;
+		tags = new ArrayList<String>();
 	}
 
 	public abstract void run();
@@ -73,7 +84,15 @@ public abstract class TestComponent {
 		return false;
 	}
 	
-	public abstract Integer count();
+	public String getSuperSuiteName() {
+		return superSuiteName;
+	}
+
+	public void setSuperSuiteName(String superSuiteName) {
+		this.superSuiteName = superSuiteName;
+	}
+	
+	public abstract Integer countTests();
 	public abstract Integer countErrors();
 	public abstract Integer countFailures();
 	public abstract Integer countSkipped();

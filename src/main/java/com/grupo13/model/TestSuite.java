@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.jdom.Element;
 
-import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
-import com.grupo13.exception.Grupo13DuplicateTestException;
+import com.grupo13.exception.CannotVerifyNonExecutedTestException;
+import com.grupo13.exception.DuplicateTestException;
 import com.grupo13.results.PlainTextSaver;
 import com.grupo13.results.ResultOutputter;
 import com.grupo13.results.ResultViewer;
@@ -24,12 +24,12 @@ public abstract class TestSuite extends TestComponent {
 
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 	String packageName;
-	String superSuiteName;
 	String regex;
 	List<String> tagsToExecute;
+	List<String> testsToSkip;
 	long startTime;
 	long ellapsedTime;
-	int count, countError, countFailures, countSkipped;
+	int countTests, countError, countFailures, countSkipped;
 
 	public void addTagToExecute(String tag){
 		tagsToExecute.add(tag);
@@ -42,27 +42,16 @@ public abstract class TestSuite extends TestComponent {
 	public String getPackageName() {
 		return packageName;
 	}
-
-	public String getSuperSuiteName() {
-		return superSuiteName;
-	}
-
-	public void setSuperSuiteName(String superSuiteName) {
-		this.superSuiteName = superSuiteName;
-	}
-
-	public List<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
-
-	@Override
-	public void addTag(String tag) {
-		tags.add(tag);
-	}
+//
+//	public List<String> getTags() {
+//		return tags;
+//	}
+//
+//	@Override
+//	public void addTag(String tag) {
+//		tags.add(tag);
+//	}
+	
 	public void setRegex(String regex) {
 		this.regex = regex;
 	}
@@ -70,8 +59,9 @@ public abstract class TestSuite extends TestComponent {
 	public TestSuite() {
 		super();
 		tagsToExecute = new ArrayList<String>();
-		tags = new ArrayList<String>();
-		count = countError = countFailures = countSkipped = 0;
+		testsToSkip = new ArrayList<String>();
+//		tags = new ArrayList<String>();
+		countTests = countError = countFailures = countSkipped = 0;
 		superSuiteName = new String("");
 		definePackageClassName();
 	}
@@ -96,29 +86,30 @@ public abstract class TestSuite extends TestComponent {
 		startTime = System.currentTimeMillis();
 	}
 
-	public void startComponents() {
+	private void startComponents() {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());
-			if (component.skipped) {
+			if (testsToSkip.contains(component.getName())) {
+				component.skip();
 				continue;
 			}
+//			if (component.skipped) {
+//				continue;
+//			}
 			if (!component.isTestCase()) {
 				component.start();
-			}
-			
-			if (testComponentMatchRegex(component) && testComponentMatchTags(component)) {
+			} else if (testComponentMatchRegex(component) && testComponentMatchTags(component)) {
 				component.start();
 			}
 
 		}
 	}
-	
 
 	public void addTestComponent(TestComponent component) {
 		if (components.containsKey(component.getName())) {
-			throw new Grupo13DuplicateTestException(component.getName()
-					+ " ya existe.");
+			throw new DuplicateTestException(component.getName()
+					+ " already exists.");
 		}
 		components.put(component.getName(), component);
 	}
@@ -155,24 +146,13 @@ public abstract class TestSuite extends TestComponent {
 			if (components.get(testName).isExecuted()) {
 				return components.get(testName).isOK();
 			}
-			throw new Grupo13CannotVerifyNonExecutedTestException();
+			throw new CannotVerifyNonExecutedTestException();
 		}
 		throw new IllegalStateException();
 
 	}
-	
-	private void addSkipToComponent(String componentName){
-		TestCase test;
-		if (components.containsKey(componentName)) {
-			test = (TestCase) components.get(componentName);
-		} else {
-			test = new TestCase(componentName);
-			addTestComponent(test);
-		}
-		test.skip();
-	}
 
-	private void addAssertionToComponent(Assertion assertion, String componentName) {
+	private TestCase getComponent(String componentName) {
 		TestCase test;
 		if (components.containsKey(componentName)) {
 			test = (TestCase) components.get(componentName);
@@ -180,6 +160,29 @@ public abstract class TestSuite extends TestComponent {
 			test = new TestCase(componentName);
 			addTestComponent(test);
 		}
+		return test;
+	}
+	
+	public void skipTest(String componentName){
+		testsToSkip.add(componentName);
+		//TestCase test = getComponent(componentName);
+//		if (components.containsKey(componentName)) {
+//			test = (TestCase) components.get(componentName);
+//		} else {
+//			test = new TestCase(componentName);
+//			addTestComponent(test);
+//		}
+		//test.skip();
+	}
+	
+	private void addAssertionToComponent(Assertion assertion, String componentName) {
+		TestCase test = getComponent(componentName);
+//		if (components.containsKey(componentName)) {
+//			test = (TestCase) components.get(componentName);
+//		} else {
+//			test = new TestCase(componentName);
+//			addTestComponent(test);
+//		}
 		test.getAssertions().add(assertion);
 	}
 
@@ -256,9 +259,9 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void showTest() {
-		ResultOutputter ro = new ResultViewer();
-		ro.setData(this);
-		ro.produceResult();
+		ResultOutputter resultViewer = new ResultViewer();
+		resultViewer.setData(this);
+		resultViewer.produceResult();
 	}
 	
 	public String toString() {
@@ -300,36 +303,28 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	private boolean testComponentMatchRegex(TestComponent test) {
-		if (regex == null) {
-			return true;
-		}
-		return test.getName().matches(regex);
+//		if (regex == null) {
+//			return true;
+//		}
+		return (regex == null) || test.getName().matches(regex);
 	}
 	
 	private boolean testComponentMatchTags(TestComponent test) {
-		if (this.tags.isEmpty()) {
-			return true;
-		}
-		for (String tag : this.tagsToExecute) {
-			if (test.getTags().contains(tag)) {
-				return true;
-			}
-		}
-		return false;
+		return test.getTags().containsAll(tagsToExecute);
 	}
 	
 	@Override
-	public Integer count() {
-		return count;
+	public Integer countTests() {
+		return countTests;
 	}
 
-	public void updateCounts() {
-		count = countError = countFailures = countSkipped = 0;
+	private void updateCounts() {
+		//countTests = countError = countFailures = countSkipped = 0;
 		
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());
-			count += component.count();
+			countTests += component.countTests();
 			countError += component.countErrors();
 			countFailures += component.countFailures();
 			countSkipped += component.countSkipped();
@@ -352,7 +347,7 @@ public abstract class TestSuite extends TestComponent {
 	
 	@Override
 	public void skip() {
-		addSkipToComponent(getTestCallerName());
+		skipTest(getTestCallerName());
 	}
 	
 	@Override
@@ -360,7 +355,7 @@ public abstract class TestSuite extends TestComponent {
 		Element element = new Element("testsuite");
 		element.setAttribute("name", getFullName());
 		element.setAttribute("package", packageName);
-		element.setAttribute("tests", count().toString());
+		element.setAttribute("tests", countTests().toString());
 		element.setAttribute("failures", countFailures().toString());
 		element.setAttribute("errors", countErrors().toString());
 		Iterator<String> keySetIterator = components.keySet().iterator();

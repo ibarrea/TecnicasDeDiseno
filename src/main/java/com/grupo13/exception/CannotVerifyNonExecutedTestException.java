@@ -1,6 +1,6 @@
 package com.grupo13.exception;
 
-public class Grupo13CannotVerifyNonExecutedTestException extends
+public class CannotVerifyNonExecutedTestException extends
 		IllegalStateException {
 
 	/**
