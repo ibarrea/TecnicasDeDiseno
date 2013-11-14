@@ -155,7 +155,6 @@ public class TestSuiteTestReplicated extends TestSuite {
 		TestSuiteTestReplicated someTest = new TestSuiteTestReplicated();
 		TestSuiteTestReplicated someTestNew = new TestSuiteTestReplicated();
 
-//		someTest.setRegex("(.*)Int(.*)");
 		someTest.addTestComponent(someTestNew);
 		someTest.start();
 		someTest.showTest();

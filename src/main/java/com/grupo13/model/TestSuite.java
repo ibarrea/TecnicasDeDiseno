@@ -307,7 +307,7 @@ public abstract class TestSuite extends TestComponent {
 	}
 	
 	private boolean testComponentMatchTags(TestComponent test) {
-		if (this.tags == null) {
+		if (this.tags.isEmpty()) {
 			return true;
 		}
 		for (String tag : this.tagsToExecute) {
