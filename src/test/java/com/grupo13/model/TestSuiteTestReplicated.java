@@ -116,16 +116,6 @@ public class TestSuiteTestReplicated extends TestSuite {
 		assertFalse(test.verifyTest("exampleFailTest"));
 	}
 	
-//	public void verifySkipTestThatExecuteFailReturnsFalse() {
-//		skip();
-//		assertFalse(test.verifyTest("exampleFailTest"));
-//	}
-
-//	public void verifySkipIsWorkingFor1Method() {
-//		updateCounts();
-//		assertEquals(1, countSkipped);
-//	}
-	
 	@Override
 	public void run() {
 		existingTestIsPassingIfItsAssertTrueDontFail();
@@ -146,11 +136,6 @@ public class TestSuiteTestReplicated extends TestSuite {
 
 		verifyTestThatExecuteFailReturnsFalse();
 		
-//		verifySkipTestThatExecuteFailReturnsFalse();
-//		
-//		verifySkipIsWorkingFor1Method();
-		
-
 	}
 	
 	public static void main(String[] args) {

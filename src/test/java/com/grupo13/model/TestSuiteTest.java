@@ -393,13 +393,13 @@ public class TestSuiteTest {
 	}
 	
 	@Test
-	public void suitesAreExecutedEvenIfTheyNameDoesntMatchRegex() {
+	public void suitesAreNTExecutedIfTheyNameDoesntMatchRegex() {
 		TestSuite oneTestSuite = new TestSuite1();
 		TestComponent anotherSuiteTest = new TestSuite2();
-		oneTestSuite.setRegex("(.*)NonMatching(.*)");
+		oneTestSuite.setRegex("(.*)TestSuite1(.*)");
 		oneTestSuite.addTestComponent(anotherSuiteTest);
 		oneTestSuite.start();
-		Assert.assertTrue(anotherSuiteTest.isExecuted());
+		Assert.assertFalse(anotherSuiteTest.isExecuted());
 	}
 	
 	@Test
@@ -421,22 +421,23 @@ public class TestSuiteTest {
 		TestSuite oneTestSuite = new TestSuite1();
 		TestSuite anotherSuiteTest = new TestSuite2();
 		oneTestSuite.addTestComponent(anotherSuiteTest);
-		Assert.assertEquals(anotherSuiteTest.getSuperSuiteName(), TestSuite1.class);
+		Assert.assertEquals(anotherSuiteTest.getSuperSuiteName(), "TestSuite1");
 	}
 	
 	@Test
-	public void skippingOneTestProducesOneLessExecutedTest() {
+	public void skippingOneTestProducesCountSkipBigger() {
 		TestSuite oneTestSuite = new TestSuite1();
 		oneTestSuite.start();
-		int countTestsExecuted = oneTestSuite.countTests();
+		int countTestsSkipped = oneTestSuite.countSkipped();
 		
 		TestSuite anotherSuiteTest = new TestSuite1();
 		String existingTestNameInTestSuite1 = "exampleFailTest";
 		anotherSuiteTest.skipTest(existingTestNameInTestSuite1);
 		anotherSuiteTest.start();
-		int countTestsExecutedWhenSkip = anotherSuiteTest.countTests();
+		int countTestsSkippedAfterSkip = anotherSuiteTest.countSkipped();
 		
-		Assert.assertEquals(countTestsExecuted - 1, countTestsExecutedWhenSkip);
+			
+		Assert.assertTrue(countTestsSkipped < countTestsSkippedAfterSkip);
 	}
 	
 	@Test

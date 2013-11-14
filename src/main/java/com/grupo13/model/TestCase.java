@@ -22,17 +22,14 @@ public class TestCase extends TestComponent {
 	public TestCase(String name) {
 		super();
 		this.name = name;
-//		tags = new ArrayList<String>();
 		message = "Ok!";
 	}
 	
-//	public List<String> getTags() {
-//		return tags;
-//	}
-//
-//	public void setTags(List<String> tags) {
-//		this.tags = tags;
-//	}
+	public TestCase(String componentName, String superSuite) {
+		super(superSuite);
+		this.name = componentName;
+		message = "Ok!";
+	}
 
 	public void setMessage(String message) {
 		this.message = message;
@@ -119,11 +116,6 @@ public class TestCase extends TestComponent {
 	public Integer countSkipped() {
 		return (skipped) ? 1 : 0;
 	}
-//
-//	@Override
-//	public void addTag(String tag) {
-//		tags.add(tag);
-//	}
 
 	@Override
 	public void skip() {

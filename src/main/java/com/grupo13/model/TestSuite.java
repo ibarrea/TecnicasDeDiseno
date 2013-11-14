@@ -42,15 +42,6 @@ public abstract class TestSuite extends TestComponent {
 	public String getPackageName() {
 		return packageName;
 	}
-//
-//	public List<String> getTags() {
-//		return tags;
-//	}
-//
-//	@Override
-//	public void addTag(String tag) {
-//		tags.add(tag);
-//	}
 	
 	public void setRegex(String regex) {
 		this.regex = regex;
@@ -60,7 +51,6 @@ public abstract class TestSuite extends TestComponent {
 		super();
 		tagsToExecute = new ArrayList<String>();
 		testsToSkip = new ArrayList<String>();
-//		tags = new ArrayList<String>();
 		countTests = countError = countFailures = countSkipped = 0;
 		superSuiteName = new String("");
 		definePackageClassName();
@@ -73,7 +63,6 @@ public abstract class TestSuite extends TestComponent {
 		startComponents();
 		tearDown();
 		setExecuted(true);
-		updateCounts();
 		endTimer();
 
 	}
@@ -90,28 +79,52 @@ public abstract class TestSuite extends TestComponent {
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());
-			if (testsToSkip.contains(component.getName())) {
+			if (shouldSkip(component)) {
 				component.skip();
-				continue;
+			} else {
+				component.start();
 			}
-//			if (component.skipped) {
+//			if (testsToSkip.contains(component.getName())) {
+//				component.skip();
 //				continue;
+//			} else if (!component.isTestCase()) {
+//				component.start();
+//			} else if (testComponentMatchRegex(component) && testComponentMatchTags(component)) {
+//				component.start();
 //			}
-			if (!component.isTestCase()) {
-				component.start();
-			} else if (testComponentMatchRegex(component) && testComponentMatchTags(component)) {
-				component.start();
-			}
+			
+			updateCounts(component);
 
 		}
 	}
 
+	private boolean shouldSkip(TestComponent comp) {
+		return testsToSkip.contains(comp.getName()) ||
+				!(comp.matches(regex) && comp.matches(tagsToExecute));
+	}
+//	
+//	private boolean testComponentMatchRegex(TestComponent test) {
+//		return test.matches(regex);
+//	}
+//	
+//	private boolean testComponentMatchTags(TestComponent test) {
+//		return test.getTags().containsAll(tagsToExecute);
+//	}
+
+	private void updateCounts(TestComponent component) {
+		countTests += component.countTests();
+		countError += component.countErrors();
+		countFailures += component.countFailures();
+		countSkipped += component.countSkipped();
+	}
+	
 	public void addTestComponent(TestComponent component) {
 		if (components.containsKey(component.getName())) {
 			throw new DuplicateTestException(component.getName()
 					+ " already exists.");
 		}
 		components.put(component.getName(), component);
+		component.setSuperSuiteName(getName());
 	}
 
 	// devuelve el nombre del methodo que invoca al metodo que usa a este
@@ -157,7 +170,8 @@ public abstract class TestSuite extends TestComponent {
 		if (components.containsKey(componentName)) {
 			test = (TestCase) components.get(componentName);
 		} else {
-			test = new TestCase(componentName);
+			test = new TestCase(componentName, getName());
+			//test.setSuperSuiteName(getName());
 			addTestComponent(test);
 		}
 		return test;
@@ -165,24 +179,10 @@ public abstract class TestSuite extends TestComponent {
 	
 	public void skipTest(String componentName){
 		testsToSkip.add(componentName);
-		//TestCase test = getComponent(componentName);
-//		if (components.containsKey(componentName)) {
-//			test = (TestCase) components.get(componentName);
-//		} else {
-//			test = new TestCase(componentName);
-//			addTestComponent(test);
-//		}
-		//test.skip();
 	}
 	
 	private void addAssertionToComponent(Assertion assertion, String componentName) {
 		TestCase test = getComponent(componentName);
-//		if (components.containsKey(componentName)) {
-//			test = (TestCase) components.get(componentName);
-//		} else {
-//			test = new TestCase(componentName);
-//			addTestComponent(test);
-//		}
 		test.getAssertions().add(assertion);
 	}
 
@@ -301,35 +301,12 @@ public abstract class TestSuite extends TestComponent {
 		}
 		return result;
 	}
-
-	private boolean testComponentMatchRegex(TestComponent test) {
-//		if (regex == null) {
-//			return true;
-//		}
-		return (regex == null) || test.getName().matches(regex);
-	}
-	
-	private boolean testComponentMatchTags(TestComponent test) {
-		return test.getTags().containsAll(tagsToExecute);
-	}
 	
 	@Override
 	public Integer countTests() {
 		return countTests;
 	}
 
-	private void updateCounts() {
-		//countTests = countError = countFailures = countSkipped = 0;
-		
-		Iterator<String> keySetIterator = components.keySet().iterator();
-		while (keySetIterator.hasNext()) {
-			TestComponent component = components.get(keySetIterator.next());
-			countTests += component.countTests();
-			countError += component.countErrors();
-			countFailures += component.countFailures();
-			countSkipped += component.countSkipped();
-		}
-	}
 	@Override
 	public Integer countErrors() {
 		return countError;

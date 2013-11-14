@@ -19,6 +19,23 @@ public abstract class TestComponent {
 	protected boolean skipped;
 	protected String superSuiteName;
 	
+	public TestComponent() {
+		isOK = true;
+		error = false;
+		executed = false;
+		skipped = false;
+		tags = new ArrayList<String>();
+	}
+	
+	public TestComponent(String superSuite) {
+		isOK = true;
+		error = false;
+		executed = false;
+		skipped = false;
+		tags = new ArrayList<String>();
+		superSuiteName = superSuite;
+	}
+	
 	public boolean isExecuted() {
 		return executed;
 	}
@@ -36,20 +53,6 @@ public abstract class TestComponent {
 
 	public void addTag(String tag) {
 		tags.add(tag);
-	}
-
-//	public abstract List<String> getTags();
-
-//	public abstract void setTags(List<String> tags) ;
-	
-//	public abstract void addTag(String tag);
-
-	public TestComponent() {
-		isOK = true;
-		error = false;
-		executed = false;
-		skipped = false;
-		tags = new ArrayList<String>();
 	}
 
 	public abstract void run();
@@ -98,5 +101,13 @@ public abstract class TestComponent {
 	public abstract Integer countSkipped();
 	public abstract String toString();
 	public abstract Element toXMLElement();
+
+	public boolean matches(List<String> tagsToExecute) {
+		return tags.containsAll(tagsToExecute);
+	}
+
+	public boolean matches(String regex) {
+		return (regex == null) || name.matches(regex);
+	}
 
 }
