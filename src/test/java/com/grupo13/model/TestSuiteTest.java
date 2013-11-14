@@ -471,6 +471,12 @@ public class TestSuiteTest {
 	}
 	
 	@Test
+	public void getPackageNameReturnsExpectedPath() {
+		TestSuite oneTestSuite = new TestSuite1();
+		Assert.assertEquals(oneTestSuite.getPackageName(),"com.grupo13.model");
+	}
+	
+	@Test
 	public void toStringReturnsNotNullWhenIsNewTestSuite() {
 		TestSuite oneTestSuite = new TestSuite1();
 		Assert.assertNotNull(oneTestSuite.toString());
@@ -547,5 +553,36 @@ public class TestSuiteTest {
 		oneTestSuite.addTagToExecute("INTERNET");
 		oneTestSuite.start();
 		Assert.assertTrue(oneTestSuite.verifyTest("exampleMultipleTagTest"));
+	}
+	
+	@Test
+	public void singleTaggedTestCanBeVerifiedWhenIncludesTagsList() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("CONFIGURABLE");
+		oneTestSuite.tagTest("assertTrueTest", "CONFIGURABLE");
+		oneTestSuite.start();
+		Assert.assertTrue(oneTestSuite.verifyTest("assertTrueTest"));
+	}
+	
+	@Test
+	public void multipleTaggedTestCanBeVerifiedWhenIncludesTagsList() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("SLOW");
+		oneTestSuite.addTagToExecute("INTERNET");
+		oneTestSuite.tagTest("exampleMultipleTagTest", "CONFIGURABLE");
+		oneTestSuite.start();
+		Assert.assertTrue(oneTestSuite.verifyTest("exampleMultipleTagTest"));
+	}
+	
+	@Test
+	public void multipleTaggedTestCannotBeVerifiedWhenIncludesSomeTagsList() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("SLOW");
+		oneTestSuite.addTagToExecute("INTERNET");
+		oneTestSuite.addTagToExecute("DESIGN PATTERN");
+		oneTestSuite.tagTest("exampleMultipleTagTest", "CONFIGURABLE");
+		oneTestSuite.start();
+		exception.expect(CannotVerifyNonExecutedTestException.class);
+		oneTestSuite.verifyTest("exampleMultipleTagTest");
 	}
 }

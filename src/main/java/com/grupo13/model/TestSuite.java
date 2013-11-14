@@ -35,10 +35,6 @@ public abstract class TestSuite extends TestComponent {
 		tagsToExecute.add(tag);
 	}
 	
-	public void setPackageName(String packageName) {
-		this.packageName = packageName;
-	}
-	
 	public String getPackageName() {
 		return packageName;
 	}
