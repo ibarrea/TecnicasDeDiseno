@@ -62,5 +62,40 @@ public class TestCaseTest {
 				"thisIsAVeryVeryVeryVeryVeryVeryVeryVeryL|Pass      |Ok!",
 				example.toString().trim());
 	}
+	
+	@Test
+	public void isTestCaseReturnsTrue() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		Assert.assertTrue(example.isTestCase());
+	}
+	
+	
+	@Test
+	public void toXMLElementReturnsNotNullWhenIsNewTestCase() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		Assert.assertNotNull(example.toXMLElement());
+	}
+	
+	@Test
+	public void toXMLElementReturnsNotNullWhenTestCaseHasErrors() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		example.setError(true);
+		Assert.assertNotNull(example.toXMLElement());
+	}
+	
+	
+	@Test
+	public void toXMLElementReturnsNotNullWhenTestCaseFails() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		Assertion assertion = new Assertion();
+		assertion.assertTrue(false);
+		example.getAssertions().add(assertion);
+		example.start();
+		Assert.assertNotNull(example.toXMLElement());
+	}
 
 }

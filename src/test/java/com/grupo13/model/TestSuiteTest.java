@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 
+
+
 import com.grupo13.exception.CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.DuplicateTestException;
 
@@ -436,7 +438,6 @@ public class TestSuiteTest {
 		anotherSuiteTest.start();
 		int countTestsSkippedAfterSkip = anotherSuiteTest.countSkipped();
 		
-			
 		Assert.assertTrue(countTestsSkipped < countTestsSkippedAfterSkip);
 	}
 	
@@ -446,4 +447,22 @@ public class TestSuiteTest {
 		exception.expect(CannotVerifyNonExecutedTestException.class);
 		test1.verifyTest(existingInlineSkippedTest);
 	}
+	
+	
+//	@Test
+//	public void testSuiteisAncestorXMLforAddedTestCase() {
+//		TestSuite oneTestSuite = new TestSuite1();
+//		String anyTestName = "anyTestName";
+//		TestCase example = new TestCase(anyTestName);
+//		Assertion assertion = new Assertion();
+//		assertion.assertTrue(true);
+//		example.getAssertions().add(assertion);
+//		oneTestSuite.addTestComponent(example);
+//		oneTestSuite.start();
+//		System.out.println(example.toXMLElement().getParent());
+//		System.out.println(oneTestSuite.toXMLElement());
+//		
+//		Assert.assertTrue(oneTestSuite.toXMLElement().isAncestor(example.toXMLElement()));
+//	}
+	
 }
