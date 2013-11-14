@@ -51,7 +51,7 @@ public abstract class TestComponent {
 		return tags;
 	}
 
-	public void addTag(String tag) {
+	protected void addTag(String tag) {
 		tags.add(tag);
 	}
 

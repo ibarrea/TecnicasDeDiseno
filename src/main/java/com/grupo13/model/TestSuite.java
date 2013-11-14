@@ -84,15 +84,6 @@ public abstract class TestSuite extends TestComponent {
 			} else {
 				component.start();
 			}
-//			if (testsToSkip.contains(component.getName())) {
-//				component.skip();
-//				continue;
-//			} else if (!component.isTestCase()) {
-//				component.start();
-//			} else if (testComponentMatchRegex(component) && testComponentMatchTags(component)) {
-//				component.start();
-//			}
-			
 			updateCounts(component);
 
 		}
@@ -102,14 +93,6 @@ public abstract class TestSuite extends TestComponent {
 		return testsToSkip.contains(comp.getName()) ||
 				!(comp.matches(regex) && comp.matches(tagsToExecute));
 	}
-//	
-//	private boolean testComponentMatchRegex(TestComponent test) {
-//		return test.matches(regex);
-//	}
-//	
-//	private boolean testComponentMatchTags(TestComponent test) {
-//		return test.getTags().containsAll(tagsToExecute);
-//	}
 
 	private void updateCounts(TestComponent component) {
 		countTests += component.countTests();
@@ -184,6 +167,16 @@ public abstract class TestSuite extends TestComponent {
 	private void addAssertionToComponent(Assertion assertion, String componentName) {
 		TestCase test = getComponent(componentName);
 		test.getAssertions().add(assertion);
+	}
+	
+	public void tagTest(String tagName) {
+		TestCase test = getComponent(getTestCallerName());
+		test.addTag(tagName);
+	}
+	
+	public void tagTest(String componentName, String tagName) {
+		TestCase test = getComponent(componentName);
+		test.addTag(tagName);
 	}
 
 	/*

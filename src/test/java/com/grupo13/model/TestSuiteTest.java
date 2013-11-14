@@ -48,16 +48,16 @@ public class TestSuiteTest {
 		}
 
 		public void assertEqualsObjectsTestThatShouldPass() {
-			assertEquals("Hola", "Hola");
+			assertEquals("Hello", "Hello");
 		}
 
 		public void assertEqualsObjectsTestThatShouldntPass() {
-			assertEquals("Hola", "Chau");
+			assertEquals("Hello", "Goodbye");
 		}
 
 		public void equalsFailIf1stParamIsNullObject() {
 			String objectString = null;
-			assertEquals(objectString, "Chau");
+			assertEquals(objectString, "Goodbye");
 		}
 
 		public void equalsFailIf2ndParamIsNullObject() {
@@ -135,13 +135,14 @@ public class TestSuiteTest {
 			fail();
 		}
 		
-		public void exampleFailTagTest() {
-			addTag("FAIL");
+		public void exampleSlowTagTest() {
+			tagTest("SLOW");
 			fail();
 		}
 		
-		public void exampleSuccessTagTest() {
-			addTag("SUCCESS");
+		public void exampleMultipleTagTest() {
+			tagTest("INTERNET");
+			tagTest("SLOW");
 			assertTrue(true);
 		}
 
@@ -183,8 +184,8 @@ public class TestSuiteTest {
 			exampleInlineSkippedTest();
 			
 			//Tags
-			exampleFailTagTest();
-			exampleSuccessTagTest();
+			exampleSlowTagTest();
+			exampleMultipleTagTest();
 
 		}
 
@@ -442,13 +443,6 @@ public class TestSuiteTest {
 	}
 	
 	@Test
-	public void testRunningFailTagsFailTest() {
-		TestSuite oneTestSuite = new TestSuite1();
-		oneTestSuite.addTagToExecute("FAIL");
-		oneTestSuite.start();
-	}
-	
-	@Test
 	public void skippingOneTestProducesCountSkipBigger() {
 		TestSuite oneTestSuite = new TestSuite1();
 		oneTestSuite.start();
@@ -476,20 +470,82 @@ public class TestSuiteTest {
 		Assert.assertFalse(oneTestSuite.isTestCase());
 	}
 	
-//	@Test
-//	public void testSuiteisAncestorXMLforAddedTestCase() {
-//		TestSuite oneTestSuite = new TestSuite1();
-//		String anyTestName = "anyTestName";
-//		TestCase example = new TestCase(anyTestName);
-//		Assertion assertion = new Assertion();
-//		assertion.assertTrue(true);
-//		example.getAssertions().add(assertion);
-//		oneTestSuite.addTestComponent(example);
-//		oneTestSuite.start();
-//		System.out.println(example.toXMLElement().getParent());
-//		System.out.println(oneTestSuite.toXMLElement());
-//		
-//		Assert.assertTrue(oneTestSuite.toXMLElement().isAncestor(example.toXMLElement()));
-//	}
+	@Test
+	public void toStringReturnsNotNullWhenIsNewTestSuite() {
+		TestSuite oneTestSuite = new TestSuite1();
+		Assert.assertNotNull(oneTestSuite.toString());
+	}
 	
+	@Test
+	public void toStringReturnsNotNullWhenIsStartedTestSuite() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.start();
+		Assert.assertNotNull(oneTestSuite.toString());
+	}
+	
+	@Test
+	public void toStringReturnsNotNullWhenIsStartedTestSuiteWithNestedSuites() {
+		TestSuite oneTestSuite = new TestSuite1();
+		TestSuite anotherSuiteTest = new TestSuite2();
+		oneTestSuite.addTestComponent(anotherSuiteTest);
+		oneTestSuite.start();
+		Assert.assertNotNull(oneTestSuite.toString());
+	}
+	
+	@Test
+	public void toXMLElementReturnsNotNullWhenIsNewTestSuite() {
+		TestSuite oneTestSuite = new TestSuite1();
+		Assert.assertNotNull(oneTestSuite.toXMLElement());
+	}
+	@Test
+	public void toXMLElementReturnsNotNullWhenIsStartedTestSuite() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.start();
+		Assert.assertNotNull(oneTestSuite.toXMLElement());
+	}
+	
+	@Test
+	public void toXMLElementReturnsNotNullWhenIsStartedTestSuiteWithNestedSuites() {
+		TestSuite oneTestSuite = new TestSuite1();
+		TestSuite anotherSuiteTest = new TestSuite2();
+		oneTestSuite.addTestComponent(anotherSuiteTest);
+		oneTestSuite.start();
+		Assert.assertNotNull(oneTestSuite.toXMLElement());
+	}
+
+	@Test
+	public void inlineTaggedTestCanBeVerifiedWhenIncludesTagsList() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("SLOW");
+		oneTestSuite.start();
+		Assert.assertFalse(oneTestSuite.verifyTest("exampleSlowTagTest"));
+	}
+	
+	@Test
+	public void inlineTaggedTestCannotBeVerifiedWhenNotIncludesAllTagsInList() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("SLOW");
+		oneTestSuite.addTagToExecute("INTERNET");
+		oneTestSuite.start();
+		exception.expect(CannotVerifyNonExecutedTestException.class);
+		oneTestSuite.verifyTest("exampleSlowTagTest");
+	}
+	
+	@Test
+	public void inlineTaggedTestCannotBeVerifiedWhenNotIncludesTagsList() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("SLOW");
+		oneTestSuite.start();
+		exception.expect(CannotVerifyNonExecutedTestException.class);
+		oneTestSuite.verifyTest("exampleFailTest");
+	}
+	
+	@Test
+	public void inlineTaggedTestCanBeVerifiedWhenIncludesAllTagsInList() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("SLOW");
+		oneTestSuite.addTagToExecute("INTERNET");
+		oneTestSuite.start();
+		Assert.assertTrue(oneTestSuite.verifyTest("exampleMultipleTagTest"));
+	}
 }
