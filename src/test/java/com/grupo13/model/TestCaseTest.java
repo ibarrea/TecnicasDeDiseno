@@ -97,5 +97,28 @@ public class TestCaseTest {
 		example.start();
 		Assert.assertNotNull(example.toXMLElement());
 	}
+	
+	@Test
+	public void getTagsReturnsNotNullWhenIsNewTestCase() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		Assert.assertNotNull(example.getTags());
+	}
+	
+	@Test
+	public void getTagsContainsTagWhenAdded() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		example.addTag("SLOW");
+		Assert.assertNotNull(example.getTags().contains("SLOW"));
+	}
+	
+	@Test
+	public void getTagsContainsTagIsCaseInsensitiveWhenAdded() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		example.addTag("SLOW");
+		Assert.assertNotNull(example.getTags().contains("slow"));
+	}
 
 }

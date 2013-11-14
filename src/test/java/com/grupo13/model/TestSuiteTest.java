@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 
 
 
+
 import com.grupo13.exception.CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.DuplicateTestException;
 
@@ -448,6 +449,11 @@ public class TestSuiteTest {
 		test1.verifyTest(existingInlineSkippedTest);
 	}
 	
+	@Test
+	public void isTestCaseReturnsFalse() {
+		TestSuite oneTestSuite = new TestSuite1();
+		Assert.assertFalse(oneTestSuite.isTestCase());
+	}
 	
 //	@Test
 //	public void testSuiteisAncestorXMLforAddedTestCase() {
