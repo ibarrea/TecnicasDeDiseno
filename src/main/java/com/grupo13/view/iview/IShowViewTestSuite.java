@@ -1,4 +1,4 @@
-package com.grupo13.iview;
+package com.grupo13.view.iview;
 
 public interface IShowViewTestSuite {
 	void showViewTestSuite();

@@ -4,9 +4,10 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import com.grupo13.iview.IViewTestSuite;
-import com.grupo13.iview.IShowViewTestSuite;
+
 import com.grupo13.model.TestComponent;
+import com.grupo13.view.iview.IShowViewTestSuite;
+import com.grupo13.view.iview.IViewTestSuite;
 
 public class ViewTestSuite extends JPanel implements IViewTestSuite {
 

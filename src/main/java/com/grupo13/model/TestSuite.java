@@ -9,10 +9,10 @@ import org.jdom.Element;
 
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
-import com.grupo13.report.PlainTextSaver;
-import com.grupo13.report.XMLSaver;
-import com.grupo13.view.ResultOutputter;
-import com.grupo13.view.ResultView;
+import com.grupo13.results.PlainTextSaver;
+import com.grupo13.results.ResultOutputter;
+import com.grupo13.results.ResultViewer;
+import com.grupo13.results.XMLSaver;
 
 /* TestSuite: Clase de la cual debe heredar el cliente para poder usar el
  * framework de tests. Permite definir métodos setup() y tearDown().
@@ -256,7 +256,7 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void showTest() {
-		ResultOutputter ro = new ResultView();
+		ResultOutputter ro = new ResultViewer();
 		ro.setData(this);
 		ro.produceResult();
 	}

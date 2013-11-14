@@ -1,4 +1,4 @@
-package com.grupo13.view;
+package com.grupo13.results;
 
 import com.grupo13.model.TestComponent;
 

@@ -1,15 +1,15 @@
-package com.grupo13.report;
+package com.grupo13.results;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
-import com.grupo13.view.ResultOutputter;
 
 /* Clase PlainTextSaver: Recibe los resultados de un TestSuite
- * y lo guarda en un archivo. Hereda de ResultOutputter siendo un patron Strategy
- * segun el output que desee el usuario.
+ * y lo guarda en un archivo. Hereda de ResultOutputter siendo un patron Strategy.
+ * Cuando la clase cliente requiera la salida en archivo de texto plano instanciará
+ * esta clase.
  * */
 public class PlainTextSaver extends ResultOutputter {
 

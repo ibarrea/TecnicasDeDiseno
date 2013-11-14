@@ -1,4 +1,4 @@
-package com.grupo13.report;
+package com.grupo13.results;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,8 +7,6 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-
-import com.grupo13.view.ResultOutputter;
 
 /* Clase ReportSaver: Recibe los resultados de un TestSuite
  * y lo guarda en un archivo xml. Hereda de ResultOutputter siendo un patron Strategy
