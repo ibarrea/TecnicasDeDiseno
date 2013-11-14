@@ -9,7 +9,7 @@ import org.jdom.Element;
 
 import com.grupo13.exception.Grupo13CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.Grupo13DuplicateTestException;
-import com.grupo13.report.ReportSaver;
+import com.grupo13.report.PlainTextSaver;
 import com.grupo13.report.XMLSaver;
 import com.grupo13.view.ResultOutputter;
 import com.grupo13.view.ResultView;
@@ -246,7 +246,7 @@ public abstract class TestSuite extends TestComponent {
 
 	public void saveTestResults() {
 		System.out.println(this);
-		ResultOutputter plainTextSaver = new ReportSaver();
+		ResultOutputter plainTextSaver = new PlainTextSaver();
 		plainTextSaver.setData(this);
 		plainTextSaver.produceResult();
 		

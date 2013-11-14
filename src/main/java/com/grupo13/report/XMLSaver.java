@@ -10,6 +10,11 @@ import org.jdom.output.XMLOutputter;
 
 import com.grupo13.view.ResultOutputter;
 
+/* Clase ReportSaver: Recibe los resultados de un TestSuite
+ * y lo guarda en un archivo xml. Hereda de ResultOutputter siendo un patron Strategy
+ * segun el output que desee el usuario.
+ * */
+
 public class XMLSaver extends ResultOutputter {
 
 	public void save() {
@@ -21,9 +26,9 @@ public class XMLSaver extends ResultOutputter {
 
 		try {
 
-			Element company = new Element("testsuites");
-			Document doc = new Document(company);
-			doc.setRootElement(company);
+			Element rootElement = new Element("testsuites");
+			Document doc = new Document(rootElement);
+			doc.setRootElement(rootElement);
 
 			doc.getRootElement().addContent(data.toXMLElement());
 

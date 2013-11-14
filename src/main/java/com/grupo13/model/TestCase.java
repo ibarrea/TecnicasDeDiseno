@@ -129,5 +129,4 @@ public class TestCase extends TestComponent {
 		skipped = true;
 	}
 	
-	
 }
