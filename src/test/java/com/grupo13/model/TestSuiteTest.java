@@ -134,6 +134,16 @@ public class TestSuiteTest {
 			skip();
 			fail();
 		}
+		
+		public void exampleFailTagTest() {
+			addTag("FAIL");
+			fail();
+		}
+		
+		public void exampleSuccessTagTest() {
+			addTag("SUCCESS");
+			assertTrue(true);
+		}
 
 		public void run() {
 			// booleans
@@ -171,6 +181,10 @@ public class TestSuiteTest {
 			
 			//skip
 			exampleInlineSkippedTest();
+			
+			//Tags
+			exampleFailTagTest();
+			exampleSuccessTagTest();
 
 		}
 
@@ -425,6 +439,13 @@ public class TestSuiteTest {
 		TestSuite anotherSuiteTest = new TestSuite2();
 		oneTestSuite.addTestComponent(anotherSuiteTest);
 		Assert.assertEquals(anotherSuiteTest.getSuperSuiteName(), "TestSuite1");
+	}
+	
+	@Test
+	public void testRunningFailTagsFailTest() {
+		TestSuite oneTestSuite = new TestSuite1();
+		oneTestSuite.addTagToExecute("FAIL");
+		oneTestSuite.start();
 	}
 	
 	@Test
