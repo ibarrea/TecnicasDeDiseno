@@ -6,6 +6,8 @@ import java.util.List;
 import org.jdom.Attribute;
 import org.jdom.Element;
 
+import com.grupo13.results.ViewRealTime;
+
 /* Clase TestCase: Almacena informacion de los tests individuales que definió
  * el cliente y que son ejecutados dentro del método run() de TestSuite.
  * Almacena una lista de Assertion que son las ejecutadas dentro del test.
@@ -35,14 +37,18 @@ public class TestCase extends TestComponent {
 		this.message = message;
 	}
 
+	public String getMessage() {
+		return message;
+	}
+
 	public String toString() {
 		int allowedNameLength = 40;
 		int maxLength = (name.length() < allowedNameLength) ? name.length()
 				: allowedNameLength;
 		String inputString = name.substring(0, maxLength);
 		String msg = status();
-		return String.format("%1$-" + allowedNameLength + "s", inputString)
-				+ "|" + String.format("%1$-" + 10 + "s", msg) + "|"
+		return String.format("%1$-" + allowedNameLength + "s", inputString) + "|"
+				+ String.format("%1$" + 6 + "s", ellapsedTime.toString())+"ms |" + String.format("%1$-" + 7 + "s", msg) + "|"
 				+ String.format("%1$-" + 30 + "s", message);
 	}
 
@@ -58,18 +64,23 @@ public class TestCase extends TestComponent {
 
 	@Override
 	public void start() {
+		startTimer();
 		setExecuted(true);
 		for (Assertion assertion : assertions) {
 			if (!assertion.isOk()) {
 				setMessage(assertion.getMessage());
 				setError(assertion.hasError());
 				setOK(false);
-				return;
+				break;
 			}
 		}
-		// LLamar al singleton y pasarle un DtoTestCase y pedirle porfavor q lo
-		// imprima por consola
+		endTimer();
+		show();
 
+	}
+
+	private void show() {
+		ViewRealTime.INSTANCE.printTabln(this);
 	}
 
 	public boolean isTestCase() {
@@ -96,6 +107,7 @@ public class TestCase extends TestComponent {
 		Element element = new Element("testcase");
 		element.setAttribute("name", getName());
 		element.setAttribute("status", status());
+		element.setAttribute("time", ellapsedTime.toString());
 		element.addContent(new Element("skipped").setText(countSkipped().toString()));
 		if (error) {
 			Element error = new Element("error");

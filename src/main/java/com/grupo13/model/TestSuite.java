@@ -12,6 +12,7 @@ import com.grupo13.exception.DuplicateTestException;
 import com.grupo13.results.PlainTextSaver;
 import com.grupo13.results.ResultOutputter;
 import com.grupo13.results.ResultViewer;
+import com.grupo13.results.ViewRealTime;
 import com.grupo13.results.XMLSaver;
 
 /* TestSuite: Clase de la cual debe heredar el cliente para poder usar el
@@ -21,14 +22,12 @@ import com.grupo13.results.XMLSaver;
  * */
 
 public abstract class TestSuite extends TestComponent {
-
 	HashMap<String, TestComponent> components = new HashMap<String, TestComponent>();
 	String packageName;
 	String regex;
 	List<String> tagsToExecute;
 	List<String> testsToSkip;
-	long startTime;
-	long ellapsedTime;
+
 	int countTests, countError, countFailures, countSkipped;
 
 	public void addTagToExecute(String tag){
@@ -60,15 +59,12 @@ public abstract class TestSuite extends TestComponent {
 		tearDown();
 		setExecuted(true);
 		endTimer();
+		show();
 
 	}
-
-	private void endTimer() {
-		ellapsedTime = System.currentTimeMillis() - startTime;
-	}
-
-	private void startTimer() {
-		startTime = System.currentTimeMillis();
+	
+	private void show() {
+		ViewRealTime.INSTANCE.println(this);
 	}
 
 	private void startComponents() {
@@ -237,7 +233,6 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void saveTestResults() {
-		System.out.println(this);
 		ResultOutputter plainTextSaver = new PlainTextSaver();
 		plainTextSaver.setData(this);
 		plainTextSaver.produceResult();
@@ -254,7 +249,7 @@ public abstract class TestSuite extends TestComponent {
 	}
 	
 	public String toString() {
-		String result = getFullName();
+		String result = getFullName() + "  ( " + ellapsedTime + " ms )";
 		result +=  "\n" + testCasesToString() + testSuitesToString();
 		return result;
 	}
@@ -324,6 +319,7 @@ public abstract class TestSuite extends TestComponent {
 		element.setAttribute("tests", countTests().toString());
 		element.setAttribute("failures", countFailures().toString());
 		element.setAttribute("errors", countErrors().toString());
+		element.setAttribute("time", ellapsedTime.toString());
 		Iterator<String> keySetIterator = components.keySet().iterator();
 		while (keySetIterator.hasNext()) {
 			TestComponent component = components.get(keySetIterator.next());

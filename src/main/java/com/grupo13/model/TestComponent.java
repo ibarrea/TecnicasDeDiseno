@@ -18,6 +18,8 @@ public abstract class TestComponent {
 	protected boolean executed;
 	protected boolean skipped;
 	protected String superSuiteName;
+	Long startTime;
+	Long ellapsedTime;
 	
 	public TestComponent() {
 		isOK = true;
@@ -25,6 +27,7 @@ public abstract class TestComponent {
 		executed = false;
 		skipped = false;
 		tags = new ArrayList<String>();
+		ellapsedTime = new Long(0);
 	}
 	
 	public TestComponent(String superSuite) {
@@ -34,6 +37,7 @@ public abstract class TestComponent {
 		skipped = false;
 		tags = new ArrayList<String>();
 		superSuiteName = superSuite;
+		ellapsedTime = new Long(0);
 	}
 	
 	public boolean isExecuted() {
@@ -55,9 +59,13 @@ public abstract class TestComponent {
 		tags.add(tag);
 	}
 
-	public abstract void run();
-	
-	public abstract void start();
+	protected void endTimer() {
+		ellapsedTime = System.currentTimeMillis() - startTime;
+	}
+
+	protected void startTimer() {
+		startTime = System.currentTimeMillis();
+	}
 
 	public boolean hasError() {
 		return error;
@@ -95,13 +103,6 @@ public abstract class TestComponent {
 		this.superSuiteName = superSuiteName;
 	}
 	
-	public abstract Integer countTests();
-	public abstract Integer countErrors();
-	public abstract Integer countFailures();
-	public abstract Integer countSkipped();
-	public abstract String toString();
-	public abstract Element toXMLElement();
-
 	public boolean matches(List<String> tagsToExecute) {
 		return tags.containsAll(tagsToExecute);
 	}
@@ -109,5 +110,17 @@ public abstract class TestComponent {
 	public boolean matches(String regex) {
 		return (regex == null) || name.matches(regex);
 	}
+
+	
+	public abstract void run();	
+	public abstract void start();
+	public abstract Integer countTests();
+	public abstract Integer countErrors();
+	public abstract Integer countFailures();
+	public abstract Integer countSkipped();
+	public abstract String toString();
+	public abstract Element toXMLElement();
+
+
 
 }

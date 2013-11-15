@@ -22,35 +22,29 @@ public class TestCaseTest {
 	public void formatCheckTestCasePassedToString() {
 		String anyTestName = "anyTestName";
 		TestCase example = new TestCase(anyTestName);
-		Assert.assertEquals(
-				"anyTestName                             |Pass      |Ok!",
-				example.toString().trim());
+		Assert.assertEquals("Ok!", example.getMessage());
 	}
 	
 	@Test
-	public void formatCheckTestCaseFailedToString() {
+	public void getMessageTestCaseFailedShowsExpected() {
 		String anyTestName = "anyTestName";
 		TestCase example = new TestCase(anyTestName);
 		Assertion assertion = new Assertion();
 		assertion.assertTrue(false);
 		example.getAssertions().add(assertion);
 		example.start();
-		Assert.assertEquals(
-				"anyTestName                             |Failed    |Expected: <true> but was: <false>",
-				example.toString().trim());
+		Assert.assertEquals("Expected: <true> but was: <false>", example.getMessage());
 	}
 	
 	@Test
-	public void formatCheckTestCaseErrorToString() {
+	public void getMessageTestCaseErrorIsException() {
 		String anyTestName = "anyTestName";
 		TestCase example = new TestCase(anyTestName);
 		Assertion assertion = new Assertion();
 		assertion.assertEquals(null, null);
 		example.getAssertions().add(assertion);
 		example.start();
-		Assert.assertEquals(
-				"anyTestName                             |Error     |java.lang.NullPointerException",
-				example.toString().trim());
+		Assert.assertEquals("java.lang.NullPointerException", example.getMessage());
 	}
 	
 	
@@ -58,9 +52,8 @@ public class TestCaseTest {
 	public void formatCheckTestCaseLongNameToString() {
 		String anyTestName = "thisIsAVeryVeryVeryVeryVeryVeryVeryVeryLongLongLongMethodName";
 		TestCase example = new TestCase(anyTestName);
-		Assert.assertEquals(
-				"thisIsAVeryVeryVeryVeryVeryVeryVeryVeryL|Pass      |Ok!",
-				example.toString().trim());
+		Assert.assertEquals("thisIsAVeryVeryVeryVeryVeryVeryVeryVeryL",
+				example.toString().trim().substring(0, 40));
 	}
 	
 	@Test

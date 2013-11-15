@@ -1,5 +1,10 @@
 package com.grupo13.model;
 
+/*
+ * Clase TestSuiteTestReplicated: son los tests de nuestro código realizados con
+ * nuestro framework.
+ */
+
 public class TestSuiteTestReplicated extends TestSuite {
 
 	private TestSuite test;
