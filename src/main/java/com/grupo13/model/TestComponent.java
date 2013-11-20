@@ -1,16 +1,16 @@
 package com.grupo13.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jdom.Element;
+import com.grupo13.stores.PersistenceManager;
 
 /* TestComponent: Representa el componente gen�rico del patr�n Composite,
  * de esta clase heredan TestSuite y TestCase
  * */
 
-public abstract class TestComponent {
-	
+public abstract class TestComponent implements Serializable {
 	protected String name;
 	protected List<String> tags;
 	protected boolean isOK;
@@ -19,6 +19,8 @@ public abstract class TestComponent {
 	protected boolean skipped;
 	protected String superSuiteName;
 	protected Long timeOutError;
+	protected boolean runOnlyFailedTests;
+	protected PersistenceManager persistenceManager;
 	Long startTime;
 	Long ellapsedTime;
 		
@@ -118,6 +120,26 @@ public abstract class TestComponent {
 
 	protected Long getTimeOutError() {
 		return timeOutError;
+	}
+
+	protected void setPersistenceManager(PersistenceManager persistenceManager) {
+		this.persistenceManager = persistenceManager;
+	}
+	
+	protected PersistenceManager getPersistenceManager() {
+		return persistenceManager;
+	}
+
+	protected void setRunOnlyFailedTests(boolean value) {
+		runOnlyFailedTests = value;
+	}
+
+	protected boolean getRunOnlyFailedTests() {
+		return runOnlyFailedTests;
+	}
+	
+	protected boolean runOkOnPreviousResult() {
+		return runOnlyFailedTests && isOK();
 	}
 	
 	public abstract void run();	

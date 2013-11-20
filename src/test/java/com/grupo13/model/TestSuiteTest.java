@@ -5,11 +5,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-
-
-
-
 import com.grupo13.exception.CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.DuplicateTestException;
 
@@ -21,6 +16,11 @@ public class TestSuiteTest {
 	public ExpectedException exception = ExpectedException.none();
 
 	private class TestSuite1 extends TestSuite {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 647212052074757298L;
 
 		public void exampleFailTest() {
 			fail();

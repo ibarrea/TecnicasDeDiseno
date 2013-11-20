@@ -1,5 +1,6 @@
 package com.grupo13.model;
 
+import java.beans.PersistenceDelegate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,11 +10,8 @@ import org.jdom.Element;
 
 import com.grupo13.exception.CannotVerifyNonExecutedTestException;
 import com.grupo13.exception.DuplicateTestException;
-import com.grupo13.results.PlainTextSaver;
-import com.grupo13.results.ResultOutputter;
-import com.grupo13.results.ResultViewer;
-import com.grupo13.results.ViewRealTime;
-import com.grupo13.results.XMLSaver;
+import com.grupo13.results.*;
+import com.grupo13.stores.*;
 
 /* TestSuite: Clase de la cual debe heredar el cliente para poder usar el
  * framework de tests. Permite definir m�todos setup() y tearDown().
@@ -27,7 +25,6 @@ public abstract class TestSuite extends TestComponent {
 	String regex;
 	List<String> tagsToExecute;
 	List<String> testsToSkip;
-	protected boolean runOnlyFailedTests;
 	
 	int countTests, countError, countFailures, countSkipped;
 
@@ -54,17 +51,29 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void start() {
+		if (getRunOnlyFailedTests()) {
+			startFailed();
+		}
+		else {
+			startAll();
+		}
+	}
+	
+	private void startAll() {
 		startTimer();
 		setup();
-		System.out.println("run();");
 		run();
-		System.out.println("startComponents();");
 		startComponents();
-		System.out.println("startComponents();");
 		tearDown();
 		setExecuted(true);
 		endTimer();
 		show();
+	}
+	
+	private void startFailed() {
+		PersistenceManager persistenceManager = getPersistenceManager();
+		TestComponent testSuite = persistenceManager.loadResult();
+		testSuite.start();
 	}
 	
 	private void show() {
@@ -87,7 +96,8 @@ public abstract class TestSuite extends TestComponent {
 
 	private boolean shouldSkip(TestComponent comp) {
 		return testsToSkip.contains(comp.getName()) ||
-				!(comp.matches(regex) && comp.matches(tagsToExecute));
+				!(comp.matches(regex) && comp.matches(tagsToExecute)) || 
+				runOkOnPreviousResult();
 	}
 
 	private void updateCounts(TestComponent component) {
@@ -163,7 +173,6 @@ public abstract class TestSuite extends TestComponent {
 	private void addAssertionToComponent(Assertion assertion, String componentName) {
 		TestCase test = getComponent(componentName);
 		test.setTimeOutError(this.timeOutError);
-		System.out.println("addAssertionToComponent. " + assertion.isOk() + ", " + componentName + ", " + test.ellapsedTime +", " + test.timeOutError);
 		test.getAssertions().add(assertion);
 	}
 	
@@ -195,7 +204,6 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void assertEquals(Object a, Object b) {
-		System.out.println("assertEquals: " + getTestCallerName());
 		Assertion assertion = new Assertion();
 		assertion.assertEquals(a, b);
 		addAssertionToComponent(assertion, getTestCallerName());
@@ -247,6 +255,14 @@ public abstract class TestSuite extends TestComponent {
 		ResultOutputter xmlSaver = new XMLSaver();
 		xmlSaver.setData(this);
 		xmlSaver.produceResult();
+
+		PersistenceManager persistenceManager = getPersistenceManager(); 
+		if (null != persistenceManager) {
+			// Si tengo seteado un PersistenceManager, lo invoco
+			persistenceManager.setData(this);
+			persistenceManager.storeResult();			
+		}
+
 	}
 
 	public void showTest() {
@@ -334,13 +350,4 @@ public abstract class TestSuite extends TestComponent {
 		}
 		return element;
 	}
-
-	protected void setRunOnlyFailedTests(boolean value) {
-		runOnlyFailedTests = value;
-	}
-
-	protected boolean getRunOnlyFailedTests() {
-		return runOnlyFailedTests;
-	}
-
 }

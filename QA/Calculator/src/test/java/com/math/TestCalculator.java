@@ -1,6 +1,7 @@
 package com.math;
 
 import com.grupo13.model.TestSuite;
+import com.grupo13.stores.*;
 import com.math.calculator.Calculator;
 
 public class TestCalculator extends TestSuite {
@@ -8,8 +9,18 @@ public class TestCalculator extends TestSuite {
 	public static void main(String[] args) {
 		TestCalculator tc = new TestCalculator();
 		TestCalculator tc2 = new TestCalculator();
-		Long timeOut = new Long(-1);
+		Long timeOut = new Long(1000);
 
+		// Genero y seteo un PersistenceManager
+		SerializedObjectManager persistenceManager = new SerializedObjectManager();
+		tc.setPersistenceManager(persistenceManager);
+		
+		/* Le seteo al suite para que corra solo los tests que fallaron
+		 * Para setear este atributo en true, previamente debe existir la corrida
+		 * persistida. Caso contrario, tirara una exception.
+		 */
+		tc.setRunOnlyFailedTests(true);
+		
 		//Anidamiento de suites
 		tc.addTestComponent(tc2);
 		tc.setRegex(".*Bug.*");
@@ -17,28 +28,21 @@ public class TestCalculator extends TestSuite {
 		tc.start();
 		
 		tc.showTest();
-		// tc.saveTestResults();
+		tc.saveTestResults();
 	}
 
 	@Override
 	public void run() {
 		testAdd();
-		// System.out.println("testAdd");
 		testMinus();
-		// System.out.println("testMinus");
 		testMult();
-		// System.out.println("testMult");
 		testDivide();
-		// System.out.println("testDivide");
-		/*
+
 		testAddBug();
-		// System.out.println("testAddBug");
+		/*
 		testMinusBug();
-		// System.out.println("testMinusBug");
 		testMultBug();
-		// System.out.println("testMulBug");
 		testDivideBug();
-		// System.out.println("testDivideBug");
 		 */
 	}
 

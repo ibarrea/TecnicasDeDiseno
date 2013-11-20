@@ -1,11 +1,12 @@
 package com.grupo13.model;
 
+import java.io.Serializable;
+
 /* Clase Assertion: Almacena los resultados de cada assert realizado
  * por cada test cliente.
  * */
 
-public class Assertion {
-
+public class Assertion implements Serializable {
 	private String message;
 	private boolean isOk;
 	private boolean hasError;

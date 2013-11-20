@@ -114,4 +114,10 @@ public class TestCaseTest {
 		Assert.assertNotNull(example.getTags().contains("slow"));
 	}
 
+	@Test
+	public void getTimeOutError() {
+		String anyTestName = "anyTestName";
+		TestCase example = new TestCase(anyTestName);
+		Assert.assertEquals("Ok!", example.getMessage());
+	}	
 }

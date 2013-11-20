@@ -13,7 +13,6 @@ import com.grupo13.results.ViewRealTime;
  * Almacena una lista de Assertion que son las ejecutadas dentro del test.
  * */
 public class TestCase extends TestComponent {
-
 	private String message;
 	private List<Assertion> assertions = new ArrayList<Assertion>();
 

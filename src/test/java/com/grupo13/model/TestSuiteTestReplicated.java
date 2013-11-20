@@ -6,13 +6,17 @@ package com.grupo13.model;
  */
 
 public class TestSuiteTestReplicated extends TestSuite {
-
 	private TestSuite test;
 
 	public void setup() {
 		// creo una clase anonima para testear TestCase que es abstracta
 		test = new TestSuite() {
 			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -1016469780551728468L;
+
 			public void exampleFailTest() {
 				fail();
 			}
