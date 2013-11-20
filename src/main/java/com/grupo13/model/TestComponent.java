@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jdom.Element;
 
-/* TestComponent: Representa el componente genérico del patrón Composite,
+/* TestComponent: Representa el componente genï¿½rico del patrï¿½n Composite,
  * de esta clase heredan TestSuite y TestCase
  * */
 
@@ -18,26 +18,27 @@ public abstract class TestComponent {
 	protected boolean executed;
 	protected boolean skipped;
 	protected String superSuiteName;
+	protected Long timeOutError;
 	Long startTime;
 	Long ellapsedTime;
-	
+		
 	public TestComponent() {
-		isOK = true;
-		error = false;
-		executed = false;
-		skipped = false;
-		tags = new ArrayList<String>();
-		ellapsedTime = new Long(0);
+		init();
 	}
 	
 	public TestComponent(String superSuite) {
+		init();
+		superSuiteName = superSuite;
+	}
+	
+	private void init() {
 		isOK = true;
 		error = false;
 		executed = false;
 		skipped = false;
 		tags = new ArrayList<String>();
-		superSuiteName = superSuite;
 		ellapsedTime = new Long(0);
+		timeOutError = new Long(1000);		
 	}
 	
 	public boolean isExecuted() {
@@ -111,6 +112,13 @@ public abstract class TestComponent {
 		return (regex == null) || name.matches(regex);
 	}
 
+	protected void setTimeOutError(Long timeOut) {
+		timeOutError = timeOut;
+	}
+
+	protected Long getTimeOutError() {
+		return timeOutError;
+	}
 	
 	public abstract void run();	
 	public abstract void start();
@@ -120,7 +128,4 @@ public abstract class TestComponent {
 	public abstract Integer countSkipped();
 	public abstract String toString();
 	public abstract Element toXMLElement();
-
-
-
 }

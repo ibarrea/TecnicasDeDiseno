@@ -37,7 +37,6 @@ public class Assertion {
 	public void updateStatus(boolean assertPass, String msg) {
 		setOk(assertPass);
 		setMessage(msg);
-
 	}
 
 	public void assertEquals(Object a, Object b) {
@@ -75,6 +74,5 @@ public class Assertion {
 
 	public void fail() {
 		updateStatus(false, "Failed");
-	}
-
+	}	
 }

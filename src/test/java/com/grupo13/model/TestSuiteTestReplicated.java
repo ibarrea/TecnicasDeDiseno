@@ -1,7 +1,7 @@
 package com.grupo13.model;
 
 /*
- * Clase TestSuiteTestReplicated: son los tests de nuestro código realizados con
+ * Clase TestSuiteTestReplicated: son los tests de nuestro cï¿½digo realizados con
  * nuestro framework.
  */
 
@@ -113,7 +113,7 @@ public class TestSuiteTestReplicated extends TestSuite {
 	
 	public void existingTestIsntPassingIfItsAssertEqualFloatFail() {
 		
-		assertFalse(test.verifyTest("exampleAssertEqualsFloatTestThatShouldntPass"));
+		assertFalse(test.verifyTest("exampleAssertEqualsFloatTesTestCaseTest.class, TestSuiteTest.classTestCaseTest.class, TestSuiteTest.classtThatShouldntPass"));
 	}
 	
 	public void verifyTestThatExecuteFailReturnsFalse() {

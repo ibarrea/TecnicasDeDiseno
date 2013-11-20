@@ -6,27 +6,40 @@ import com.math.calculator.Calculator;
 public class TestCalculator extends TestSuite {
 
 	public static void main(String[] args) {
-		
 		TestCalculator tc = new TestCalculator();
 		TestCalculator tc2 = new TestCalculator();
+		Long timeOut = new Long(-1);
+
 		//Anidamiento de suites
 		tc.addTestComponent(tc2);
 		tc.setRegex(".*Bug.*");
+		tc.setTimeOutError(timeOut);
 		tc.start();
+		
 		tc.showTest();
-		tc.saveTestResults();
+		// tc.saveTestResults();
 	}
 
 	@Override
 	public void run() {
 		testAdd();
+		// System.out.println("testAdd");
 		testMinus();
+		// System.out.println("testMinus");
 		testMult();
+		// System.out.println("testMult");
 		testDivide();
+		// System.out.println("testDivide");
+		/*
 		testAddBug();
+		// System.out.println("testAddBug");
 		testMinusBug();
+		// System.out.println("testMinusBug");
 		testMultBug();
+		// System.out.println("testMulBug");
 		testDivideBug();
+		// System.out.println("testDivideBug");
+		 */
 	}
 
 	public void testAdd() {

@@ -8,8 +8,8 @@ import org.jdom.Element;
 
 import com.grupo13.results.ViewRealTime;
 
-/* Clase TestCase: Almacena informacion de los tests individuales que definió
- * el cliente y que son ejecutados dentro del método run() de TestSuite.
+/* Clase TestCase: Almacena informacion de los tests individuales que definiï¿½
+ * el cliente y que son ejecutados dentro del mï¿½todo run() de TestSuite.
  * Almacena una lista de Assertion que son las ejecutadas dentro del test.
  * */
 public class TestCase extends TestComponent {
@@ -66,17 +66,10 @@ public class TestCase extends TestComponent {
 	public void start() {
 		startTimer();
 		setExecuted(true);
-		for (Assertion assertion : assertions) {
-			if (!assertion.isOk()) {
-				setMessage(assertion.getMessage());
-				setError(assertion.hasError());
-				setOK(false);
-				break;
-			}
-		}
+		setAssertions();
 		endTimer();
+		checkTimeOut();
 		show();
-
 	}
 
 	private void show() {
@@ -133,5 +126,25 @@ public class TestCase extends TestComponent {
 	public void skip() {
 		skipped = true;
 	}
+
+	private void setAssertions() {
+		for (Assertion assertion : assertions) {
+			if ( ! assertion.isOk()) {
+				setMessage(assertion.getMessage());
+				setError(assertion.hasError());
+				setOK(false);
+				break;
+			}
+		}
+	}
 	
+	private void checkTimeOut() {
+		if (this.ellapsedTime > this.timeOutError) {
+			System.out.println("*** TIMEOUT *** (" + this.getName() + "): " + this.ellapsedTime + " > " + this.timeOutError);
+			for (Assertion assertion : assertions) {
+				assertion.fail();
+			}
+			setAssertions();
+		}
+	}
 }

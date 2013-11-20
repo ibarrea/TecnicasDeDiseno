@@ -16,9 +16,9 @@ import com.grupo13.results.ViewRealTime;
 import com.grupo13.results.XMLSaver;
 
 /* TestSuite: Clase de la cual debe heredar el cliente para poder usar el
- * framework de tests. Permite definir métodos setup() y tearDown().
+ * framework de tests. Permite definir mï¿½todos setup() y tearDown().
  * Se debe redefinir el metodo run().
- * Puede incluir TestCases u otros TestSuites, para esto se usa el patrón Composite. 
+ * Puede incluir TestCases u otros TestSuites, para esto se usa el patrï¿½n Composite. 
  * */
 
 public abstract class TestSuite extends TestComponent {
@@ -27,7 +27,8 @@ public abstract class TestSuite extends TestComponent {
 	String regex;
 	List<String> tagsToExecute;
 	List<String> testsToSkip;
-
+	protected boolean runOnlyFailedTests;
+	
 	int countTests, countError, countFailures, countSkipped;
 
 	public void addTagToExecute(String tag){
@@ -48,19 +49,22 @@ public abstract class TestSuite extends TestComponent {
 		testsToSkip = new ArrayList<String>();
 		countTests = countError = countFailures = countSkipped = 0;
 		superSuiteName = new String("");
+		runOnlyFailedTests = false;
 		definePackageClassName();
 	}
 
 	public void start() {
 		startTimer();
 		setup();
+		System.out.println("run();");
 		run();
+		System.out.println("startComponents();");
 		startComponents();
+		System.out.println("startComponents();");
 		tearDown();
 		setExecuted(true);
 		endTimer();
 		show();
-
 	}
 	
 	private void show() {
@@ -158,6 +162,8 @@ public abstract class TestSuite extends TestComponent {
 	
 	private void addAssertionToComponent(Assertion assertion, String componentName) {
 		TestCase test = getComponent(componentName);
+		test.setTimeOutError(this.timeOutError);
+		System.out.println("addAssertionToComponent. " + assertion.isOk() + ", " + componentName + ", " + test.ellapsedTime +", " + test.timeOutError);
 		test.getAssertions().add(assertion);
 	}
 	
@@ -189,6 +195,7 @@ public abstract class TestSuite extends TestComponent {
 	}
 
 	public void assertEquals(Object a, Object b) {
+		System.out.println("assertEquals: " + getTestCallerName());
 		Assertion assertion = new Assertion();
 		assertion.assertEquals(a, b);
 		addAssertionToComponent(assertion, getTestCallerName());
@@ -327,4 +334,13 @@ public abstract class TestSuite extends TestComponent {
 		}
 		return element;
 	}
+
+	protected void setRunOnlyFailedTests(boolean value) {
+		runOnlyFailedTests = value;
+	}
+
+	protected boolean getRunOnlyFailedTests() {
+		return runOnlyFailedTests;
+	}
+
 }
